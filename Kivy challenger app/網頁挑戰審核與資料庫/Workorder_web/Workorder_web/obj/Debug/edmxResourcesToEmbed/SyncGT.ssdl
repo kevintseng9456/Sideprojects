@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SyncGTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DailyProductionSchedule">
+    <Key>
+      <PropertyRef Name="Work_order_number" />
+    </Key>
+    <Property Name="Work_order_number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductionplanningID" Type="int" />
+    <Property Name="Target_capacity" Type="float" />
+    <Property Name="Actual_capacity" Type="float" />
+    <Property Name="People" Type="float" />
+    <Property Name="Planning_time" Type="float" />
+    <Property Name="Cumulative_time" Type="float" />
+    <Property Name="Work_order_volume" Type="int" />
+    <Property Name="Work_Order" Type="nvarchar" MaxLength="50" />
+    <Property Name="Arrange_date" Type="date" />
+    <Property Name="floor" Type="nvarchar" MaxLength="50" />
+    <Property Name="Line_type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Principal" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="date" />
+    <Property Name="vision" Type="int" />
+    <Property Name="note" Type="nvarchar(max)" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.OrderPO' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="OrderPO">
+    <Key>
+      <PropertyRef Name="Order PO ID" />
+      <PropertyRef Name="Order PO Name" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="Product ID" />
+    </Key>
+    <Property Name="Order PO ID" Type="int" Nullable="false" />
+    <Property Name="Order PO Name" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Product ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductionDailyReport">
+    <Key>
+      <PropertyRef Name="Daily_Production_Schedule_ID" />
+    </Key>
+    <Property Name="Daily_Production_Schedule_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Work_Order_Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Model_or_Part_No" Type="nvarchar" MaxLength="50" />
+    <Property Name="Allocation" Type="float" />
+    <Property Name="Semi_finished_products" Type="float" />
+    <Property Name="Finished_products" Type="float" />
+    <Property Name="People" Type="float" />
+    <Property Name="Working_hours" Type="float" />
+    <Property Name="Working_hours_total" Type="float" />
+    <Property Name="Standard_capacity" Type="float" />
+    <Property Name="Poor_incoming" Type="float" />
+    <Property Name="Poor_productivity" Type="float" />
+    <Property Name="Poor_operation" Type="float" />
+    <Property Name="Capacity_achievement_rate" Type="float" />
+    <Property Name="productivity" Type="float" />
+    <Property Name="Ask_leave" Type="float" />
+    <Property Name="Overtime_hours" Type="float" />
+    <Property Name="Start_period" Type="nvarchar" MaxLength="50" />
+    <Property Name="End_period" Type="nvarchar" MaxLength="50" />
+    <Property Name="effectiveness_H" Type="float" />
+    <Property Name="createDate" Type="date" />
+    <Property Name="vision" Type="int" />
+  </EntityType>
+  <EntityType Name="Productionplanningschedule">
+    <Key>
+      <PropertyRef Name="Production_Schedule_ID" />
+    </Key>
+    <Property Name="Production_Schedule_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Vision" Type="int" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.vw_ProductDailyDailyReportAll' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="vw_ProductDailyDailyReportAll">
+    <Key>
+      <PropertyRef Name="Work_Order_Number" />
+    </Key>
+    <Property Name="Work_Order_Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Model_or_Part_No" Type="nvarchar" MaxLength="50" />
+    <Property Name="Allocation" Type="float" />
+    <Property Name="AllCount" Type="float" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.vw_ProductList' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="vw_ProductList">
+    <Key>
+      <PropertyRef Name="Client_Name" />
+      <PropertyRef Name="Product_ID" />
+      <PropertyRef Name="ASSEMBLY_TIME" />
+      <PropertyRef Name="ASSEMBLY_COUNT" />
+    </Key>
+    <Property Name="Client_Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="ERP_Part_No" Type="nvarchar" MaxLength="32" />
+    <Property Name="Product_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Product_ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="ASSEMBLY_TIME" Type="float" Nullable="false" />
+    <Property Name="ASSEMBLY_COUNT" Type="float" Nullable="false" />
+  </EntityType>
+  <Function Name="sp_AutoGetERPPartPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="yearmonth" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_DailyProductionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_getOrderCapacity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="time" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_GetOrderCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ProductionDailyReportList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_ProductPainList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="SyncGTModelStoreContainer">
+    <EntitySet Name="DailyProductionSchedule" EntityType="Self.DailyProductionSchedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductionDailyReport" EntityType="Self.ProductionDailyReport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Productionplanningschedule" EntityType="Self.Productionplanningschedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderPO" EntityType="Self.OrderPO" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [OrderPO].[Order PO ID] AS [Order PO ID], 
+    [OrderPO].[Order PO Name] AS [Order PO Name], 
+    [OrderPO].[Quantity] AS [Quantity], 
+    [OrderPO].[Product ID] AS [Product ID]
+    FROM [dbo].[OrderPO] AS [OrderPO]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vw_ProductDailyDailyReportAll" EntityType="Self.vw_ProductDailyDailyReportAll" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_ProductDailyDailyReportAll].[Work_Order_Number] AS [Work_Order_Number], 
+    [vw_ProductDailyDailyReportAll].[Model_or_Part_No] AS [Model_or_Part_No], 
+    [vw_ProductDailyDailyReportAll].[Allocation] AS [Allocation], 
+    [vw_ProductDailyDailyReportAll].[AllCount] AS [AllCount]
+    FROM [dbo].[vw_ProductDailyDailyReportAll] AS [vw_ProductDailyDailyReportAll]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vw_ProductList" EntityType="Self.vw_ProductList" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_ProductList].[Client_Name] AS [Client_Name], 
+    [vw_ProductList].[ERP_Part_No] AS [ERP_Part_No], 
+    [vw_ProductList].[Product_Name] AS [Product_Name], 
+    [vw_ProductList].[Product_ID] AS [Product_ID], 
+    [vw_ProductList].[ASSEMBLY_TIME] AS [ASSEMBLY_TIME], 
+    [vw_ProductList].[ASSEMBLY_COUNT] AS [ASSEMBLY_COUNT]
+    FROM [dbo].[vw_ProductList] AS [vw_ProductList]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

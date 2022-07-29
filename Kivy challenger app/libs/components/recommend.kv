@@ -1,0 +1,76 @@
+<Recommend@MDCard>:
+    # id:mission_card
+    orientation: "vertical"
+    size_hint_y: None
+    size_hint_x: None
+    height: 360
+    width: 360
+    focus_behavior: True
+    ripple_behavior: True
+    radius:25
+    font_name:app.font_name 
+    on_release:
+        app.GetMissionNameID = root.GetMissionNameID
+        if app.GetMissionNameID == 1: app.GetMissionTypeID = 1
+        if app.GetMissionNameID == 2: app.GetMissionTypeID = 2
+        if app.GetMissionNameID == 3: app.GetMissionTypeID = 3
+        if app.GetMissionNameID == 5: app.GetMissionTypeID = 1
+        if app.GetMissionNameID == 6: app.GetMissionTypeID = 1
+        if app.GetMissionNameID == 7: app.GetMissionTypeID = 1
+        if app.GetMissionNameID == 1: app.GetMissionTopicID = 1
+        if app.GetMissionNameID == 2: app.GetMissionTopicID = 2
+        if app.GetMissionNameID == 3: app.GetMissionTopicID = 2
+        if app.GetMissionNameID == 5: app.GetMissionTopicID = 1
+        if app.GetMissionNameID == 6: app.GetMissionTopicID = 1
+        if app.GetMissionNameID == 7: app.GetMissionTopicID = 1
+        app.pre_mission_name = root.text_source
+        app.root.current = 'Challenge_Subject' 
+        print('GetMissionNameID:',app.GetMissionNameID) 
+        print('pre_mission_name:',app.pre_mission_name) 
+        print("------Challenge_Subject------")
+
+    MDBoxLayout:
+        # id: text_box
+        orientation: "vertical"
+        md_bg_color:147/255,143/255,153/255,1
+        radius:[12]
+        padding:[1] 
+        FitImage:
+            id: image_box_001
+            source: root.image_source
+            allow_stretch:True
+            radius:12,12,0,0      
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height:True 
+            md_bg_color:0,0,0,1
+            radius:[0,0,12,12]
+                                                   
+            MDLabel:
+                id: mission_name_001
+                text:root.text_source
+                font_name:app.font_name 
+                text_color:1, 1, 1, 1
+                font_size:'18sp'
+                size_hint_y:None
+                height: 40
+                # height: self.texture_size[1]
+                
+            MDLabel:
+                text:"#照片 #人#事#物"
+                font_name:app.font_name 
+                font_size:'12sp'
+                text_color:1, 1, 1, 1
+                size_hint_y:None
+                height: 36
+                radius:[0,0,12,12]
+                # height: self.texture_size[1]
+            # MDSeparator:
+            #     color:(0,0,0,1)
+            # MDLabel:
+            #     text:"Info"
+            #     font_name:app.font_name 
+            #     font_size:'12sp'
+            #     size_hint_y:None
+            #     height:150
+            #     # height: self.texture_size[1]

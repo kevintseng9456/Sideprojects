@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="work_timeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Menus">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Controller" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Action" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Url" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="Statuse" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="RouteValues" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="OrderSerial" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="IsEnable" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Roles_Menus">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MenuID" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="IsEnable" />
+    </Key>
+    <Property Name="UserID" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="RegisterOn" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="IsEnable" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_Roles">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="RoleID" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="WorkingPJDailyDT">
+    <Key>
+      <PropertyRef Name="SEQ" />
+    </Key>
+    <Property Name="SEQ" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProjectID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="WorkingHour" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="WorkingTypeIndex" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="WorkingContent" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="WorkingRemark" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="User" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="work_timeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Menus" EntityType="Self.Menus" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" />
+    <EntitySet Name="Roles_Menus" EntityType="Self.Roles_Menus" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="Users_Roles" EntityType="Self.Users_Roles" />
+    <EntitySet Name="WorkingPJDailyDT" EntityType="Self.WorkingPJDailyDT" />
+    <EntitySet Name="Client" EntityType="work_timeModel.Client" />
+    <EntitySet Name="DailyProductionSchedule" EntityType="work_timeModel.DailyProductionSchedule" />
+    <EntitySet Name="OrderPO" EntityType="work_timeModel.OrderPO" />
+    <EntitySet Name="Product" EntityType="work_timeModel.Product" />
+    <EntitySet Name="ProductionDailyReport" EntityType="work_timeModel.ProductionDailyReport" />
+    <EntitySet Name="Productionplanningschedule" EntityType="work_timeModel.Productionplanningschedule" />
+    <EntitySet Name="vw_ProductDailyDailyReportAll" EntityType="work_timeModel.vw_ProductDailyDailyReportAll" />
+    <EntitySet Name="vw_ProductList" EntityType="work_timeModel.vw_ProductList" />
+    <FunctionImport Name="sp_DailyProductionList" ReturnType="Collection(work_timeModel.sp_DailyProductionList_Result)">
+      <Parameter Name="Month" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_getProductCapacity" ReturnType="Collection(work_timeModel.sp_getProductCapacity_Result)" />
+    <FunctionImport Name="sp_ProductionDailyReportList" ReturnType="Collection(work_timeModel.sp_ProductionDailyReportList_Result)">
+      <Parameter Name="Month" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ProductPainList" ReturnType="Collection(work_timeModel.sp_ProductPainList_Result)">
+      <Parameter Name="Month" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="AUTOPRODUCT" EntityType="work_timeModel.AUTOPRODUCT" />
+    <EntitySet Name="CUSTOMER" EntityType="work_timeModel.CUSTOMER" />
+  </EntityContainer>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="Client_ID" />
+    </Key>
+    <Property Name="Client_ID" Type="Int32" Nullable="false" />
+    <Property Name="Client_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DailyProductionSchedule">
+    <Key>
+      <PropertyRef Name="Work_order_number" />
+    </Key>
+    <Property Name="Work_order_number" Type="Int32" Nullable="false" />
+    <Property Name="ProductionplanningID" Type="Int32" />
+    <Property Name="Target_capacity" Type="Double" />
+    <Property Name="Actual_capacity" Type="Double" />
+    <Property Name="People" Type="Int32" />
+    <Property Name="Planning_time" Type="Double" />
+    <Property Name="Cumulative_time" Type="Double" />
+    <Property Name="Work_order_volume" Type="Int32" />
+    <Property Name="Work_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Arrange_date" Type="DateTime" Precision="0" />
+    <Property Name="floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Line_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Principal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="0" />
+    <Property Name="vision" Type="Int32" />
+    <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="OrderPO">
+    <Key>
+      <PropertyRef Name="Order_PO_ID" />
+      <PropertyRef Name="Order_PO_Name" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="Product_ID" />
+    </Key>
+    <Property Name="Order_PO_ID" Type="Int32" Nullable="false" />
+    <Property Name="Order_PO_Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Product_ID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Product_ID" />
+      <PropertyRef Name="Client_ID" />
+      <PropertyRef Name="Product_Name" />
+    </Key>
+    <Property Name="Product_ID" Type="Int32" Nullable="false" />
+    <Property Name="Client_ID" Type="Int32" Nullable="false" />
+    <Property Name="Product_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ERP_Part_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Assemply_time" Type="Double" />
+    <Property Name="Assemply_count" Type="Double" />
+  </EntityType>
+  <EntityType Name="ProductionDailyReport">
+    <Key>
+      <PropertyRef Name="Daily_Production_Schedule_ID" />
+      <PropertyRef Name="Work_Order_Number" />
+    </Key>
+    <Property Name="Daily_Production_Schedule_ID" Type="Int32" Nullable="false" />
+    <Property Name="Work_Order_Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Model_or_Part_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Allocation" Type="Double" />
+    <Property Name="Semi_finished_products" Type="Double" />
+    <Property Name="Finished_products" Type="Double" />
+    <Property Name="People" Type="Double" />
+    <Property Name="Working_hours" Type="Double" />
+    <Property Name="Working_hours_total" Type="Double" />
+    <Property Name="Standard_capacity" Type="Double" />
+    <Property Name="Poor_incoming" Type="Double" />
+    <Property Name="Poor_productivity" Type="Double" />
+    <Property Name="Poor_operation" Type="Double" />
+    <Property Name="Capacity_achievement_rate" Type="Double" />
+    <Property Name="productivity" Type="Double" />
+    <Property Name="Ask_leave" Type="Double" />
+    <Property Name="Overtime_hours" Type="Double" />
+    <Property Name="Start_period" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="End_period" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="effectiveness_H" Type="Double" />
+    <Property Name="createDate" Type="DateTime" Precision="0" />
+    <Property Name="vision" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Productionplanningschedule">
+    <Key>
+      <PropertyRef Name="Production_Schedule_ID" />
+      <PropertyRef Name="Product_ID" />
+    </Key>
+    <Property Name="Production_Schedule_ID" Type="Int32" Nullable="false" />
+    <Property Name="Product_ID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="Vision" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vw_ProductDailyDailyReportAll">
+    <Key>
+      <PropertyRef Name="Work_Order_Number" />
+    </Key>
+    <Property Name="Work_Order_Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Model_or_Part_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Allocation" Type="Double" />
+    <Property Name="AllCount" Type="Double" />
+  </EntityType>
+  <EntityType Name="vw_ProductList">
+    <Key>
+      <PropertyRef Name="Client_Name" />
+    </Key>
+    <Property Name="Client_Name" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="ERP_Part_No" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Product_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Product_ID" Type="String" MaxLength="256" FixedLength="true" Unicode="false" />
+    <Property Name="ASSEMBLY_TIME" Type="Double" />
+    <Property Name="ASSEMBLY_COUNT" Type="Double" />
+  </EntityType>
+  <ComplexType Name="sp_DailyProductionList_Result">
+    <Property Type="String" Name="floor" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Line_type" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Principal" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Product_Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ERP_Part_No" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="Date" Nullable="true" />
+    <Property Type="Double" Name="Target_capacity" Nullable="true" />
+    <Property Type="Double" Name="Actual_capacity" Nullable="true" />
+    <Property Type="Int32" Name="People" Nullable="true" />
+    <Property Type="Double" Name="Planning_time" Nullable="true" />
+    <Property Type="Double" Name="Cumulative_time" Nullable="true" />
+    <Property Type="Int32" Name="Work_order_volume" Nullable="true" />
+    <Property Type="DateTime" Name="Arrange_date" Nullable="true" />
+    <Property Type="Int32" Name="vision" Nullable="true" />
+    <Property Type="String" Name="note" Nullable="true" />
+    <Property Type="String" Name="Work_Order" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_getProductCapacity_Result">
+    <Property Type="String" Name="Work_Order_Number" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Model_or_Part_No" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="avaCount" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ProductionDailyReportList_Result">
+    <Property Type="Int32" Name="Daily_Production_Schedule_ID" Nullable="false" />
+    <Property Type="String" Name="Work_Order_Number" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Model_or_Part_No" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="Allocation" Nullable="true" />
+    <Property Type="Double" Name="Semi_finished_products" Nullable="true" />
+    <Property Type="Double" Name="Finished_products" Nullable="true" />
+    <Property Type="Double" Name="People" Nullable="true" />
+    <Property Type="Double" Name="Working_hours" Nullable="true" />
+    <Property Type="Double" Name="Working_hours_total" Nullable="true" />
+    <Property Type="Double" Name="Standard_capacity" Nullable="true" />
+    <Property Type="Double" Name="Poor_incoming" Nullable="true" />
+    <Property Type="Double" Name="Poor_productivity" Nullable="true" />
+    <Property Type="Double" Name="Poor_operation" Nullable="true" />
+    <Property Type="Double" Name="Capacity_achievement_rate" Nullable="true" />
+    <Property Type="Double" Name="productivity" Nullable="true" />
+    <Property Type="Double" Name="Ask_leave" Nullable="true" />
+    <Property Type="Double" Name="Overtime_hours" Nullable="true" />
+    <Property Type="String" Name="Start_period" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="End_period" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="effectiveness_H" Nullable="true" />
+    <Property Type="Int32" Name="vision" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ProductPainList_Result">
+    <Property Type="Int32" Name="Production_Schedule_ID" Nullable="false" />
+    <Property Type="String" Name="Product_Name" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ERP_Part_No" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="date" Nullable="true" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="vision" Nullable="true" />
+    <Property Type="String" Name="GetMonth" Nullable="true" MaxLength="6" />
+    <Property Type="String" Name="Product_ID" Nullable="false" MaxLength="32" />
+    <Property Type="Double" Name="Assemply_count" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="AUTOPRODUCT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="CLASSIFICATION" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="CONFIG_ID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="CREATED_BY_ID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="CREATED_ON" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CSS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CURRENT_STATE" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="GENERATION" Type="Int32" />
+    <Property Name="IS_CURRENT" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="IS_RELEASED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="KEYED_NAME" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="LOCKED_BY_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="MAJOR_REV" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="MANAGED_BY_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="MINOR_REV" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="MODIFIED_BY_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="MODIFIED_ON" Type="DateTime" Precision="3" />
+    <Property Name="NEW_VERSION" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="NOT_LOCKABLE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="OWNED_BY_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="PERMISSION_ID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="STATE" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="TEAM_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="ITEM_NUMBER" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CUSTOMER" Type="String" MaxLength="256" FixedLength="true" Unicode="false" />
+    <Property Name="ASSEMBLY_TIME" Type="Double" />
+    <Property Name="ASSEMBLY_COUNT" Type="Double" />
+  </EntityType>
+  <EntityType Name="CUSTOMER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="CLASSIFICATION" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="KEYED_NAME" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="CREATED_ON" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CREATED_BY_ID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="OWNED_BY_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="MANAGED_BY_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="MODIFIED_ON" Type="DateTime" Precision="3" />
+    <Property Name="MODIFIED_BY_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="CURRENT_STATE" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="STATE" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="LOCKED_BY_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="IS_CURRENT" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="MAJOR_REV" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="MINOR_REV" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="IS_RELEASED" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="NOT_LOCKABLE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="CSS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GENERATION" Type="Int32" />
+    <Property Name="NEW_VERSION" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="CONFIG_ID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="PERMISSION_ID" Type="String" Nullable="false" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="TEAM_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" />
+    <Property Name="ADDRESS" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ADDRESS_STATE" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="CITY" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="CONTACT_NAME" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="COUNTRY" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="MAIN_FAX" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="MAIN_PHONE" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="WEB_SITE" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ZIP_CODE" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="NAME" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

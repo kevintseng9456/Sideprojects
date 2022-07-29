@@ -1,0 +1,295 @@
+#:kivy 2.0.0
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import kivy.utils.get_color_from_hex kivymd.color_definitions.colors
+#:import FocusBehavior kivymd.uix.behaviors
+#:import rgba kivy.utils.get_color_from_hex
+#:import RectangularElevationBehavior kivymd.uix.behaviors
+#:import Factory kivy.factory.Factory
+
+# ScreenManagement:
+#     transition: FadeTransition()
+#     SignupPage:
+
+<Special_SpinnerOptions@SpinnerOption>:
+    size_hint: None, None
+    font_size:12
+    color:(0,0,0,1)
+    background_normal:''
+    background_color:(1,1,1,1)
+
+<MyDropdown@DropDown>:
+    max_height: 100
+
+<Special_Spinner@Spinner>:
+
+
+<SignupPage>:
+    name: 'signup'
+    radius:[10]
+
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            md_bg_color:234/255,81/255,81/255,1
+            left_action_items: [["arrow-left", lambda x: root.callback()]]  
+
+        MDFloatLayout:
+            canvas:
+                Color:
+                    rgba:rgba("#ece4cf")
+                Rectangle:
+                    size:self.size
+                    pos:self.pos   
+            # Image:
+            #     id:Logo
+            #     source:'.\APP_LOGO.png'
+            #     allow_stretch:True
+            #     size_hint:(0.78,0.138)
+            #     pos_hint:{"x":52/411,"top":(731-78)/731} 
+
+
+
+            #background layer
+            RoundedRectangularElevationBehavior:
+                canvas:
+                    Color:
+                        rgba:rgba("#394860")
+                    RoundedRectangle:
+                        size:self.size
+                        pos:self.pos  
+                        radius:[10]
+                size_hint:(323/411,414/731)
+                pos_hint:{'x':44/411,'top':(731-199)/731}                                       
+                shadow_pos:(0,-2)
+                elevation:3
+                radius:[10,10,10,10]
+            MDLabel:
+                canvas:
+                    Color:
+                        rgba:(57/255,72/255,96/255,0.75)
+                    RoundedRectangle:
+                        size:self.size
+                        pos:self.pos  
+                        radius:[10]
+                size_hint:(323/411,414/731)
+                pos_hint:{'x':44/411,'top':(731-199)/731}
+
+            # Button:
+            #     on_release: app.root.current = 'login'
+            #     text: '<'
+            #     font_size: 24
+            #     color:(1,1,1,1)
+            #     size_hint:(0.1,0.04)
+            #     # pos_hint:{'center_x':0.08,'top':0.96}
+            #     pos:(self.width*0.08,root.height*0.925)
+            #     background_normal:''
+            #     background_color:(0,0,0,0)
+            #     background_down:''
+            MDTextField:
+                id:signup_NAME
+                hint_text: "NAME"
+                font_name:app.font_name   
+                font_size: 16
+                size_hint:(301.87/411,None)
+                pos_hint:{'x':55.07/411,'y':(731-259)/731}
+                color_mode:"custom"
+                current_hint_text_color:(1,1,1,1)
+                text_color_normal: (1, 1, 1, 1)
+                line_color_normal: (1, 1, 1, 1)
+                line_color_focus:(1,1,1,1)
+
+            MDTextField:
+                id:signup_NickName
+                hint_text: "NickName"
+                font_name:app.font_name   
+                font_size: 16
+                size_hint:(150.93/411,None)
+                pos_hint:{'x':55.07/411,'y':(731-298)/731}
+                color_mode:"custom"
+                current_hint_text_color:(1,1,1,1)
+                text_color_normal: (1, 1, 1, 1)
+                line_color_normal: (1, 1, 1, 1)
+                line_color_focus:(1,1,1,1)
+
+            MDTextField:
+                id:signup_Gender
+                hint_text: "Gender"
+                font_size: 16
+                size_hint:(100.62/411,None)
+                pos_hint:{'x':256.31/411,'y':(731-298)/731}
+                color_mode:"custom"
+                current_hint_text_color:(1,1,1,1)
+                text_color_normal: (1, 1, 1, 1)
+                line_color_normal: (1, 1, 1, 1)
+                line_color_focus:(1,1,1,1)
+                # on_focus: if self.focus: root.gen()
+                # root.menu.open()
+                # disabled:True
+
+            Special_Spinner:
+                id:gender_spinner
+                text:""
+                values:["Male","Female"]
+                size_hint:(100.62/411,40/731)
+                pos_hint:{'x':256.31/411,'y':(731-290)/731}
+                on_text:root.gender(gender_spinner.text)
+                sync_height:True
+                color:(0,0,0,0)
+                background_normal:''
+                background_color:(1,1,1,0)
+                background_down:''
+                dropdown_cls: Factory.MyDropdown
+                option_cls: Factory.Special_SpinnerOptions
+
+            MDTextField:
+                id:signup_City
+                hint_text: "City"
+                font_size: 16
+                size_hint:(100.62/411,None)
+                pos_hint:{'x':256.31/411,'y':(731-337)/731}
+                color_mode:"custom"
+                current_hint_text_color:(1,1,1,1)
+                text_color_normal: (1, 1, 1, 1)
+                line_color_normal: (1, 1, 1, 1)
+                line_color_focus:(1,1,1,1)
+                # on_focus: if self.focus: root.gen()
+                # root.menu.open()
+                # disabled:True
+
+
+            Special_Spinner:
+                id:city_spinner
+                text:""
+                values:
+                    ["Albania","Algeria","Angola","Anguilla","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan",
+                    "Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi",
+                    "Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Rep","Chad","Chile","China (People's Rep)","Colombia","Congo(Rep)","Cook Islands","Costa Rica","Cote d'Ivoire (Rep)","Croatia","Cyprus","Czech (Rep)",
+                    "Luxembourg",
+                    "Macao","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritius","Mauritania","Mexico","Moldova","Mongolia","Morocco",
+                    "Myanmar","Namibia","Nauru","Nepal","Netherlands","New Caledonia","New Zealand","Niger","Nigeria","Norway",
+                    "Oman",
+                    "Pakistan","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal",
+                    "Qatar",
+                    "Romania","Russian Federation","Rwanda",
+                    "Saint Christopher (St. Kitts) and Nevis",
+                    "Dem Rep of Congo","Denmark","Dominican Rep.","Dominica (Commonwealth of)",
+                    "Ecuador","Egypt","El Salvador","Eritrea","Estonia","Ethiopia",
+                    "Fiji","Finland","French Polynesia","France",
+                    "Gabon","Georgia","Germany","Ghana","Gibraltar","United Kingdom of Great Britain and Northern Ireland","Greece","Grenada","Guatemala","Guinea","Guyana",
+                    "Haiti","Honduras","Hong Kong","Hungary",
+                    "Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy",
+                    "Jamaica","Japan","Jordan",
+                    "Kenya","Korea (Rep)","Kuwait",
+                    "Lao People's Dem Rep","Latvia","Lesotho",
+                    "Saint Lucia","Saint Vincent and the Grenadines","Sao Tome and Principe","Saudi Arabia","Senegal","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","Spain","Sri Lanka","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syrian Arab Rep",
+                    "Taiwan","Tanzania","Thailand","Togo","Trinidad and Tobago","Tunisia","Turkey",
+                    "Uganda","Ukraine","United Arab Emirates","United States of America","Uruguay",
+                    "Venezuela","Viet Nam","Western Samoa","Yemen","Yugoslavia",
+                    "Zambia","Zimbabwe"
+                    ]
+                size_hint:(100.62/411,40/731)
+                pos_hint:{'x':256.31/411,'y':(731-337)/731}
+                on_text:root.city(city_spinner.text)
+                sync_height:True
+                color:(0,0,0,0)
+                background_normal:''
+                background_color:(1,1,1,0)
+                background_down:''
+                dropdown_cls: Factory.MyDropdown
+                option_cls: Factory.Special_SpinnerOptions
+
+            MDTextField:
+                id:signup_Birthday
+                hint_text: "Date of Birth"
+                font_size: 16
+                size_hint:(150.93/411,None)
+                pos_hint:{'x':55.07/411,'y':(731-337)/731}
+                color_mode:"custom"
+                current_hint_text_color:(1,1,1,1)
+                text_color_normal: (1, 1, 1, 1)
+                line_color_normal: (1, 1, 1, 1)
+                line_color_focus:(1,1,1,1)
+                on_focus: if self.focus :root.show_date_picker()
+
+            MDTextField:
+                id:signup_PhoneNumber
+                hint_text: "Cell Phone"
+                font_size: 16
+                size_hint:(301.87/411,None)
+                pos_hint:{'x':55.07/411,'y':(731-375)/731}
+                color_mode:"custom"
+                current_hint_text_color:(1,1,1,1)
+                text_color_normal: (1, 1, 1, 1)
+                line_color_normal: (1, 1, 1, 1)
+                line_color_focus:(1,1,1,1)
+
+            MDTextField:
+                id:signup_EMAIL
+                hint_text: "EMAIL"
+                font_size: 16
+                size_hint:(301.87/411,None)
+                pos_hint:{'x':55.07/411,'y':(731-415)/731}
+                color_mode:"custom"
+                current_hint_text_color:(1,1,1,1)
+                text_color_normal: (1, 1, 1, 1)
+                line_color_normal: (1, 1, 1, 1)
+                line_color_focus:(1,1,1,1)
+
+            #error message    
+            MDLabel:
+                id:email_error_message
+                text:""
+                halign:"left"
+                theme_text_color:"Error"
+                size_hint:(0.7,0.05)
+                pos_hint:{'x':55.07/411,'y':(731-425)/731}
+            MDTextField:
+                id:signup_PASSWORD
+                hint_text: "PASSWORD"
+                font_size: 16
+                size_hint:(301.87/411,None)
+                pos_hint:{'x':55.07/411,'y':(731-476)/731}
+                color_mode:"custom"
+                current_hint_text_color:(1,1,1,1)
+                text_color_normal: (1, 1, 1, 1)
+                line_color_normal: (1, 1, 1, 1)
+                line_color_focus:(1,1,1,1) 
+
+            #error message              
+            MDLabel:
+                id:password_error_message
+                text:""
+                halign:"left"
+                theme_text_color:"Error"
+                size_hint:(0.7,0.05)
+                pos_hint:{'x':55.07/411,'y':(731-527)/731}          
+
+            MDTextField:
+                id:signup_CONFIRM_PASSWORD
+                hint_text: "CONFIRM PASSWORD"
+                font_size: 16
+                size_hint:(301.87/411,None)
+                pos_hint:{'x':55.07/411,'y':(731-517)/731}
+                color_mode:"custom"
+                current_hint_text_color:(1,1,1,1)
+                text_color_normal: (1, 1, 1, 1)
+                line_color_normal: (1, 1, 1, 1)
+                line_color_focus:(1,1,1,1)   
+    
+            MDFillRoundFlatButton:
+                id:signup_down_button
+                theme_text_color: "Custom"
+                text: "[b]SIGN UP[/b]"
+                font_size:"24sp"
+                text_color: rgba("#000001")
+                # text_color:(0,0,0,1)
+                size_hint:(302/411,43/731)
+                pos_hint:{'x':54.5/411,'top':(731-535)/731}
+                md_bg_color:rgba("#ece4cf")
+                disabled:False
+                # on_press:print(self)
+                on_release: 
+                    # root.Donebutton()              
+                    if root.Donebutton() == True:app.root.current = 'login'
+                    print("------login------")  
+                    # app.root.current = 'login'            

@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SyncGTModelStoreContainer" CdmEntityContainer="SyncGTEntities">
+    <EntitySetMapping Name="DailyProductionSchedule">
+      <EntityTypeMapping TypeName="SyncGTModel.DailyProductionSchedule">
+        <MappingFragment StoreEntitySet="DailyProductionSchedule">
+          <ScalarProperty Name="Work_order_number" ColumnName="Work_order_number" />
+          <ScalarProperty Name="ProductionplanningID" ColumnName="ProductionplanningID" />
+          <ScalarProperty Name="Target_capacity" ColumnName="Target_capacity" />
+          <ScalarProperty Name="Actual_capacity" ColumnName="Actual_capacity" />
+          <ScalarProperty Name="People" ColumnName="People" />
+          <ScalarProperty Name="Planning_time" ColumnName="Planning_time" />
+          <ScalarProperty Name="Cumulative_time" ColumnName="Cumulative_time" />
+          <ScalarProperty Name="Work_order_volume" ColumnName="Work_order_volume" />
+          <ScalarProperty Name="Work_Order" ColumnName="Work_Order" />
+          <ScalarProperty Name="Arrange_date" ColumnName="Arrange_date" />
+          <ScalarProperty Name="floor" ColumnName="floor" />
+          <ScalarProperty Name="Line_type" ColumnName="Line_type" />
+          <ScalarProperty Name="Principal" ColumnName="Principal" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="vision" ColumnName="vision" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductionDailyReport">
+      <EntityTypeMapping TypeName="SyncGTModel.ProductionDailyReport">
+        <MappingFragment StoreEntitySet="ProductionDailyReport">
+          <ScalarProperty Name="Daily_Production_Schedule_ID" ColumnName="Daily_Production_Schedule_ID" />
+          <ScalarProperty Name="Work_Order_Number" ColumnName="Work_Order_Number" />
+          <ScalarProperty Name="Model_or_Part_No" ColumnName="Model_or_Part_No" />
+          <ScalarProperty Name="Allocation" ColumnName="Allocation" />
+          <ScalarProperty Name="Semi_finished_products" ColumnName="Semi_finished_products" />
+          <ScalarProperty Name="Finished_products" ColumnName="Finished_products" />
+          <ScalarProperty Name="People" ColumnName="People" />
+          <ScalarProperty Name="Working_hours" ColumnName="Working_hours" />
+          <ScalarProperty Name="Working_hours_total" ColumnName="Working_hours_total" />
+          <ScalarProperty Name="Standard_capacity" ColumnName="Standard_capacity" />
+          <ScalarProperty Name="Poor_incoming" ColumnName="Poor_incoming" />
+          <ScalarProperty Name="Poor_productivity" ColumnName="Poor_productivity" />
+          <ScalarProperty Name="Poor_operation" ColumnName="Poor_operation" />
+          <ScalarProperty Name="Capacity_achievement_rate" ColumnName="Capacity_achievement_rate" />
+          <ScalarProperty Name="productivity" ColumnName="productivity" />
+          <ScalarProperty Name="Ask_leave" ColumnName="Ask_leave" />
+          <ScalarProperty Name="Overtime_hours" ColumnName="Overtime_hours" />
+          <ScalarProperty Name="Start_period" ColumnName="Start_period" />
+          <ScalarProperty Name="End_period" ColumnName="End_period" />
+          <ScalarProperty Name="effectiveness_H" ColumnName="effectiveness_H" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="vision" ColumnName="vision" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Productionplanningschedule">
+      <EntityTypeMapping TypeName="SyncGTModel.Productionplanningschedule">
+        <MappingFragment StoreEntitySet="Productionplanningschedule">
+          <ScalarProperty Name="Production_Schedule_ID" ColumnName="Production_Schedule_ID" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Vision" ColumnName="Vision" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderPO">
+      <EntityTypeMapping TypeName="SyncGTModel.OrderPO">
+        <MappingFragment StoreEntitySet="OrderPO">
+          <ScalarProperty Name="Order_PO_ID" ColumnName="Order PO ID" />
+          <ScalarProperty Name="Order_PO_Name" ColumnName="Order PO Name" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_ProductDailyDailyReportAll">
+      <EntityTypeMapping TypeName="SyncGTModel.vw_ProductDailyDailyReportAll">
+        <MappingFragment StoreEntitySet="vw_ProductDailyDailyReportAll">
+          <ScalarProperty Name="Work_Order_Number" ColumnName="Work_Order_Number" />
+          <ScalarProperty Name="Model_or_Part_No" ColumnName="Model_or_Part_No" />
+          <ScalarProperty Name="Allocation" ColumnName="Allocation" />
+          <ScalarProperty Name="AllCount" ColumnName="AllCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_ProductList">
+      <EntityTypeMapping TypeName="SyncGTModel.vw_ProductList">
+        <MappingFragment StoreEntitySet="vw_ProductList">
+          <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+          <ScalarProperty Name="ERP_Part_No" ColumnName="ERP_Part_No" />
+          <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="ASSEMBLY_TIME" ColumnName="ASSEMBLY_TIME" />
+          <ScalarProperty Name="ASSEMBLY_COUNT" ColumnName="ASSEMBLY_COUNT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_DailyProductionList" FunctionName="SyncGTModel.Store.sp_DailyProductionList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SyncGTModel.sp_DailyProductionList_Result">
+          <ScalarProperty Name="floor" ColumnName="floor" />
+          <ScalarProperty Name="Line_type" ColumnName="Line_type" />
+          <ScalarProperty Name="Principal" ColumnName="Principal" />
+          <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+          <ScalarProperty Name="ERP_Part_No" ColumnName="ERP_Part_No" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Target_capacity" ColumnName="Target_capacity" />
+          <ScalarProperty Name="Actual_capacity" ColumnName="Actual_capacity" />
+          <ScalarProperty Name="People" ColumnName="People" />
+          <ScalarProperty Name="Planning_time" ColumnName="Planning_time" />
+          <ScalarProperty Name="Cumulative_time" ColumnName="Cumulative_time" />
+          <ScalarProperty Name="Work_order_volume" ColumnName="Work_order_volume" />
+          <ScalarProperty Name="Arrange_date" ColumnName="Arrange_date" />
+          <ScalarProperty Name="vision" ColumnName="vision" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="Work_Order" ColumnName="Work_Order" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ProductionDailyReportList" FunctionName="SyncGTModel.Store.sp_ProductionDailyReportList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SyncGTModel.sp_ProductionDailyReportList_Result">
+          <ScalarProperty Name="Daily_Production_Schedule_ID" ColumnName="Daily_Production_Schedule_ID" />
+          <ScalarProperty Name="Work_Order_Number" ColumnName="Work_Order_Number" />
+          <ScalarProperty Name="Model_or_Part_No" ColumnName="Model_or_Part_No" />
+          <ScalarProperty Name="Allocation" ColumnName="Allocation" />
+          <ScalarProperty Name="Semi_finished_products" ColumnName="Semi_finished_products" />
+          <ScalarProperty Name="Finished_products" ColumnName="Finished_products" />
+          <ScalarProperty Name="People" ColumnName="People" />
+          <ScalarProperty Name="Working_hours" ColumnName="Working_hours" />
+          <ScalarProperty Name="Working_hours_total" ColumnName="Working_hours_total" />
+          <ScalarProperty Name="Standard_capacity" ColumnName="Standard_capacity" />
+          <ScalarProperty Name="Poor_incoming" ColumnName="Poor_incoming" />
+          <ScalarProperty Name="Poor_productivity" ColumnName="Poor_productivity" />
+          <ScalarProperty Name="Poor_operation" ColumnName="Poor_operation" />
+          <ScalarProperty Name="Capacity_achievement_rate" ColumnName="Capacity_achievement_rate" />
+          <ScalarProperty Name="productivity" ColumnName="productivity" />
+          <ScalarProperty Name="Ask_leave" ColumnName="Ask_leave" />
+          <ScalarProperty Name="Overtime_hours" ColumnName="Overtime_hours" />
+          <ScalarProperty Name="Start_period" ColumnName="Start_period" />
+          <ScalarProperty Name="End_period" ColumnName="End_period" />
+          <ScalarProperty Name="effectiveness_H" ColumnName="effectiveness_H" />
+          <ScalarProperty Name="vision" ColumnName="vision" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ProductPainList" FunctionName="SyncGTModel.Store.sp_ProductPainList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SyncGTModel.sp_ProductPainList_Result">
+          <ScalarProperty Name="Production_Schedule_ID" ColumnName="Production_Schedule_ID" />
+          <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+          <ScalarProperty Name="ERP_Part_No" ColumnName="ERP_Part_No" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="vision" ColumnName="vision" />
+          <ScalarProperty Name="GetMonth" ColumnName="GetMonth" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="ASSEMBLY_COUNT" ColumnName="ASSEMBLY_COUNT" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_getOrderCapacity" FunctionName="SyncGTModel.Store.sp_getOrderCapacity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SyncGTModel.sp_getOrderCapacity_Result">
+          <ScalarProperty Name="Order_No" ColumnName="Order_No" />
+          <ScalarProperty Name="PRODUCT_CAPACITY" ColumnName="PRODUCT_CAPACITY" />
+          <ScalarProperty Name="REAL_CAPACITY" ColumnName="REAL_CAPACITY" />
+          <ScalarProperty Name="Real_Count" ColumnName="Real_Count" />
+          <ScalarProperty Name="Estimate_Count" ColumnName="Estimate_Count" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_GetOrderCount" FunctionName="SyncGTModel.Store.sp_GetOrderCount">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SyncGTModel.sp_GetOrderCount_Result">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="PartID" ColumnName="PartID" />
+          <ScalarProperty Name="Allocation" ColumnName="Allocation" />
+          <ScalarProperty Name="finishCount" ColumnName="finishCount" />
+          <ScalarProperty Name="Working_hours_total" ColumnName="Working_hours_total" />
+          <ScalarProperty Name="WorkingCapacity" ColumnName="WorkingCapacity" />
+          <ScalarProperty Name="ASSEMBLY_COUNT" ColumnName="ASSEMBLY_COUNT" />
+          <ScalarProperty Name="PoorIncoming" ColumnName="PoorIncoming" />
+          <ScalarProperty Name="PoorOperation" ColumnName="PoorOperation" />
+          <ScalarProperty Name="PoorProductivity" ColumnName="PoorProductivity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_AutoGetERPPartPrice" FunctionName="SyncGTModel.Store.sp_AutoGetERPPartPrice">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SyncGTModel.sp_AutoGetERPPartPrice_Result">
+          <ScalarProperty Name="part" ColumnName="part" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

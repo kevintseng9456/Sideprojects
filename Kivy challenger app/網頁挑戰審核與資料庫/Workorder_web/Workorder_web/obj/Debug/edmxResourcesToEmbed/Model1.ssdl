@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="work_timeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.Client' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="Client_ID" />
+    </Key>
+    <Property Name="Client_ID" Type="int" Nullable="false" />
+    <Property Name="Client_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.DailyProductionSchedule' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="DailyProductionSchedule">
+    <Key>
+      <PropertyRef Name="Work_order_number" />
+    </Key>
+    <Property Name="Work_order_number" Type="int" Nullable="false" />
+    <Property Name="ProductionplanningID" Type="int" />
+    <Property Name="Target_capacity" Type="float" />
+    <Property Name="Actual_capacity" Type="float" />
+    <Property Name="People" Type="int" />
+    <Property Name="Planning_time" Type="float" />
+    <Property Name="Cumulative_time" Type="float" />
+    <Property Name="Work_order_volume" Type="int" />
+    <Property Name="Work_Order" Type="nvarchar" MaxLength="50" />
+    <Property Name="Arrange_date" Type="date" />
+    <Property Name="floor" Type="nvarchar" MaxLength="50" />
+    <Property Name="Line_type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Principal" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateDate" Type="date" />
+    <Property Name="vision" Type="int" />
+    <Property Name="note" Type="nvarchar(max)" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.OrderPO' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="OrderPO">
+    <Key>
+      <PropertyRef Name="Order PO ID" />
+      <PropertyRef Name="Order PO Name" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="Product ID" />
+    </Key>
+    <Property Name="Order PO ID" Type="int" Nullable="false" />
+    <Property Name="Order PO Name" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Product ID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.Product' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Product_ID" />
+      <PropertyRef Name="Client_ID" />
+      <PropertyRef Name="Product_Name" />
+    </Key>
+    <Property Name="Product_ID" Type="int" Nullable="false" />
+    <Property Name="Client_ID" Type="int" Nullable="false" />
+    <Property Name="Product_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ERP_Part_No" Type="nvarchar" MaxLength="50" />
+    <Property Name="Assemply_time" Type="float" />
+    <Property Name="Assemply_count" Type="float" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.ProductionDailyReport' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="ProductionDailyReport">
+    <Key>
+      <PropertyRef Name="Daily_Production_Schedule_ID" />
+      <PropertyRef Name="Work_Order_Number" />
+    </Key>
+    <Property Name="Daily_Production_Schedule_ID" Type="int" Nullable="false" />
+    <Property Name="Work_Order_Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Model_or_Part_No" Type="nvarchar" MaxLength="50" />
+    <Property Name="Allocation" Type="float" />
+    <Property Name="Semi_finished_products" Type="float" />
+    <Property Name="Finished_products" Type="float" />
+    <Property Name="People" Type="float" />
+    <Property Name="Working_hours" Type="float" />
+    <Property Name="Working_hours_total" Type="float" />
+    <Property Name="Standard_capacity" Type="float" />
+    <Property Name="Poor_incoming" Type="float" />
+    <Property Name="Poor_productivity" Type="float" />
+    <Property Name="Poor_operation" Type="float" />
+    <Property Name="Capacity_achievement_rate" Type="float" />
+    <Property Name="productivity" Type="float" />
+    <Property Name="Ask_leave" Type="float" />
+    <Property Name="Overtime_hours" Type="float" />
+    <Property Name="Start_period" Type="nvarchar" MaxLength="50" />
+    <Property Name="End_period" Type="nvarchar" MaxLength="50" />
+    <Property Name="effectiveness_H" Type="float" />
+    <Property Name="createDate" Type="date" />
+    <Property Name="vision" Type="int" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.Productionplanningschedule' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="Productionplanningschedule">
+    <Key>
+      <PropertyRef Name="Production_Schedule_ID" />
+      <PropertyRef Name="Product_ID" />
+    </Key>
+    <Property Name="Production_Schedule_ID" Type="int" Nullable="false" />
+    <Property Name="Product_ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="Date" Type="date" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Vision" Type="int" />
+  </EntityType>
+  <EntityType Name="AUTOPRODUCT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="CLASSIFICATION" Type="nvarchar" MaxLength="512" />
+    <Property Name="CONFIG_ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="CREATED_BY_ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="CREATED_ON" Type="datetime" Nullable="false" />
+    <Property Name="CSS" Type="nvarchar(max)" />
+    <Property Name="CURRENT_STATE" Type="char" MaxLength="32" />
+    <Property Name="GENERATION" Type="int" />
+    <Property Name="IS_CURRENT" Type="char" MaxLength="1" />
+    <Property Name="IS_RELEASED" Type="char" MaxLength="1" />
+    <Property Name="KEYED_NAME" Type="nvarchar" MaxLength="128" />
+    <Property Name="LOCKED_BY_ID" Type="char" MaxLength="32" />
+    <Property Name="MAJOR_REV" Type="nvarchar" MaxLength="8" />
+    <Property Name="MANAGED_BY_ID" Type="char" MaxLength="32" />
+    <Property Name="MINOR_REV" Type="nvarchar" MaxLength="8" />
+    <Property Name="MODIFIED_BY_ID" Type="char" MaxLength="32" />
+    <Property Name="MODIFIED_ON" Type="datetime" />
+    <Property Name="NEW_VERSION" Type="char" MaxLength="1" />
+    <Property Name="NOT_LOCKABLE" Type="char" MaxLength="1" />
+    <Property Name="OWNED_BY_ID" Type="char" MaxLength="32" />
+    <Property Name="PERMISSION_ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="STATE" Type="nvarchar" MaxLength="32" />
+    <Property Name="TEAM_ID" Type="char" MaxLength="32" />
+    <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="512" />
+    <Property Name="ITEM_NUMBER" Type="nvarchar" MaxLength="32" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+    <Property Name="CUSTOMER" Type="char" MaxLength="256" />
+    <Property Name="ASSEMBLY_TIME" Type="float" />
+    <Property Name="ASSEMBLY_COUNT" Type="float" />
+  </EntityType>
+  <EntityType Name="CUSTOMER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="CLASSIFICATION" Type="nvarchar" MaxLength="512" />
+    <Property Name="KEYED_NAME" Type="nvarchar" MaxLength="128" />
+    <Property Name="ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="CREATED_ON" Type="datetime" Nullable="false" />
+    <Property Name="CREATED_BY_ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="OWNED_BY_ID" Type="char" MaxLength="32" />
+    <Property Name="MANAGED_BY_ID" Type="char" MaxLength="32" />
+    <Property Name="MODIFIED_ON" Type="datetime" />
+    <Property Name="MODIFIED_BY_ID" Type="char" MaxLength="32" />
+    <Property Name="CURRENT_STATE" Type="char" MaxLength="32" />
+    <Property Name="STATE" Type="nvarchar" MaxLength="32" />
+    <Property Name="LOCKED_BY_ID" Type="char" MaxLength="32" />
+    <Property Name="IS_CURRENT" Type="char" MaxLength="1" />
+    <Property Name="MAJOR_REV" Type="nvarchar" MaxLength="8" />
+    <Property Name="MINOR_REV" Type="nvarchar" MaxLength="8" />
+    <Property Name="IS_RELEASED" Type="char" MaxLength="1" />
+    <Property Name="NOT_LOCKABLE" Type="char" MaxLength="1" />
+    <Property Name="CSS" Type="nvarchar(max)" />
+    <Property Name="GENERATION" Type="int" />
+    <Property Name="NEW_VERSION" Type="char" MaxLength="1" />
+    <Property Name="CONFIG_ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="PERMISSION_ID" Type="char" MaxLength="32" Nullable="false" />
+    <Property Name="TEAM_ID" Type="char" MaxLength="32" />
+    <Property Name="ADDRESS" Type="nvarchar" MaxLength="256" />
+    <Property Name="ADDRESS_STATE" Type="nvarchar" MaxLength="64" />
+    <Property Name="CITY" Type="nvarchar" MaxLength="64" />
+    <Property Name="CONTACT_NAME" Type="nvarchar" MaxLength="64" />
+    <Property Name="COUNTRY" Type="nvarchar" MaxLength="64" />
+    <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="512" />
+    <Property Name="MAIN_FAX" Type="nvarchar" MaxLength="32" />
+    <Property Name="MAIN_PHONE" Type="nvarchar" MaxLength="32" />
+    <Property Name="WEB_SITE" Type="nvarchar" MaxLength="128" />
+    <Property Name="ZIP_CODE" Type="nvarchar" MaxLength="32" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="64" Nullable="false" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6013: 資料表/檢視 'InnovatorSolutions.dbo.vw_DailyProductionVision' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
+        <EntityType Name="vw_DailyProductionVision">
+          <Property Name="Date" Type="date" />
+          <Property Name="vision" Type="int" />
+        </EntityType>-->
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.vw_ProductDailyDailyReportAll' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="vw_ProductDailyDailyReportAll">
+    <Key>
+      <PropertyRef Name="Work_Order_Number" />
+    </Key>
+    <Property Name="Work_Order_Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Model_or_Part_No" Type="nvarchar" MaxLength="50" />
+    <Property Name="Allocation" Type="float" />
+    <Property Name="AllCount" Type="float" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6013: 資料表/檢視 'InnovatorSolutions.dbo.vw_ProductionDailyReportVision' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
+        <EntityType Name="vw_ProductionDailyReportVision">
+          <Property Name="createDate" Type="date" />
+          <Property Name="vision" Type="int" />
+        </EntityType>-->
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'InnovatorSolutions.dbo.vw_ProductList' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="vw_ProductList">
+    <Key>
+      <PropertyRef Name="Client_Name" />
+    </Key>
+    <Property Name="Client_Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="ERP_Part_No" Type="nvarchar" MaxLength="32" />
+    <Property Name="Product_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Product_ID" Type="char" MaxLength="256" />
+    <Property Name="ASSEMBLY_TIME" Type="float" />
+    <Property Name="ASSEMBLY_COUNT" Type="float" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6013: 資料表/檢視 'InnovatorSolutions.dbo.vw_ProductPlanningVision' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
+        <EntityType Name="vw_ProductPlanningVision">
+          <Property Name="bMonth" Type="varchar" MaxLength="6" />
+          <Property Name="bVision" Type="int" />
+        </EntityType>-->
+  <Function Name="sp_DailyProductionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_getProductCapacity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ProductionDailyReportList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_ProductPainList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Month" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="work_timeModelStoreContainer">
+    <EntitySet Name="AUTOPRODUCT" EntityType="Self.AUTOPRODUCT" Schema="innovator" store:Type="Tables" />
+    <EntitySet Name="CUSTOMER" EntityType="Self.CUSTOMER" Schema="innovator" store:Type="Tables" />
+    <EntitySet Name="Client" EntityType="Self.Client" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Client].[Client_ID] AS [Client_ID], 
+    [Client].[Client_Name] AS [Client_Name], 
+    [Client].[Remarks] AS [Remarks]
+    FROM [dbo].[Client] AS [Client]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DailyProductionSchedule" EntityType="Self.DailyProductionSchedule" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DailyProductionSchedule].[Work_order_number] AS [Work_order_number], 
+    [DailyProductionSchedule].[ProductionplanningID] AS [ProductionplanningID], 
+    [DailyProductionSchedule].[Target_capacity] AS [Target_capacity], 
+    [DailyProductionSchedule].[Actual_capacity] AS [Actual_capacity], 
+    [DailyProductionSchedule].[People] AS [People], 
+    [DailyProductionSchedule].[Planning_time] AS [Planning_time], 
+    [DailyProductionSchedule].[Cumulative_time] AS [Cumulative_time], 
+    [DailyProductionSchedule].[Work_order_volume] AS [Work_order_volume], 
+    [DailyProductionSchedule].[Work_Order] AS [Work_Order], 
+    [DailyProductionSchedule].[Arrange_date] AS [Arrange_date], 
+    [DailyProductionSchedule].[floor] AS [floor], 
+    [DailyProductionSchedule].[Line_type] AS [Line_type], 
+    [DailyProductionSchedule].[Principal] AS [Principal], 
+    [DailyProductionSchedule].[CreateDate] AS [CreateDate], 
+    [DailyProductionSchedule].[vision] AS [vision], 
+    [DailyProductionSchedule].[note] AS [note]
+    FROM [dbo].[DailyProductionSchedule] AS [DailyProductionSchedule]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="OrderPO" EntityType="Self.OrderPO" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [OrderPO].[Order PO ID] AS [Order PO ID], 
+    [OrderPO].[Order PO Name] AS [Order PO Name], 
+    [OrderPO].[Quantity] AS [Quantity], 
+    [OrderPO].[Product ID] AS [Product ID]
+    FROM [dbo].[OrderPO] AS [OrderPO]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Product" EntityType="Self.Product" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Product].[Product_ID] AS [Product_ID], 
+    [Product].[Client_ID] AS [Client_ID], 
+    [Product].[Product_Name] AS [Product_Name], 
+    [Product].[ERP_Part_No] AS [ERP_Part_No], 
+    [Product].[Assemply_time] AS [Assemply_time], 
+    [Product].[Assemply_count] AS [Assemply_count]
+    FROM [dbo].[Product] AS [Product]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ProductionDailyReport" EntityType="Self.ProductionDailyReport" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ProductionDailyReport].[Daily_Production_Schedule_ID] AS [Daily_Production_Schedule_ID], 
+    [ProductionDailyReport].[Work_Order_Number] AS [Work_Order_Number], 
+    [ProductionDailyReport].[Model_or_Part_No] AS [Model_or_Part_No], 
+    [ProductionDailyReport].[Allocation] AS [Allocation], 
+    [ProductionDailyReport].[Semi_finished_products] AS [Semi_finished_products], 
+    [ProductionDailyReport].[Finished_products] AS [Finished_products], 
+    [ProductionDailyReport].[People] AS [People], 
+    [ProductionDailyReport].[Working_hours] AS [Working_hours], 
+    [ProductionDailyReport].[Working_hours_total] AS [Working_hours_total], 
+    [ProductionDailyReport].[Standard_capacity] AS [Standard_capacity], 
+    [ProductionDailyReport].[Poor_incoming] AS [Poor_incoming], 
+    [ProductionDailyReport].[Poor_productivity] AS [Poor_productivity], 
+    [ProductionDailyReport].[Poor_operation] AS [Poor_operation], 
+    [ProductionDailyReport].[Capacity_achievement_rate] AS [Capacity_achievement_rate], 
+    [ProductionDailyReport].[productivity] AS [productivity], 
+    [ProductionDailyReport].[Ask_leave] AS [Ask_leave], 
+    [ProductionDailyReport].[Overtime_hours] AS [Overtime_hours], 
+    [ProductionDailyReport].[Start_period] AS [Start_period], 
+    [ProductionDailyReport].[End_period] AS [End_period], 
+    [ProductionDailyReport].[effectiveness_H] AS [effectiveness_H], 
+    [ProductionDailyReport].[createDate] AS [createDate], 
+    [ProductionDailyReport].[vision] AS [vision]
+    FROM [dbo].[ProductionDailyReport] AS [ProductionDailyReport]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Productionplanningschedule" EntityType="Self.Productionplanningschedule" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Productionplanningschedule].[Production_Schedule_ID] AS [Production_Schedule_ID], 
+    [Productionplanningschedule].[Product_ID] AS [Product_ID], 
+    [Productionplanningschedule].[Date] AS [Date], 
+    [Productionplanningschedule].[Quantity] AS [Quantity], 
+    [Productionplanningschedule].[CreateDate] AS [CreateDate], 
+    [Productionplanningschedule].[Vision] AS [Vision]
+    FROM [dbo].[Productionplanningschedule] AS [Productionplanningschedule]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vw_ProductDailyDailyReportAll" EntityType="Self.vw_ProductDailyDailyReportAll" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_ProductDailyDailyReportAll].[Work_Order_Number] AS [Work_Order_Number], 
+    [vw_ProductDailyDailyReportAll].[Model_or_Part_No] AS [Model_or_Part_No], 
+    [vw_ProductDailyDailyReportAll].[Allocation] AS [Allocation], 
+    [vw_ProductDailyDailyReportAll].[AllCount] AS [AllCount]
+    FROM [dbo].[vw_ProductDailyDailyReportAll] AS [vw_ProductDailyDailyReportAll]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vw_ProductList" EntityType="Self.vw_ProductList" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_ProductList].[Client_Name] AS [Client_Name], 
+    [vw_ProductList].[ERP_Part_No] AS [ERP_Part_No], 
+    [vw_ProductList].[Product_Name] AS [Product_Name], 
+    [vw_ProductList].[Product_ID] AS [Product_ID], 
+    [vw_ProductList].[ASSEMBLY_TIME] AS [ASSEMBLY_TIME], 
+    [vw_ProductList].[ASSEMBLY_COUNT] AS [ASSEMBLY_COUNT]
+    FROM [dbo].[vw_ProductList] AS [vw_ProductList]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

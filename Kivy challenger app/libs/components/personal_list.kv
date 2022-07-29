@@ -1,0 +1,67 @@
+<Personal_list@MDBoxLayout>:
+    orientation: "vertical"
+    md_bg_color:(0,0,0,1)    
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "10dp"
+        md_bg_color:(0,0,0,1)
+        ScrollView:
+            # scroll_timeout : 100
+            scroll_type:['bars', 'content']
+            bar_color:(1,0,0,0)
+            do_scroll_y: True
+            do_scroll_x: False
+            # size_hint:(360/360,665/800)
+            # size_hint_y: None
+            # height: 400
+            MDBoxLayout:
+                id:acceptcard_box
+                orientation: "vertical"
+                adaptive_height: True
+                spacing: "10dp"
+                MDCard:
+                    id:mission_card
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: 170
+                    focus_behavior: True
+                    ripple_behavior: True
+                    radius:[0,0,10,10]
+                    font_name:app.font_name 
+                    MDBoxLayout:
+                        id: text_box
+                        # orientation: "vertical"
+                        padding:[0,0,0,15]
+                        FitImage:
+                            id: image_box_001
+                            source: "./image/selfie.png"
+                            allow_stretch:True
+                            radius:0,0,10,10      
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            adaptive_height:True 
+                            md_bg_color:1,0,0,1
+                            radius:[0,0,25,25]                                        
+                            MDLabel:
+                                id: mission_name_001
+                                text:"Title"
+                                font_name:app.font_name 
+                                font_size:'18sp'
+                                size_hint_y:None
+                                height: self.texture_size[1]
+                                radius:[10,10,0,0]
+                            MDLabel:
+                                text:"#照片 #人#事#物"
+                                font_name:app.font_name 
+                                font_size:'12sp'
+                                size_hint_y:None
+                                height: self.texture_size[1]
+                            MDSeparator:
+                                color:(0,0,0,1)
+                            MDLabel:
+                                text:"Info"
+                                font_name:app.font_name 
+                                font_size:'12sp'
+                                size_hint_y:None
+                                height:120
+                                # height: self.texture_size[1]   

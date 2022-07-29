@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="APPSolutionsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'APPSolutions.dbo.ChallengeName' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="ChallengeName">
+    <Key>
+      <PropertyRef Name="ChallengeID" />
+    </Key>
+    <Property Name="TypeID" Type="int" />
+    <Property Name="TopicID" Type="int" />
+    <Property Name="ChallengeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChallengeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="VideoPictureURL" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'APPSolutions.dbo.ChallengeTaskTopic' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="ChallengeTaskTopic">
+    <Key>
+      <PropertyRef Name="ChallengeTaskTopicID" />
+    </Key>
+    <Property Name="ChallengeTaskTopicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ChallengeTaskTopicName" Type="nvarchar" MaxLength="50" />
+    <Property Name="VideoPictureURL" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'APPSolutions.dbo.ChallengeTaskType' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="ChallengeTaskType">
+    <Key>
+      <PropertyRef Name="ChallengeTaskTypeID" />
+    </Key>
+    <Property Name="TopicID" Type="int" />
+    <Property Name="ChallengeTaskTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="VideoPictureURL" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="RequestsUploadChallenge">
+    <Key>
+      <PropertyRef Name="UploadTime" />
+    </Key>
+    <Property Name="RequestsUserID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ChallengeName" Type="nvarchar" MaxLength="50" />
+    <Property Name="UploadPictureVideo1" Type="nvarchar" MaxLength="50" />
+    <Property Name="UploadPictureVideo2" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChallengeMissionExplan" Type="nvarchar" MaxLength="50" />
+    <Property Name="SpecialRequirement" Type="nvarchar" MaxLength="50" />
+    <Property Name="UploadTime" Type="datetime" Nullable="false" />
+    <Property Name="ApprovalStatus" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Function Name="GetRequestsUploadChallenge" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="UpdateRequestsUploadChallenge" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RequestsUserID" Type="nvarchar" Mode="In" />
+    <Parameter Name="ChallengeName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UploadPictureVideo1" Type="nvarchar" Mode="In" />
+    <Parameter Name="UploadPictureVideo2" Type="nvarchar" Mode="In" />
+    <Parameter Name="ChallengeMissionExplan" Type="nvarchar" Mode="In" />
+    <Parameter Name="SpecialRequirement" Type="nvarchar" Mode="In" />
+    <Parameter Name="UploadTime" Type="datetime" Mode="In" />
+    <Parameter Name="ApprovalStatus" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="UploadNewChallenge" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Topic" Type="nvarchar" Mode="In" />
+    <Parameter Name="Type" Type="nvarchar" Mode="In" />
+    <Parameter Name="ChallengeName" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="APPSolutionsModelStoreContainer">
+    <EntitySet Name="RequestsUploadChallenge" EntityType="Self.RequestsUploadChallenge" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChallengeName" EntityType="Self.ChallengeName" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ChallengeName].[TypeID] AS [TypeID], 
+    [ChallengeName].[TopicID] AS [TopicID], 
+    [ChallengeName].[ChallengeID] AS [ChallengeID], 
+    [ChallengeName].[ChallengeName] AS [ChallengeName], 
+    [ChallengeName].[VideoPictureURL] AS [VideoPictureURL]
+    FROM [dbo].[ChallengeName] AS [ChallengeName]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ChallengeTaskTopic" EntityType="Self.ChallengeTaskTopic" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ChallengeTaskTopic].[ChallengeTaskTopicID] AS [ChallengeTaskTopicID], 
+    [ChallengeTaskTopic].[ChallengeTaskTopicName] AS [ChallengeTaskTopicName], 
+    [ChallengeTaskTopic].[VideoPictureURL] AS [VideoPictureURL]
+    FROM [dbo].[ChallengeTaskTopic] AS [ChallengeTaskTopic]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ChallengeTaskType" EntityType="Self.ChallengeTaskType" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ChallengeTaskType].[TopicID] AS [TopicID], 
+    [ChallengeTaskType].[ChallengeTaskTypeID] AS [ChallengeTaskTypeID], 
+    [ChallengeTaskType].[TypeName] AS [TypeName], 
+    [ChallengeTaskType].[VideoPictureURL] AS [VideoPictureURL]
+    FROM [dbo].[ChallengeTaskType] AS [ChallengeTaskType]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

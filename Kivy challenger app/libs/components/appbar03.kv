@@ -1,0 +1,63 @@
+#:import ScreenManager kivy.uix.screenmanager
+
+<MyToggleButton@MDRectangleFlatButton+MDToggleButton>:
+
+
+
+
+
+<AppBar03@MDBoxLayout>:
+    md_bg_color:155/255,155/255,155/255,1
+    # cols:4
+    adaptive_size:True
+    # padding:[0,0,0,0]
+    # size_hint_y:None
+    # height:self.ids.commend_button.height - dp(5)
+    # adaptive_size: True
+    # pos_hint:{'x':1,'top':0}
+    # MDFloatLayout:
+    #     md_bg_color:1,155/255,155/255,0
+    #     # adaptive_size:True
+    #     # pos_hint:{'center_x':0.5}
+    # MDFillRoundFlatButton:
+    pos_hint: {"center_x": .5, "center_y": .5}
+    MyToggleButton:
+        MyToggleButton:
+            text: "Show ads"
+            group: "x"
+
+        MyToggleButton:
+            text: "Do not show ads"
+            group: "x"
+
+        # MyToggleButton:
+        #     text: "Does not matter"
+        #     group: "x"    
+
+
+
+
+
+
+
+
+    # MDFlatButton:
+    #     id:commend_button
+    #     font_name:'C:\\Users\\love2\\OneDrive - 明志科技大學\\創業競賽\\Mission\\Chanlleger\\font\\Droid-Sans-Fallback.ttf'
+    #     text: "推薦"
+    #     # theme_text_color: "Custom"
+    #     # custom_color: 0, 0, 0, 1
+    #     md_bg_color:0,0,0,1
+    #     radius:[25]
+    #     pos_hint:{'right':0.5,'center_y':0.5}
+    # # MDFillRoundFlatButton:
+    # MDFlatButton:
+    #     font_name:'C:\\Users\\love2\\OneDrive - 明志科技大學\\創業競賽\\Mission\\Chanlleger\\font\\Droid-Sans-Fallback.ttf'
+    #     text: "熱門"
+    #     # theme_text_color: "Custom"
+    #     # custom_color: 1, 1, 1, 1    
+    #     md_bg_color:root.md_bg_color 
+    #     radius:[25]
+    #     pos_hint:{'x':0.5,'center_y':0.5}     
+    # # MDBoxLayout:
+    # #     md_bg_color:1,155/255,155/255,0

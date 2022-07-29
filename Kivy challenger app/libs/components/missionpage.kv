@@ -1,0 +1,62 @@
+#:import ScreenManager kivy.uix.screenmanager
+
+<SwipeToDeleteItem@MDSwiper>:
+    id: md_list
+    items_spacing:"1dp"
+    swipe_distance:"5dp"
+    on_swipe: print("on_swipe")
+    on_pre_swipe: print("on_pre_swipe")
+    on_overswipe_right: 
+        print("on_overswipe_right")
+        self.ids.card_bg.md_bg_color = (255/255, 0/255, 0/255 ,1)
+    on_overswipe_left: 
+        print("on_overswipe_left")
+        self.ids.card_bg.md_bg_color = (0/255, 209/255, 255/255 ,1)
+        print(self.ids.card_bg.size)
+        print(self.ids.smartimage.size)
+        print(self.ids.smartimagecard.size)
+        print(self.ids.swiper_root.size)
+        print(self.size)
+        print(self)
+    on_swipe_left: print("on_swipe_left rad") 
+    on_swipe_right: print("on_swipe_right blue")
+    size_hint_y: None
+    size_hint_x: None
+    width:"340dp"
+    width_mult:0
+    MDSwiperItem:
+        id:swiper_root
+        size_hint_y: None
+        size_hint_x: None
+        width:"340dp"
+        radius:[25]
+        # height: content.height
+
+        # MDCardSwipeLayerBox:
+        #     # Content under the card.
+        MDBoxLayout:
+            id:card_bg
+            spacing:20
+            # adaptive_width:True
+            radius:[25]
+            md_bg_color:(170/255, 158/255, 158/255 ,1)
+            size_hint_x: None
+            width: "320dp"
+            SmartTileWithLabel:
+                id:smartimage
+                size_hint_x: None
+                width: "100dp"
+                size_hint_y: None
+                height: "100dp"
+                source:root.missionsource
+
+                # "avator_000000000001.jpg"
+                text: "[size=26]Cat 1[/size]\n[size=14]avator_0000001.jpg[/size]"
+                radius:[25]
+            MDCard:
+                id:smartimagecard
+                size_hint_x:None
+                width: "180dp"
+                x:self.width - smartimage.width
+                md_bg_color:1,1,1,1
+                radius:[25]

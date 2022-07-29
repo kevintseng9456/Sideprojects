@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SyncGTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DailyProductionSchedule">
+    <Key>
+      <PropertyRef Name="Work_order_number" />
+    </Key>
+    <Property Name="Work_order_number" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductionplanningID" Type="Int32" />
+    <Property Name="Target_capacity" Type="Double" />
+    <Property Name="Actual_capacity" Type="Double" />
+    <Property Name="People" Type="Double" />
+    <Property Name="Planning_time" Type="Double" />
+    <Property Name="Cumulative_time" Type="Double" />
+    <Property Name="Work_order_volume" Type="Int32" />
+    <Property Name="Work_Order" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Arrange_date" Type="DateTime" Precision="0" />
+    <Property Name="floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Line_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Principal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="0" />
+    <Property Name="vision" Type="Int32" />
+    <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProductionDailyReport">
+    <Key>
+      <PropertyRef Name="Daily_Production_Schedule_ID" />
+    </Key>
+    <Property Name="Daily_Production_Schedule_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Work_Order_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model_or_Part_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Allocation" Type="Double" />
+    <Property Name="Semi_finished_products" Type="Double" />
+    <Property Name="Finished_products" Type="Double" />
+    <Property Name="People" Type="Double" />
+    <Property Name="Working_hours" Type="Double" />
+    <Property Name="Working_hours_total" Type="Double" />
+    <Property Name="Standard_capacity" Type="Double" />
+    <Property Name="Poor_incoming" Type="Double" />
+    <Property Name="Poor_productivity" Type="Double" />
+    <Property Name="Poor_operation" Type="Double" />
+    <Property Name="Capacity_achievement_rate" Type="Double" />
+    <Property Name="productivity" Type="Double" />
+    <Property Name="Ask_leave" Type="Double" />
+    <Property Name="Overtime_hours" Type="Double" />
+    <Property Name="Start_period" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="End_period" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="effectiveness_H" Type="Double" />
+    <Property Name="createDate" Type="DateTime" Precision="0" />
+    <Property Name="vision" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Productionplanningschedule">
+    <Key>
+      <PropertyRef Name="Production_Schedule_ID" />
+    </Key>
+    <Property Name="Production_Schedule_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="Vision" Type="Int32" />
+  </EntityType>
+  <EntityType Name="OrderPO">
+    <Key>
+      <PropertyRef Name="Order_PO_ID" />
+      <PropertyRef Name="Order_PO_Name" />
+      <PropertyRef Name="Quantity" />
+      <PropertyRef Name="Product_ID" />
+    </Key>
+    <Property Name="Order_PO_ID" Type="Int32" Nullable="false" />
+    <Property Name="Order_PO_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Product_ID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vw_ProductDailyDailyReportAll">
+    <Key>
+      <PropertyRef Name="Work_Order_Number" />
+    </Key>
+    <Property Name="Work_Order_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model_or_Part_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Allocation" Type="Double" />
+    <Property Name="AllCount" Type="Double" />
+  </EntityType>
+  <EntityType Name="vw_ProductList">
+    <Key>
+      <PropertyRef Name="Client_Name" />
+      <PropertyRef Name="Product_ID" />
+      <PropertyRef Name="ASSEMBLY_TIME" />
+      <PropertyRef Name="ASSEMBLY_COUNT" />
+    </Key>
+    <Property Name="Client_Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ERP_Part_No" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Product_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Product_ID" Type="String" MaxLength="32" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="ASSEMBLY_TIME" Type="Double" Nullable="false" />
+    <Property Name="ASSEMBLY_COUNT" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="SyncGTEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DailyProductionSchedule" EntityType="Self.DailyProductionSchedule" />
+    <EntitySet Name="ProductionDailyReport" EntityType="Self.ProductionDailyReport" />
+    <EntitySet Name="Productionplanningschedule" EntityType="Self.Productionplanningschedule" />
+    <EntitySet Name="OrderPO" EntityType="Self.OrderPO" />
+    <EntitySet Name="vw_ProductDailyDailyReportAll" EntityType="Self.vw_ProductDailyDailyReportAll" />
+    <EntitySet Name="vw_ProductList" EntityType="Self.vw_ProductList" />
+    <FunctionImport Name="sp_DailyProductionList" ReturnType="Collection(SyncGTModel.sp_DailyProductionList_Result)">
+      <Parameter Name="Month" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_getProductCapacity" />
+    <FunctionImport Name="sp_ProductionDailyReportList" ReturnType="Collection(SyncGTModel.sp_ProductionDailyReportList_Result)">
+      <Parameter Name="Month" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ProductPainList" ReturnType="Collection(SyncGTModel.sp_ProductPainList_Result)">
+      <Parameter Name="Month" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_getOrderCapacity" ReturnType="Collection(SyncGTModel.sp_getOrderCapacity_Result)">
+      <Parameter Name="time" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_GetOrderCount" ReturnType="Collection(SyncGTModel.sp_GetOrderCount_Result)" />
+    <FunctionImport Name="sp_AutoGetERPPartPrice" ReturnType="Collection(SyncGTModel.sp_AutoGetERPPartPrice_Result)">
+      <Parameter Name="yearmonth" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_DailyProductionList_Result">
+    <Property Type="String" Name="floor" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Line_type" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Principal" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Product_Name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ERP_Part_No" Nullable="true" MaxLength="32" />
+    <Property Type="DateTime" Name="Date" Nullable="true" />
+    <Property Type="Double" Name="Target_capacity" Nullable="true" />
+    <Property Type="Double" Name="Actual_capacity" Nullable="true" />
+    <Property Type="Double" Name="People" Nullable="true" />
+    <Property Type="Double" Name="Planning_time" Nullable="true" />
+    <Property Type="Double" Name="Cumulative_time" Nullable="true" />
+    <Property Type="Int32" Name="Work_order_volume" Nullable="true" />
+    <Property Type="DateTime" Name="Arrange_date" Nullable="true" />
+    <Property Type="Int32" Name="vision" Nullable="true" />
+    <Property Type="String" Name="note" Nullable="true" />
+    <Property Type="String" Name="Work_Order" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_ProductionDailyReportList_Result">
+    <Property Type="Int32" Name="Daily_Production_Schedule_ID" Nullable="false" />
+    <Property Type="String" Name="Work_Order_Number" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Model_or_Part_No" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="Allocation" Nullable="true" />
+    <Property Type="Double" Name="Semi_finished_products" Nullable="true" />
+    <Property Type="Double" Name="Finished_products" Nullable="true" />
+    <Property Type="Double" Name="People" Nullable="true" />
+    <Property Type="Double" Name="Working_hours" Nullable="true" />
+    <Property Type="Double" Name="Working_hours_total" Nullable="true" />
+    <Property Type="Double" Name="Standard_capacity" Nullable="true" />
+    <Property Type="Double" Name="Poor_incoming" Nullable="true" />
+    <Property Type="Double" Name="Poor_productivity" Nullable="true" />
+    <Property Type="Double" Name="Poor_operation" Nullable="true" />
+    <Property Type="Double" Name="Capacity_achievement_rate" Nullable="true" />
+    <Property Type="Double" Name="productivity" Nullable="true" />
+    <Property Type="Double" Name="Ask_leave" Nullable="true" />
+    <Property Type="Double" Name="Overtime_hours" Nullable="true" />
+    <Property Type="String" Name="Start_period" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="End_period" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="effectiveness_H" Nullable="true" />
+    <Property Type="Int32" Name="vision" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ProductPainList_Result">
+    <Property Type="Int32" Name="Production_Schedule_ID" Nullable="false" />
+    <Property Type="String" Name="Product_Name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ERP_Part_No" Nullable="true" MaxLength="32" />
+    <Property Type="DateTime" Name="date" Nullable="true" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="vision" Nullable="true" />
+    <Property Type="String" Name="GetMonth" Nullable="true" MaxLength="6" />
+    <Property Type="String" Name="Product_ID" Nullable="false" MaxLength="32" />
+    <Property Type="Double" Name="ASSEMBLY_COUNT" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_getOrderCapacity_Result">
+    <Property Type="String" Name="Order_No" Nullable="true" />
+    <Property Type="Double" Name="PRODUCT_CAPACITY" Nullable="true" />
+    <Property Type="Double" Name="REAL_CAPACITY" Nullable="true" />
+    <Property Type="Int32" Name="Real_Count" Nullable="true" />
+    <Property Type="Double" Name="Estimate_Count" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_GetOrderCount_Result">
+    <Property Type="String" Name="OrderID" Nullable="true" MaxLength="12" />
+    <Property Type="String" Name="PartID" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="Allocation" Nullable="true" />
+    <Property Type="Double" Name="finishCount" Nullable="true" />
+    <Property Type="Double" Name="Working_hours_total" Nullable="true" />
+    <Property Type="Decimal" Name="WorkingCapacity" Nullable="false" Precision="18" Scale="3" />
+    <Property Type="Double" Name="ASSEMBLY_COUNT" Nullable="true" />
+    <Property Type="Double" Name="PoorIncoming" Nullable="true" />
+    <Property Type="Double" Name="PoorOperation" Nullable="true" />
+    <Property Type="Double" Name="PoorProductivity" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_AutoGetERPPartPrice_Result">
+    <Property Type="String" Name="part" Nullable="true" MaxLength="30" />
+    <Property Type="Decimal" Name="price" Nullable="true" Precision="18" Scale="3" />
+  </ComplexType>
+</Schema>

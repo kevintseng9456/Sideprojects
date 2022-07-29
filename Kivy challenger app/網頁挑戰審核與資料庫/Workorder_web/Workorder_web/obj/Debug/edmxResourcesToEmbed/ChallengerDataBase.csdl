@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="APPSolutionsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ChallengeName">
+    <Key>
+      <PropertyRef Name="ChallengeID" />
+    </Key>
+    <Property Name="TypeID" Type="Int32" />
+    <Property Name="TopicID" Type="Int32" />
+    <Property Name="ChallengeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ChallengeName1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VideoPictureURL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ChallengeTaskTopic">
+    <Key>
+      <PropertyRef Name="ChallengeTaskTopicID" />
+    </Key>
+    <Property Name="ChallengeTaskTopicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ChallengeTaskTopicName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VideoPictureURL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ChallengeTaskType">
+    <Key>
+      <PropertyRef Name="ChallengeTaskTypeID" />
+    </Key>
+    <Property Name="TopicID" Type="Int32" />
+    <Property Name="ChallengeTaskTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VideoPictureURL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="APPSolutionsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ChallengeName" EntityType="Self.ChallengeName" />
+    <EntitySet Name="ChallengeTaskTopic" EntityType="Self.ChallengeTaskTopic" />
+    <EntitySet Name="ChallengeTaskType" EntityType="Self.ChallengeTaskType" />
+    <FunctionImport Name="GetRequestsUploadChallenge" ReturnType="Collection(APPSolutionsModel.GetRequestsUploadChallenge_Result)" />
+    <FunctionImport Name="UpdateRequestsUploadChallenge" ReturnType="Collection(APPSolutionsModel.UpdateRequestsUploadChallenge_Result)">
+      <Parameter Name="RequestsUserID" Mode="In" Type="String" />
+      <Parameter Name="ChallengeName" Mode="In" Type="String" />
+      <Parameter Name="UploadPictureVideo1" Mode="In" Type="String" />
+      <Parameter Name="UploadPictureVideo2" Mode="In" Type="String" />
+      <Parameter Name="ChallengeMissionExplan" Mode="In" Type="String" />
+      <Parameter Name="SpecialRequirement" Mode="In" Type="String" />
+      <Parameter Name="UploadTime" Mode="In" Type="DateTime" />
+      <Parameter Name="ApprovalStatus" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UploadNewChallenge">
+      <Parameter Name="Topic" Mode="In" Type="String" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+      <Parameter Name="ChallengeName" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="RequestsUploadChallenge" EntityType="APPSolutionsModel.RequestsUploadChallenge" />
+  </EntityContainer>
+  <ComplexType Name="GetRequestsUploadChallenge_Result">
+    <Property Type="String" Name="RequestsUserID" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ChallengeName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="UploadPictureVideo1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="UploadPictureVideo2" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ChallengeMissionExplan" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SpecialRequirement" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="UploadTime" Nullable="true" Precision="23" />
+    <Property Type="String" Name="ApprovalStatus" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="UpdateRequestsUploadChallenge_Result">
+    <Property Type="String" Name="RequestsUserID" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ChallengeName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="UploadPictureVideo1" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="UploadPictureVideo2" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ChallengeMissionExplan" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SpecialRequirement" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="UploadTime" Nullable="true" Precision="23" />
+    <Property Type="String" Name="ApprovalStatus" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="RequestsUploadChallenge">
+    <Key>
+      <PropertyRef Name="UploadTime" />
+    </Key>
+    <Property Name="RequestsUserID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChallengeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UploadPictureVideo1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UploadPictureVideo2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ChallengeMissionExplan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SpecialRequirement" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UploadTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ApprovalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

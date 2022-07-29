@@ -1,0 +1,1962 @@
+@using Workorder_web.Models
+@{
+    List<sp_GetOrderCount_Result> data = ViewBag.data;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    <link href="~/startbootstrap/dist/css/styles.css" rel="stylesheet" />
+    @*控制下方圖表各物件擺放位置參數的Script*@
+    <link href="~/startbootstrap/dist/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="~/startbootstrap/scripts/all.min.js" crossorigin="anonymous"></script>
+    <script src="~/startbootstrap/scripts/Chart.js"></script>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand" href="@Url.Action("Homepage", "Home")">Start Bootstrap</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="@Url.Action("Homepage", "Home")">Settings</a>
+                    <a class="dropdown-item" href="@Url.Action("Homepage", "Home")">Activity Log</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="@Url.Action("Homepage", "Home")">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav" style="background-color: #000000">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link" href="@Url.Action("Homepage", "Home")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <!--<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            列印
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">-->
+                        @*@Url.Action 可以指定Controller和action*@
+                        <!--<a class="nav-link" href="@Url.Action("Login", "Home")">生產計劃排程表</a>
+                                <a class="nav-link" href="layout-sidenav-light.html">日生產排程</a>
+                                <a class="nav-link" href="layout-sidenav-light.html">生產日報表</a>
+                            </nav>
+                        </div>-->
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            資料輸入
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link" href="@Url.Action("Show_Produceplan_scheduleAction", "Home")">
+                                    生產計劃排程
+                                </a>
+                                @*<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        生產計劃排程
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>*@
+                                @*<div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="login.html">Login</a>
+                                            <a class="nav-link" href="register.html">Register</a>
+                                            <a class="nav-link" href="password.html">Forgot Password</a>
+                                        </nav>
+                                    </div>*@
+                                <a class="nav-link" href="@Url.Action("Daily_schedule_data_Keyin_Show", "Home")">日生產排程</a>
+                                @*<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>*@
+                                @*<div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>*@
+                                <a class="nav-link" href="@Url.Action("ProductionDailyReport_Show", "Home")">生產日實際產能</a>
+                                @*<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        生產日實際產能
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>*@
+
+                            </nav>
+                        </div>
+                        <div class="sb-sidenav-menu-heading">Addons</div>
+                        @*<a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                            <a class="nav-link" href="tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>*@
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Start Bootstrap
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <div id="divProgress" style="text-align:center; display: none; position: fixed; top: 50%;  left: 50%;">
+                        <img ID="imgLoading" runat="server" src="~/Pic/loading (1).gif" />
+
+                        <font color="#1B3563" size="2"></font>
+                    </div>
+
+                    <div id="divMaskFrame" style="background-color: #F2F4F7; display: none; left: 0px;
+                        position: absolute; top: 0px;">
+                    </div>
+                    <div id="popup_box" style="background-color:red; display: none; position: fixed; _position: absolute; height: 100px; width: 800px; left: 630px; top: 450px; z-index:100; margin-left: 25px; border: 2px; padding: 15px; font-size: 15px; -moz-box-shadow: 0 0 5px; -webkit-box-shadow: 0 0 5px; box-shadow: 0 0 5px;">
+                        <!-- OUR PopupBox DIV-->
+                        <h1 id="countDown" style="font-size: 40px; line-height: 35px; right: 100px; top: 30px; position: absolute; color: #ffff00; font-weight: 500; ">ERP資料傳輸逾時，5秒後重新刷新</h1>
+                       <a onclick="Close_Error_meg()" id="popupBoxClose" style="font-size: 20px; line-height: 15px; right: 5px; top: 5px; position: absolute; color: #6fa5e2; font-weight: 500;" >Close</a>
+                    </div>
+                    <div id="container" style=" width: 100%; height: 100%;">
+                        <!-- Main Page -->
+                        <h1></h1>
+                    </div>
+                    @*<link href="~/Function_unique/timeCount.css" />*@
+                    <div class="row">
+                        @*<div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">Primary Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">Warning Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">Success Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">Danger Card</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>*@
+                    </div>
+                    <div class="row">
+                        @*col-xl-?? 控制圖寬度 ??請填數字*@
+                        <div class="col-xl-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-area mr-1"></i>
+                                    各機種日排程
+                                </div>
+                                <div class="card-body" id="AreaChart">
+                                    <canvas id="myAreaChart" width="100" height="60"></canvas>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-bar mr-1"></i>
+                                    該日各工單情況
+                                </div>
+                                <div class="card-body"><canvas id="myBarChart" width="100" height="60"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @*col-xl-?? 控制圖寬度 ??請填數字*@
+                        <div class="col-xl-12">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-area mr-1"></i>
+                                    預估銷售總額與機種工時配比(%)
+                                </div>
+                                <div class="card-body" id="AreaChart">
+                                    <canvas id="myBarChart_output_count_and_machine_rate" width="100" height="25"></canvas>
+                                    @*<input type="button" id="input_upload" onclick="add_data()"</input>*@
+                                    @*style="background-color: #545454"*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @*col-xl-?? 控制圖寬度 ??請填數字*@
+                        <!--畫預估該月到今日銷售總額與機種配比-->
+                        <!--<div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area mr-1"></i>
+                預估該月到今日銷售總額與機種配比
+            </div>
+            <div class="card-body" id="AreaChart">
+                <canvas id="myPieChart_output_count" width="100" height="60"></canvas>-->
+                        @*<input type="button" id="input_upload" onclick="add_data()"</input>*@
+                        @*style="background-color: #545454"*@
+                        <!--</div>
+
+            </div>
+        </div>-->
+                        <div class="col-xl-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-bar mr-1"></i>
+                                    客戶的工時與營收貢獻比(%)
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="myPieChart_Customer_Worktime_income_rate" width="100" height="60"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-bar mr-1"></i>
+                                    預估該月銷售總額與機種配比
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="myPieChart_output_All_count" width="100" height="60"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--各機種分配率和各客戶生產數量分配率-->
+                    <!--<div class="row">-->
+                    @*col-xl-?? 控制圖寬度 ??請填數字*@
+                    <!--<div class="col-xl-6">
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-area mr-1"></i>
+            各機種 @DateTime.Now.ToString("MM") 月分配率
+        </div>
+        <div class="card-body" id="AreaChart">
+            <canvas id="myPieChart" width="100" height="60"></canvas>-->
+                    @*<input type="button" id="input_upload" onclick="add_data()"</input>*@
+                    @*style="background-color: #545454"*@
+                    <!--</div>
+
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar mr-1"></i>
+                    各客戶 @DateTime.Now.ToString("MM")月生產數量分配率
+                </div>
+                <div class="card-body">
+                    <canvas id="myPieChart2" width="100" height="60"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>-->
+                    @*即時銷售額(機種/錢)[圓餅圖]、即時機種工時(直線圖)*@
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            各工單生產情況
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>工單編號</th>
+                                            <th>產品料號</th>
+                                            <th>派工量</th>
+                                            <th>實際完成產量</th>
+                                            <th>來料不良</th>
+                                            <th>重工不良</th>
+                                            <th>生產不良</th>
+                                            <th>累積耗費工時(hr)</th>
+                                            <th>效率(pc/h)</th>
+                                            <th>預估產能(pc/h)</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var data_show in data)
+                                        {
+                                            <tr>
+                                                @*@{
+                                        var date_splice = Convert.ToDateTime(data_show.date).ToString("yyyy/MM/dd");
+                                    }*@
+                                                <td>@data_show.OrderID</td>
+                                                <td>@data_show.PartID</td>
+                                                <td>@data_show.Allocation</td>
+                                                <td>@data_show.finishCount</td>
+                                                <td>@data_show.PoorIncoming</td>
+                                                <td>@data_show.PoorOperation</td>
+                                                <td>@data_show.PoorProductivity</td>
+                                                <td>@data_show.Working_hours_total</td>
+                                                <td>@data_show.WorkingCapacity</td>
+                                                <td>@data_show.ASSEMBLY_COUNT</td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+   
+    <script src="~/startbootstrap/scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/startbootstrap/scripts/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/startbootstrap/dist/js/scripts.js"></script>
+    @*控制首頁圖表各功能Script*@
+    <script src="~/startbootstrap/scripts/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="~/startbootstrap/dist/assets/demo/chart-area-demo.js"></script>
+    <script src="~/startbootstrap/dist/assets/demo/chart-bar-demo.js"></script>
+    @*控制首頁下方表格各個功能的Script*@
+    <script src="~/startbootstrap/scripts/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    @*控制首頁下方表格樣式的Script*@
+    <script src="~/startbootstrap/scripts/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="~/startbootstrap/dist/assets/demo/datatables-demo.js"></script>
+    @*控制首頁圓餅圖表上顯示字的Script\*@
+    <script src="~/startbootstrap/scripts/Chart.PieceLabel.min.js"></script>
+    @*隨機顏色Function*@
+    <script src="~/Function_unique/rgba_random.js"></script>
+    @*延遲Function*@
+    <script src="~/Function_unique/Delay.js"></script>
+    @*轉成千分單位Function*@
+    <script src="~/Function_unique/toCurrency.js"></script>
+    @*遮罩Function*@
+    <script src="~/Function_unique/MaskFrame.js"></script>
+    @*儲存價格Function*@
+    <script src="~/Function_unique/Get_Org_Price.js"></script>
+    <script>
+        //設定所有圖表為響應式
+        //Chart.defaults.global.responsive = true;
+        //宣告儲存sp_getOrderCapacity資料用，陣列方便計算效率
+        var Order_No_sp = new Array();
+        var Product_capacity_sp = new Array();
+        var Real_capacity_sp = new Array();
+        //宣告全域變數儲存資料庫ERP、Product、Date、Quantity資料用
+        var Product_Name_Show = new Array();
+        var ERP_Part_No_Show = new Array();
+        var Date_Show = new Array();
+        var Quantity_Show = new Array();
+        var Product_ID_Show = new Array();
+        var Vision_Show = new Array();
+        var ASSEMBLY_COUNT_Show = new Array();
+        var Production_schedule_ID_Show = new Array();
+
+        //宣告欲儲存的已排列完的同一品項月排程表資料，已供圖表使用
+        var Product_Name_NoSame = new Array();
+        var ERP_Part_No_NoSame = new Array();
+        var Date_NoSame = new Array();
+        var Quantity_NoSame = new Array();
+        var Product_ID_NoSame = new Array();
+        var Vision_NoSame = new Array();
+        var ASSEMBLY_COUNT_NoSame = new Array();
+        var Production_schedule_ID_NoSame = new Array();
+        //宣告成二維陣列
+        for (var set = 0; set <= 100; set++)
+        {
+            Product_Name_NoSame[set] = new Array();
+            ERP_Part_No_NoSame[set] = new Array();
+            Date_NoSame[set] = new Array();
+            Quantity_NoSame[set] = new Array();
+            Product_ID_NoSame[set] = new Array();
+            Vision_NoSame[set] = new Array();
+            ASSEMBLY_COUNT_NoSame[set] = new Array();
+            Production_schedule_ID_NoSame[set] = new Array();
+        }
+
+        //宣告全域變數儲存資料庫vw_ProductList資料表資料用
+        var Client_Name_Product = new Array();
+        var ERP_Part_No_Product = new Array();
+        var Product_Name_Product = new Array();
+        var ASSEMBLY_TIME_Product = new Array();
+        var ASSEMBLY_COUNT_Product = new Array();
+        var Product_ID_Product = new Array();
+        //宣告全域變數儲存資料庫sp_DailyProductionList資料表資料用
+        var Product_Name_Daily_Report = new Array();
+        var ERP_Part_No_Daily_Report = new Array();
+        var Date_Daily_Report = new Array();
+        var Vision_sp_DailyProductionList__Report = new Array();
+        var floor_Daily_Report = new Array();
+        var Line_type_Daily_Report = new Array();
+        var Principal_Daily_Report = new Array();
+        var Target_capacity_Daily_Report = new Array();
+        var Actual_capacity_Daily_Report = new Array();
+        var People_Daily_Report = new Array();
+        var Planning_time_Daily_Report = new Array();
+        var Cumulative_time_Daily_Report = new Array();
+        var Work_order_volume_Daily_Report = new Array();
+        var Arrange_date_Daily_Report = new Array();
+        var Note_Daily_Report = new Array();
+        var Work_Order_Daily_Report = new Array();
+        //儲存工單情況表圖的目標和實際效率顏色
+        var Chart_Work_order_color = new Array();
+        //占存陣列(減少字串大小)
+        var back_use = new Array();
+        for (var set3 = 0; set3 <= 100; set3++) {
+            Chart_Work_order_color[set3] = new Array();
+
+        }
+        //儲存圖表橫軸Label要顯示的工單號陣列
+        var Chart_work_order = [];
+        //儲存圖表每個Bar對應的Label要顯示的工單號陣列
+        var Chart_Bar_work_order_mark = [];
+        //儲存圖表要顯示的效率
+        var Chart_work_effecticent = new Array();
+        //宣告成二維陣列
+        for (var set1 = 0; set1 <= 100; set1++) {
+            Chart_work_effecticent[set1] = new Array();
+
+        }
+        //儲存預估銷售總額與機種配比圖表要顯示的比率
+        var ChartBar_output_count_and_machine_rate = new Array();
+        //宣告成二維陣列
+        for (var set_output_count_and_machine_rate = 0; set_output_count_and_machine_rate <= 100; set_output_count_and_machine_rate++) {
+            ChartBar_output_count_and_machine_rate[set_output_count_and_machine_rate] = new Array();
+
+        }
+        //儲存計算預估銷售總額與機種工時配比(%)圖表的 [預估銷售總額與機種工時比率] 的比值
+        var Math_ChartBar_output_count_and_machine_rate = new Array();
+        //儲存計算 客戶的工時與營收貢獻比(%)圖表的 [客戶工時與客戶營收比率] 的比值
+        var Math_ChartBar_Worktime_and_income_rate = new Array();
+        //儲存該月每個機種需要製作的工時時數
+        var Product_Month_total_Work_time = new Array();
+        //儲存暫時運算的單一機種該月總工時時數
+        var Month_Product_alone_total_Work_time;
+        //儲存該月全部機種工時時數
+        var Month_All_Product_total_Work_time = 0;
+        //儲存該月每個機種需要製作的工時時數比例;
+        var Product_Month_total_Work_time_proportion = new Array();
+        //儲存預估銷售總額與機種配比圖表每個對應的Label要顯示的名稱
+        var Chart_Bar_output_count_and_machine_rate_mark = [];
+        //宣告儲存機種該月產出數量的陣列
+        var Product_Month_sum = new Array();
+        //宣告儲存機種該月產出比例的陣列
+        var Product_Month_proportion = new Array();
+        //宣告該變數儲存單一機種該月的預計出貨總數
+        var Product_Month_output_count = 0;
+        //宣告儲存各機種月分配率圖表該月機種名稱
+        var Product_Month_Name = new Array();
+        //宣告計算該月全部機種預計出貨的量
+        var Product_Month_all_output_count = 0;
+        //儲存各機種月分配率的產品顯示顏色
+        var Product_Pie_color = new Array();
+        //儲存廠商名稱
+        var Client_Month_Name = new Array();
+        //客戶的工時與營收貢獻比(%)圖表專用儲存廠商名稱
+        var Client_Month_Name_Only = new Array();
+        //宣告儲存 預估各機種該月到今日總銷售額圖表該月機種名稱
+        var Product_Sale_Price_Month_Part_Date_Name = new Array();
+        //宣告儲存 預估各機種該月總銷售額圖表該月機種名稱
+        var Product_Sale_Price_Month_All_Date_Name = new Array();
+        //宣告儲存客戶分配率(未整合計算總比例)陣列
+        var Client_Month_self_proportion = new Array();
+        for (set2 = 0; set2 <= 100; set2++)
+        {
+            Client_Month_self_proportion[set2] = new Array();
+        }
+        //宣告儲存客戶工時分配率(未整合計算總比例)陣列
+        var Client_Month_WorkTime_proportion = new Array();
+        for (set4 = 0; set4 <= 100; set4++) {
+            Client_Month_WorkTime_proportion[set4] = new Array();
+        }
+        //宣告儲存客戶工時分配率(未整合計算總比例)陣列
+        var Client_Month_income_proportion = new Array();
+        for (set6 = 0; set6 <= 100; set6++) {
+            Client_Month_income_proportion[set6] = new Array();
+        }
+        //宣告佔存客戶分配率的計算過程;
+        var Client_Month_proportion_memory;
+        //宣告佔存客戶工時分配率的計算過程;
+        var Client_Month_WorkTime_proportion_memory;
+        //宣告佔存客戶營收分配率的計算過程;
+        var Client_Month_income_proportion_memory;
+        //宣告儲存客戶分配率(已計算完總比例)陣列
+        var Client_Month_proportion = new Array();
+        //宣告儲存客戶分配率和和營收分配率(已計算完的工時總比例)陣列
+        var Client_Month_WorkTime_and_income_proportion = new Array();
+        for (set5 = 0; set5 <= 100; set5++) {
+            Client_Month_WorkTime_and_income_proportion[set5] = new Array();
+        }
+        var test = [];
+        //儲存圖表要顯示的data
+        var Chart_data = [];
+
+        //儲存隨機顏色
+        var bgColorlist = [];
+        //宣告取得年月的參數
+        var Now_Year_Month;
+        //宣告只取得月的參數
+        var Now_Month;
+        //取得現在年月份
+        Now_Year_Month = @DateTime.Now.ToString("yyyyMM");
+         //Now_Year_Month = "202107";
+        Now_Month = @DateTime.Now.ToString("MM");
+        //Now_Month="07";
+        //宣告使用者指定月份塞資料進的圖表
+        var myLineChart2;
+        //宣告工單圖表
+        var myBarChart;
+        //宣告預估銷售總額與機種配比圖表
+        var myBarChart_output_count_and_machine_rate;
+        //宣告機種圓餅圖圖表
+        var myPieChart;
+        //宣告廠商圓餅圖圖表
+        var myPieChart2;
+        //宣告預估各機種該月到今日總銷售額圓餅圖圖表
+        var myPieChart_output_count;
+        //宣告預估各機種該月總銷售額圓餅圖圖表
+        var myPieChart_output_All_count;
+        //宣告儲存商品出貨價格
+        var Product_sale_price = new Array();
+        //宣告儲存商品出貨價格對應的名稱，方便後續查找配對
+        var Product_sale_Name = new Array();
+        //圓餅圖1 ID
+        var ctx_Pie1;
+        //圓餅圖2 ID
+        var ctx_Pie2;
+        //圓餅圖3 ID
+        var ctx_Pie3;
+        // 預估各機種該月到今日總銷售額圓餅圖 ID
+        var ctx_Pie_date_Price;
+        // 預估各機種該月總銷售額圓餅圖 ID
+        var ctx_Pie_All_Price;
+        //尋找相同位置
+        var Same_object_serach;
+        //尋找相同廠商陣列位置
+        var Same_object_serach2;
+        //計算ERP_sale函式有沒有運行過(0:沒有,1:有)
+        var process_ERP_sale = 0;
+        //計算ERP_sale_all_month函式有沒有運行過(0:沒有,1:有)
+        var process_ERP_sale2 = 0;
+        //計算Customer_WorkTime_income_rate()函式有沒有運行過(0:沒有,1:有)
+        var process_ERP_sale3 = 0;
+        //儲存現在已取得銷售價格
+        var sale_price_count = 0;
+        //宣告儲存每個機種這個月到今日的銷售價格總和
+        var Product_Month_sale_price_date_sum = new Array();
+        //宣告儲存每個機種的該月銷售價格
+        var Product_Month_sale_price_All_sum = new Array();
+        //宣告計算該月~今日機種預計出貨的價格總和
+        var Product_Month_date_output_Price = 0;
+        //宣告計算該月全部機種預計出貨的價格總和
+        var Product_Month_all_output_Price = 0;
+        //宣告儲存機種該月銷售金額比例的陣列
+        var Product_Month_Sale_Price_proportion = new Array();
+        //宣告儲存機種該月銷售金額比例的原總價錢陣列
+        var Product_Month_Sale_Price_proportion_Org_Price = new Array();
+
+        //宣告儲存機種該月~今日銷售金額比例的陣列
+        var Product_Month_Date_Sale_Price_proportion = new Array();
+        //宣告儲存機種該月~今日銷售金額比例的原總價錢陣列
+        var Product_Month_Date_Sale_Price_proportion_Org_Price = new Array();
+        //宣告占存接收 預估各機種該月到今日總銷售額的比例，為了給Get_Org_Price函式使用
+        var value_price;
+        var Error_time = true;
+        //資料庫現有產品List及相關參數
+        $.getJSON("./Get_vw_ProductList_data_List", null, function (data) {
+            //啟動遮罩
+            ShowProgressBar();
+            //循環加入資料庫現有資料至各個獨立陣列中
+            $.each(data, function (i, itemvalue) {
+                //debug用
+                //儲存廠商名稱
+                Client_Name_Product[i] = itemvalue.Key;
+                //取得資料庫的vw_ProductList資料表ERP_Part_No值
+                Split_str_count = (itemvalue.Value).indexOf("~");
+                ERP_Part_No_Product[i] = itemvalue.Value.slice(0, Split_str_count - 1);
+                ////去除最後一個空格 \s代表空格(轉譯) *表示一个或多个空白字符 $代表結束字元
+                //Product_Name_Show[i] = Product_Name_Show[i].replace(/\s*$/, "");
+
+                //取得資料庫的vw_ProductList資料表Product_Name值
+                Split_str_count_1 = (itemvalue.Value).indexOf("!");
+                Product_Name_Product[i] = itemvalue.Value.slice(Split_str_count + 1, Split_str_count_1 - 1);
+                ////去除最後一個空格 \s代表空格(轉譯) *表示一个或多个空白字符 $代表結束字元
+                //ERP_Part_No_Show[i] = ERP_Part_No_Show[i].replace(/\s*$/, "");
+
+                //取得資料庫的vw_ProductList資料表ASSEMBLY_TIME值
+                Split_str_count_2 = (itemvalue.Value).indexOf("$");
+                //得到年月日
+                ASSEMBLY_TIME_Product[i] = itemvalue.Value.slice(Split_str_count_1 + 1, Split_str_count_2 - 1);
+
+                //取得資料庫的vw_ProductList資料表ASSEMBLY_COUNT值
+                Split_str_count_4 = (itemvalue.Value).indexOf("#");
+                ASSEMBLY_COUNT_Product[i] = itemvalue.Value.slice(Split_str_count_2 + 1, Split_str_count_4 - 1);
+
+                //取得資料庫的vw_ProductList資料表Product_Name值
+                Product_ID_Product[i] = itemvalue.Value.slice(Split_str_count_4 + 1);
+            });
+        });
+        //向Controller後端要當前年月份的資料
+        $.getJSON("./GetYeatMonthProductList?Year_Month=" + Now_Year_Month, null, function (data) {
+
+            //循環加入資料庫現有資料至各個獨立陣列中
+            $.each(data, function (i, itemvalue) {
+                //debug用
+
+                //取得資料庫Product_Name
+                Split_str_count = (itemvalue.Value).indexOf("~");
+                Product_Name_Show[i] = itemvalue.Value.slice(0, Split_str_count - 1);
+                ////去除最後一個空格 \s代表空格(轉譯) *表示一个或多个空白字符 $代表結束字元
+                //Product_Name_Show[i] = Product_Name_Show[i].replace(/\s*$/, "");
+
+                //取得資料庫ERP_Part_No
+                Split_str_count_1 = (itemvalue.Value).indexOf("!");
+                ERP_Part_No_Show[i] = itemvalue.Value.slice(Split_str_count + 1, Split_str_count_1 - 1);
+                ////去除最後一個空格 \s代表空格(轉譯) *表示一个或多个空白字符 $代表結束字元
+                //ERP_Part_No_Show[i] = ERP_Part_No_Show[i].replace(/\s*$/, "");
+
+                //取得資料庫Date，並且只針對日來做取出動作
+                Split_str_count_2 = (itemvalue.Value).indexOf("$");
+                //得到年月日後運算該(-)分割符號位置
+                Split_str_count_3 = (itemvalue.Value.slice(Split_str_count_1 + 1, Split_str_count_2)).indexOf("-");
+                //取得年月日後在透過上方運算的分割符號位置取得日
+                Date_Show[i] = (itemvalue.Value.slice(Split_str_count_1 + 1, Split_str_count_2 - 1)).slice(Split_str_count_3 + 4);
+                //若都不等於10 20 30日期時替換掉0為空字串，為了表格id取名
+                if (Date_Show[i] != "10" && Date_Show[i] != "20" && Date_Show[i] != "30") {
+                    Date_Show[i] = Date_Show[i].replace("0", "");
+                }
+                //取得資料庫ERP_Part_No
+                Split_str_count_4 = (itemvalue.Value).indexOf("#");
+                Quantity_Show[i] = itemvalue.Value.slice(Split_str_count_2 + 1, Split_str_count_4 - 1);
+
+                Split_str_count_5 = (itemvalue.Value).indexOf("&");
+                //取得資料庫Product對應的Product_ID
+                Product_ID_Show[i] = itemvalue.Value.slice(Split_str_count_4 + 1, Split_str_count_5 - 1);
+
+                Split_str_count_6 = (itemvalue.Value).indexOf("%");
+                //取得資料庫Product對應的Vision
+                Vision_Show[i] = itemvalue.Value.slice(Split_str_count_5 + 1, Split_str_count_6 - 1);
+
+                Split_str_count_7 = (itemvalue.Value).indexOf("/");
+                //取得資料庫Product對應的ASSEMBLY_COUNT_Show
+                ASSEMBLY_COUNT_Show[i] = itemvalue.Value.slice(Split_str_count_6 + 1, Split_str_count_7 - 1);
+
+                //取得資料庫Product對應的Production_schedule_ID_Show
+                Production_schedule_ID_Show[i] = itemvalue.Value.slice(Split_str_count_7 + 1);
+                //讓程式知道有幾筆資料
+                total_have_data_count = i;
+                //此變數改成"have"可以讓下面程式判斷資料庫有該月份的資料存在
+                Have_item = "have";
+            });
+            //整理資料，將相同的資料擺在同一陣列上
+            for (var add_i = 0; add_i < Product_Name_Show.length; add_i++) {
+                Same_object_serach = Product_Name_Show.indexOf(Product_Name_Show[add_i]);
+                //若找到相同的就插入該筆陣列裡面
+                if (Same_object_serach < add_i) {
+                    //中間沒有資料的陣列補0
+                    for (; ;) {
+                        if (Quantity_NoSame[Same_object_serach].length < Date_Show[add_i] - 1) {
+                            //Product_Name_NoSame[Same_object_serach].push(0);
+                            //ERP_Part_No_NoSame[Same_object_serach].push(0);
+                            Date_NoSame[Same_object_serach].push(0);
+                            Quantity_NoSame[Same_object_serach].push(0);
+                            Product_ID_NoSame[Same_object_serach].push(0);
+                            Vision_NoSame[Same_object_serach].push(0);
+                            ASSEMBLY_COUNT_NoSame[Same_object_serach].push(0);
+                            Production_schedule_ID_NoSame[Same_object_serach].push(0);
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                    //Product_Name_NoSame[Same_object_serach].push(Product_Name_Show[add_i]);
+                    //ERP_Part_No_NoSame[Same_object_serach].push(ERP_Part_No_Show[add_i]);
+                    Date_NoSame[Same_object_serach].push(Date_Show[add_i]);
+                    Quantity_NoSame[Same_object_serach].push(Quantity_Show[add_i]);
+                    Product_ID_NoSame[Same_object_serach].push(Product_ID_Show[add_i]);
+                    Vision_NoSame[Same_object_serach].push(Vision_Show[add_i]);
+                    ASSEMBLY_COUNT_NoSame[Same_object_serach].push(ASSEMBLY_COUNT_Show[add_i]);
+                    Production_schedule_ID_NoSame[Same_object_serach].push(Production_schedule_ID_Show[add_i]);
+                }
+                //若沒有找到相同的就新建陣列
+                else {
+                    //中間沒有資料的陣列補0
+                    for (; ;) {
+                        if (Quantity_NoSame[Same_object_serach].length < Date_Show[add_i] - 1) {
+                            //Product_Name_NoSame[Same_object_serach].push(0);
+                            //ERP_Part_No_NoSame[Same_object_serach].push(0);
+                            Date_NoSame[Same_object_serach].push(0);
+                            Quantity_NoSame[Same_object_serach].push(0);
+                            Product_ID_NoSame[Same_object_serach].push(0);
+                            Vision_NoSame[Same_object_serach].push(0);
+                            ASSEMBLY_COUNT_NoSame[Same_object_serach].push(0);
+                            Production_schedule_ID_NoSame[Same_object_serach].push(0);
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                    Product_Name_NoSame[add_i].push(Product_Name_Show[add_i]);
+                    ERP_Part_No_NoSame[add_i].push(ERP_Part_No_Show[add_i]);
+                    Date_NoSame[add_i].push(Date_Show[add_i]);
+                    Quantity_NoSame[add_i].push(Quantity_Show[add_i]);
+                    Product_ID_NoSame[add_i].push(Product_ID_Show[add_i]);
+                    Vision_NoSame[add_i].push(Vision_Show[add_i]);
+                    ASSEMBLY_COUNT_NoSame[add_i].push(ASSEMBLY_COUNT_Show[add_i]);
+                    Production_schedule_ID_NoSame[add_i].push(Production_schedule_ID_Show[add_i]);
+                }
+            }
+            //向伺服器的Webservice取得商品價格
+            for (Month_ERP_Part_Price_No_count = 0; Month_ERP_Part_Price_No_count < ERP_Part_No_NoSame.length; Month_ERP_Part_Price_No_count++)
+            {
+                //如果該筆陣列沒有存在值就跳過
+                if (ERP_Part_No_NoSame[Month_ERP_Part_Price_No_count] == "") {
+                    continue;
+                }
+                else {
+                    //async和await 是讓程式可以照順序的往下執行，跟非同步和同步的知識有關
+                    (async function () {
+                        
+                        await $.getJSON("./Get_Product_output_price", { YearMonth_price: Now_Year_Month, Erp_Name: String(ERP_Part_No_NoSame[Month_ERP_Part_Price_No_count]), Product_name: String(Product_Name_NoSame[Month_ERP_Part_Price_No_count]) }, function (data) {
+                            (async function () {
+                                await $.each(data, function (i, itemvalue) {
+                                    //若超過從後端抓取資料的秒數
+                                    if ((itemvalue.Value == "Error" || itemvalue.Key == "Error") && Error_time) {
+                                        // When site loaded, load the Popupbox First
+                                        HideProgressBar();
+                                        Error_time = false;
+                                        loadPopupBox();
+                                        
+                                        $('#popupBoxClose').click(function () {
+                                            unloadPopupBox();
+                                            Close_Error_meg();
+                                        });
+
+                                        $('#container').click(function () {
+                                            unloadPopupBox();
+                                        });
+
+                                    }
+                                    else
+                                    {
+                                        Product_sale_price.push(itemvalue.Value);
+                                        Product_sale_Name.push(itemvalue.Key);
+                                        sleep(400);
+                                    }
+                                });
+
+                            })();
+
+                        });
+
+
+                        //避免 ERP_sale()函式執行超過1次 因此下此判斷式擋掉，第一次省略(因為Json關係，第二次才有資料)
+                        if (process_ERP_sale != 1 && process_ERP_sale != undefined) {
+                            process_ERP_sale++;
+                        }
+                        else {
+                            //畫 預估該月到今日銷售總額與機種配比的圖
+                            // ERP_sale();
+                        }
+                        //避免 ERP_sale_all_month()函式執行超過1次 因此下此判斷式擋掉，第一次省略(因為Json關係，第二次才有資料)
+                        if (process_ERP_sale2 != 1 && process_ERP_sale2 != undefined) {
+                            process_ERP_sale2++;
+                        }
+                        else {
+
+                            ERP_sale_all_month();
+                        }
+                        //避免 Customer_WorkTime_income_rate()函式執行超過1次 因此下此判斷式擋掉，第一次省略(因為Json關係，第二次才有資料)
+                        if (process_ERP_sale3 != 1 && process_ERP_sale3 != undefined) {
+                            process_ERP_sale3++;
+                        }
+                        else {
+
+                            Customer_WorkTime_income_rate();
+                        }
+
+
+                    })();
+
+                }
+            }
+            var d = new Date(@DateTime.Now.ToString("yyyy"), Now_Month, 0)
+            var n = d.getDate();
+            //儲存使用者選擇的月份總天數轉字串
+            var alldate = [];
+            /*依照天數增加後面的月份*/
+            for (i = 1; i <= n; i++) {
+                //把日期加入陣列
+                alldate.push(Now_Month + "/" + i);
+            }
+
+            //#region 加入線表圖日期及相關設定
+            //***********************************************加入線表圖日期及相關設定****************************************************
+            var ctx = document.getElementById("myAreaChart");
+
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: alldate,
+
+                    datasets: [],
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'date'
+                            },
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                //maxTicksLimit能夠平均分配數值
+                                //maxTicksLimit: 10
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                max: 1000,
+                                maxTicksLimit: 5
+                            },
+                            gridLines: {
+                                //color: "rgba(0, 0, 0, .125)",
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: '數量(個)',
+                            }
+                        }],
+                    },
+                    //讓圖表上方加入線條提示
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+
+                }
+            });
+            //讓每筆資料都可以插入到圖表裡
+            for (var chioce_data = 0; chioce_data < Quantity_NoSame.length; chioce_data++) {
+                //如果該筆陣列沒有存在值就跳過
+                if (Product_Name_NoSame[chioce_data] == "")
+                    continue;
+                var color_chart = rgba_random(0.5);
+                //加入現有資料
+                const newDataset = {
+                    //標籤名稱
+                    label: Product_Name_NoSame[chioce_data],
+                    lineTension: 0.3,
+                    //背景顏色
+                    backgroundColor: "rgba(0,0,0,0)",
+                    borderColor: color_chart,
+                    pointRadius: 5,
+                    pointBackgroundColor: color_chart,
+                    pointBorderColor: color_chart,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: color_chart,
+                    pointHitRadius: 50,
+                    pointBorderWidth: 2,
+                    data: Quantity_NoSame[chioce_data],
+
+                };
+                myLineChart.data.datasets.push(newDataset);
+                myLineChart.update();
+            }
+            //#endregion
+            //#region 預估各機種該月到今日總銷售額圓餅圖圖表和該相關設定
+            function ERP_sale() {
+
+
+                Product_Month_date_output_Price = 0;
+                Product_Month_sale_price_date_sum.length = 0;
+                //讓設計者知道此函式以運行過，避免再次此函式執行
+                process_ERP_sale++;
+
+                //***************************************預估各機種該月到今日總銷售額圓餅圖圖表和該相關設定**********************************************
+
+                //計算單一機種該月預計產出總數和該機種佔該月製作產品的總量為多少
+                for (Month_Product_count = 0; Month_Product_count < Product_Name_NoSame.length; Month_Product_count++) {
+                    Product_Month_output_count = 0;
+                    //如果該筆陣列沒有存在值就跳過
+                    if (Product_Name_NoSame[Month_Product_count] == "") {
+                        continue;
+                    }
+                    //有的話計算該筆機種的該月預計產出總和
+                    else {
+
+                        //儲存該月機種名稱到一個陣列裡面
+                        Product_Sale_Price_Month_Part_Date_Name.push(Product_Name_NoSame[Month_Product_count]);
+                        //計算單機機種該月預計出貨總數量
+                        for (date_count = 0; date_count < Quantity_NoSame[Month_Product_count].length; date_count++) {
+                            //只計算這個月到今日的出貨總售價
+                            if (date_count > @DateTime.Now.ToString("dd")-1) {
+                                continue;
+                            }
+                            Product_Month_output_count += parseInt(Quantity_NoSame[Month_Product_count][date_count]);
+
+                        }
+
+                        //取出該產品對應的價格
+                        for (var Product_Name_coumt = 0; Product_Name_coumt < Product_sale_Name.length; Product_Name_coumt++) {
+                            if (Product_Name_NoSame[Month_Product_count] == Product_sale_Name[Product_Name_coumt]) {
+                                sale_price_count = Product_sale_price[Product_Name_coumt];
+                                break;
+                            }
+                        }
+
+                        //計算該機種這個月到今日總售價為多少
+                        Product_Month_output_count = parseInt(Product_Month_output_count) * parseInt(sale_price_count);
+                        //存取全部機種這個月到今日售價的總和
+                        Product_Month_date_output_Price += parseInt(Product_Month_output_count);
+                        //儲存單一機種的這個月到今日總售價(用陣列存取)
+                        Product_Month_sale_price_date_sum.push(Product_Month_output_count);
+
+
+
+
+                    }
+                }
+                Product_Month_Date_Sale_Price_proportion_Org_Price.length = 0;
+                Product_Month_Date_Sale_Price_proportion.length = 0;
+
+                //運算單一機種該月銷售比例
+                for (var proportion_count = 0; proportion_count < Product_Sale_Price_Month_Part_Date_Name.length; proportion_count++) {
+                    Product_Month_output_count = (parseFloat((Product_Month_sale_price_date_sum[proportion_count] / Product_Month_date_output_Price) * 100)).toFixed(2);
+
+                    //儲存銷售額比例
+                    Product_Month_Date_Sale_Price_proportion.push(Product_Month_output_count);
+                    //儲存此銷售額比例的原價錢
+                    Product_Month_Date_Sale_Price_proportion_Org_Price.push(toCurrency(Product_Month_sale_price_date_sum[proportion_count]));
+
+                }
+                @*ctx_Pie_date_Price = document.getElementById("myPieChart_output_count").getContext('2d');;
+                var myPieChart_output_count = new Chart(ctx_Pie_date_Price, {
+                    type: 'pie',
+                    data: {
+                        labels: Product_Sale_Price_Month_Part_Date_Name,
+                        datasets: [{
+                            backgroundColor: Product_Pie_color,
+                            data: Product_Month_Date_Sale_Price_proportion
+                        }]
+                    },
+                    options:
+                    {
+                        //設定圖表為響應式
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: '預估各機種' +@DateTime.Now.ToString("MM")+'月到今日總銷售額(NT$' + toCurrency(Product_Month_date_output_Price)+')',
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 15
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        //控制標題
+                        tooltips: {
+                            enabled: true
+                        },
+                        //控制圓餅外環的字
+                        pieceLabel: {
+                            mode: 'value',
+                            position: 'outside',
+                            outsidePadding: 40,
+                            textMargin: 40,
+                            fontSize: 14,
+                            fontColor: '#000',
+                            segment: true,
+                            format: function (value) {
+
+                                Org_Price = Get_Org_Price(1,value);
+                                return 'NT$ '+Org_Price+ " ("+value + "%"+")";
+                            }
+                        },
+
+                    }
+                });*@
+            }
+            //#endregion
+            //#region  預估銷售總額與機種工時配比(%)圖表和該相關設定
+            function ERP_sale_all_month() {
+
+
+                Product_Month_all_output_Price = 0;
+                Product_Month_sale_price_All_sum.length = 0;
+                //讓設計者知道此函式以運行過，避免再次此函式執行
+                process_ERP_sale2++;
+
+                //***************************************預估各機種該月到今日總銷售額圓餅圖圖表和該相關設定**********************************************
+
+                //計算單一機種該月預計產出總數和該機種佔該月製作產品的總量為多少
+                for (Month_Product_count = 0; Month_Product_count < Product_Name_NoSame.length; Month_Product_count++) {
+                    Product_Month_output_count = 0;
+                    //如果該筆陣列沒有存在值就跳過
+                    if (Product_Name_NoSame[Month_Product_count] == "") {
+                        continue;
+                    }
+                    //有的話計算該筆機種的該月預計產出總和
+                    else {
+
+                        //儲存該月機種名稱到一個陣列裡面
+                        Product_Sale_Price_Month_All_Date_Name.push(Product_Name_NoSame[Month_Product_count]);
+                        //計算單機機種該月預計出貨總數量
+                        for (date_count = 0; date_count < Quantity_NoSame[Month_Product_count].length; date_count++) {
+
+                            Product_Month_output_count += parseInt(Quantity_NoSame[Month_Product_count][date_count]);
+
+                        }
+                        //計算每個機種需要的工時
+                        for (var object_count = 0; object_count < Product_Name_Product.length; object_count++) {
+                            //取出對應的 每個Pc需做幾小時(Pc/hr)
+                            if (Product_Name_Product[object_count] == Product_Name_NoSame[Month_Product_count]) {
+                                Month_Product_alone_total_Work_time = (parseFloat(ASSEMBLY_TIME_Product[object_count]) * parseFloat(Product_Month_output_count)).toFixed(2);
+
+                                break;
+                            }
+                            else {
+                                Month_Product_alone_total_Work_time = 0;
+                            }
+                        }
+                        //取出該產品對應的價格
+                        for (var Product_Name_coumt = 0; Product_Name_coumt < Product_sale_Name.length; Product_Name_coumt++) {
+                            if (Product_Name_NoSame[Month_Product_count] == Product_sale_Name[Product_Name_coumt]) {
+                                sale_price_count = Product_sale_price[Product_Name_coumt];
+                                break;
+                            }
+                            else {
+                                sale_price_count = 0;
+                            }
+                        }
+                        //儲存該月單一機種的工時時數
+                        Product_Month_total_Work_time.push(Month_Product_alone_total_Work_time);
+                        //儲存該月全部機種總工時時數
+                        Month_All_Product_total_Work_time += parseFloat(Month_Product_alone_total_Work_time);
+                        //計算該機種總售價為多少
+                        Product_Month_output_count = parseInt(Product_Month_output_count) * parseInt(sale_price_count);
+                        //存取全部機種售價的總和
+                        Product_Month_all_output_Price += parseInt(Product_Month_output_count);
+                        //儲存單一機種的售價(用陣列存取)
+                        Product_Month_sale_price_All_sum.push(Product_Month_output_count);
+                    }
+                }
+                Product_Month_Sale_Price_proportion_Org_Price.length = 0;
+                Product_Month_Sale_Price_proportion.length = 0;
+                //運算單一機種該月工時時數比例
+                for (var proportion_count_2 = 0; proportion_count_2 < Product_Month_total_Work_time.length; proportion_count_2++) {
+                    Month_Product_alone_total_Work_time = (parseFloat((Product_Month_total_Work_time[proportion_count_2] / Month_All_Product_total_Work_time) * 100)).toFixed(2);
+
+                    //儲存工時時數比例
+                    Product_Month_total_Work_time_proportion.push(Month_Product_alone_total_Work_time);
+
+
+                }
+                //運算單一機種該月銷售比例
+                for (var proportion_count = 0; proportion_count < Product_Sale_Price_Month_All_Date_Name.length; proportion_count++) {
+                    Product_Month_output_count = (parseFloat((Product_Month_sale_price_All_sum[proportion_count] / Product_Month_all_output_Price) * 100)).toFixed(2);
+
+                    //儲存銷售額比例
+                    Product_Month_Sale_Price_proportion.push(Product_Month_output_count);
+                    //儲存此銷售額比例的原價錢
+                    Product_Month_Sale_Price_proportion_Org_Price.push(toCurrency(Product_Month_sale_price_All_sum[proportion_count]));
+                    //儲存顏色
+
+                }
+                //**************************************加入Bar條狀預估銷售總額與機種配比圖表*************************************************
+                var ctx_output_count_and_machine_rate = document.getElementById("myBarChart_output_count_and_machine_rate");
+                myBarChart_output_count_and_machine_rate = new Chart(ctx_output_count_and_machine_rate, {
+                    type: 'bar',
+                    data: {
+                        labels: Product_Sale_Price_Month_All_Date_Name,
+                        datasets: [],
+                    },
+                    options: {
+                        hover: {
+                            animationDuration: 0
+                        },
+                        scales: {
+                            xAxes: [{
+                                time: {
+                                    unit: 'month'
+                                },
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    maxTicksLimit: 60
+
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    min: 0,
+                                    max: 100,
+                                    maxTicksLimit: 5
+                                },
+                                gridLines: {
+                                    display: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: '比例(%)',
+                                }
+                            },
+                            {
+                                id: 'another_Liner',
+                                type: 'linear',
+                                ticks: {
+                                    min: 0,
+                                    max: 2,
+                                    maxTicksLimit: 11,
+                                },
+                                gridLines: {
+                                    display: false
+                                },
+                                display: false,
+
+                            }
+                            ],
+                        },
+                        //讓圖表上方加入線條提示
+                        plugins: {
+                            legend: {
+                                position: 'top',
+
+                            },
+
+                        },
+                        legend: {
+                            labels: {
+                                usePointStyle: true,
+                            },
+                        },
+                        //控制圖表在Loading時的動畫
+                        animation: {
+                            duration: 0,
+                            onComplete: function () {
+                                var chartInstance = this.chart,
+                                    ctx = chartInstance.ctx;
+
+                                ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                                ctx.fillStyle = "black";
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'bottom';
+
+                                this.data.datasets.forEach(function (dataset, i) {
+                                    var meta = chartInstance.controller.getDatasetMeta(i);
+                                    meta.data.forEach(function (bar, index) {
+                                        var data = dataset.data[index];
+                                        ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                                    });
+                                });
+                            }
+
+                        }
+                    }
+                });
+                //初始化二維陣列
+                ChartBar_output_count_and_machine_rate = [];
+                //
+                for (set1 = 0; set1 <= 100; set1++) {
+                    ChartBar_output_count_and_machine_rate[set1] = new Array();
+                }
+
+                //將預估各機種該月總銷售額和 各機種 06月工時分配率的結果值存入二微陣列中
+                for (var date_count = 0; date_count < 2; date_count++) {
+                    if (date_count == 0) {
+                        //把預估各機種該月總銷售額的陣列值都加到二微陣列中
+                        for (var array_count = 0; array_count < Product_Month_Sale_Price_proportion.length; array_count++) {
+                            ChartBar_output_count_and_machine_rate[date_count].push(Product_Month_Sale_Price_proportion[array_count]);
+                        }
+
+                    }
+                    //不用else是怕會有錯
+                    else if (date_count == 1) {
+                        //把 各機種該月工時分配率的陣列值都加到二微陣列中
+                        for (var array_count_2 = 0; array_count_2 < Product_Month_total_Work_time_proportion.length; array_count_2++) {
+
+                            ChartBar_output_count_and_machine_rate[date_count].push(Product_Month_total_Work_time_proportion[array_count_2]);
+                        }
+                    }
+
+                }
+                //設定標籤名稱
+                Chart_Bar_output_count_and_machine_rate_mark[0] = "預估各機種該月總銷售額比例";
+                Chart_Bar_output_count_and_machine_rate_mark[1] = " 各機種該月總工時分配率";
+                Chart_Bar_output_count_and_machine_rate_mark[2] = "銷售額與工時比值"
+                //讓資料都可以插入到圖表裡
+                for (var chioce_data_Bar = 0; chioce_data_Bar < 2; chioce_data_Bar++) {
+                    if (ChartBar_output_count_and_machine_rate[chioce_data_Bar] == "")
+                        continue;
+                    var color_chart = rgba_random(0.5);
+                    //加入現有資料
+                    const newBarDataset_output_count_and_machine_rate = {
+                        //標籤名稱
+                        label: Chart_Bar_output_count_and_machine_rate_mark[chioce_data_Bar],
+                        //Chart_Work_order_color[chioce_data]
+                        backgroundColor: color_chart,
+                        borderColor: color_chart,
+                        data: ChartBar_output_count_and_machine_rate[chioce_data_Bar],
+                        //線條種類
+                        pointStyle: 'rect',
+                    };
+                    //若不想顯示目標效率的值就把下方chioce_data改為0，並把上方插入圖表的程式碼區塊碼掉
+                    myBarChart_output_count_and_machine_rate.data.datasets.push(newBarDataset_output_count_and_machine_rate);
+                    myBarChart_output_count_and_machine_rate.update();
+                }
+                //計算機種銷售額和工時的比例(相除)
+                for (var math_Price_Worktime = 0; math_Price_Worktime < Product_Month_Sale_Price_proportion.length; math_Price_Worktime++) {
+                    //儲存相除結果
+                    Math_ChartBar_output_count_and_machine_rate.push((parseFloat(Product_Month_Sale_Price_proportion[math_Price_Worktime]) / parseFloat(Product_Month_total_Work_time_proportion[math_Price_Worktime])).toFixed(2));
+
+                }
+                //********************************************************加入折線圖的資料*********************************************
+                var color_chart = rgba_random(0.5);
+                //加入現有資料
+                const newBarDataset_output_count_and_machine_rate = {
+                    type: 'line',
+                    //標籤名稱
+                    label: Chart_Bar_output_count_and_machine_rate_mark[2],
+                    //Chart_Work_order_color[chioce_data]
+                    backgroundColor: color_chart,
+                    borderColor: color_chart,
+                    data: Math_ChartBar_output_count_and_machine_rate,
+                    //指定Y軸ID，這樣可以使用圖表已設定好的Y軸比例
+                    yAxisID: 'another_Liner',
+                    //線條背景色
+                    backgroundColor: "rgba(0,0,0,0)",
+                    //線寬
+                    borderWidth: 4.5,
+                    //線條種類
+                    pointStyle: 'line',
+                    //张力，0为没曲线  成为直线
+                    tension: 0,
+
+                };
+                //若不想顯示目標效率的值就把下方chioce_data改為0，並把上方插入圖表的程式碼區塊碼掉
+                myBarChart_output_count_and_machine_rate.data.datasets.push(newBarDataset_output_count_and_machine_rate);
+                myBarChart_output_count_and_machine_rate.update();
+
+                //#region   預估該月銷售總額與機種配比圖表和該相關設定
+                //***************************************************加入總銷售額圖表********************************************************
+                ctx_Pie_All_Price = document.getElementById("myPieChart_output_All_count").getContext('2d');;
+                var myPieChart_output_All_count = new Chart(ctx_Pie_All_Price, {
+                    type: 'pie',
+                    data: {
+                        labels: Product_Sale_Price_Month_All_Date_Name,
+                        datasets: [{
+                            backgroundColor: Product_Pie_color,
+                            data: Product_Month_Sale_Price_proportion
+                        }]
+                    },
+                    options:
+                    {
+                        //設定圖表為響應式
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: '預估各機種' +@DateTime.Now.ToString("MM")+'月總銷售額(NT$' + toCurrency(Product_Month_all_output_Price) + ')',
+                            position: 'top',
+                            fontSize: 16,
+                            fontColor: '#111',
+                            padding: 15
+                        },
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 20,
+                                fontColor: '#111',
+                                padding: 15
+                            }
+                        },
+                        //控制標題
+                        tooltips: {
+                            enabled: true
+                        },
+                        //控制圓餅外環的字
+                        pieceLabel: {
+                            mode: 'value',
+                            position: 'outside',
+                            outsidePadding: 40,
+                            textMargin: 40,
+                            fontSize: 14,
+                            fontColor: '#000',
+                            segment: true,
+                            format: function (value) {
+
+                                Org_Price = Get_Org_Price(2, value);
+                                return 'NT$ ' + Org_Price + " (" + value + "%" + ")";
+                            }
+                        },
+
+                    }
+                });
+                //#endregion
+                HideProgressBar();
+            }
+
+            //#endregion
+            //#region 客戶的工時與營收貢獻比(%) 圖表和該相關設定
+            function Customer_WorkTime_income_rate()
+            {
+
+
+                //讓設計者知道此函式以運行過，避免再次此函式執行
+                process_ERP_sale3++;
+                //計算各客戶的工時月分配率和營收分配率
+                for (var Customer_Worktime_count = 0; Customer_Worktime_count < Product_Sale_Price_Month_All_Date_Name.length; Customer_Worktime_count++) {
+                    //判斷該機種是哪家客戶的
+                    for (var Client_Name = 0; Client_Name < Product_Name_Product.length; Client_Name++) {
+                        //找到對應客戶後
+                        if (Product_Sale_Price_Month_All_Date_Name[Customer_Worktime_count] == Product_Name_Product[Client_Name]) {
+                            //尋找Client_Month_Name_Only陣列裡面是否有存在該客戶，沒有就創建
+                            Same_object_serach2 = Client_Month_Name_Only.indexOf(Client_Name_Product[Client_Name]);
+                            //Same_object_serach2==-1代表找不到，要創建
+                            if (Same_object_serach2 == -1) {
+                                Client_Month_Name_Only.push(Client_Name_Product[Client_Name]);
+                                //在剛才新的ROW的地方加入時間比例值
+                                Client_Month_WorkTime_proportion[Client_Month_Name_Only.length - 1].push(Product_Month_total_Work_time_proportion[Customer_Worktime_count]);
+                                //在剛才新的ROW的地方加入營收比例值
+                                Client_Month_income_proportion[Client_Month_Name_Only.length - 1].push(Product_Month_Sale_Price_proportion[Customer_Worktime_count]);
+                            }
+                            //有的話在相同Same_object_serach2位置加入時間、營收比例值
+                            else {
+                                Client_Month_WorkTime_proportion[Same_object_serach2].push(Product_Month_total_Work_time_proportion[Customer_Worktime_count]);
+                                Client_Month_income_proportion[Same_object_serach2].push(Product_Month_Sale_Price_proportion[Customer_Worktime_count]);
+                            }
+                        }
+                    }
+                }
+                //開始計算、儲存客戶工時分配比例
+                for (var Proportion_count = 0; Proportion_count < Client_Month_WorkTime_proportion.length; Proportion_count++) {
+                    Client_Month_WorkTime_proportion_memory = 0;
+                    //沒資料就跳過
+                    if (Client_Month_WorkTime_proportion[Proportion_count] == "")
+                        continue;
+                    //計算單行陣列裡面的總total值(二維陣列可以這樣算)
+                    for (var Proportion_count2 = 0; Proportion_count2 < Client_Month_WorkTime_proportion[Proportion_count].length; Proportion_count2++) {
+
+                        Client_Month_WorkTime_proportion_memory += parseFloat(Client_Month_WorkTime_proportion[Proportion_count][Proportion_count2]);
+                    }
+                    //先轉換成float才可以進行小數點計算
+                    Client_Month_WorkTime_proportion_memory = parseFloat(Client_Month_WorkTime_proportion_memory).toFixed(2);
+                    // Client_Month_WorkTime_and_income_proportion的陣列 0=工時分配率，1=營收分配率
+                    Client_Month_WorkTime_and_income_proportion[0].push(Client_Month_WorkTime_proportion_memory);
+                }
+                //開始計算、儲存客戶營收分配比例
+                for (var Proportion_count = 0; Proportion_count < Client_Month_income_proportion.length; Proportion_count++) {
+                    Client_Month_income_proportion_memory = 0;
+                    //沒資料就跳過
+                    if (Client_Month_income_proportion[Proportion_count] == "")
+                        continue;
+                    //計算單行陣列裡面的總total值(二維陣列可以這樣算)
+                    for (var Proportion_count2 = 0; Proportion_count2 < Client_Month_income_proportion[Proportion_count].length; Proportion_count2++) {
+
+                        Client_Month_income_proportion_memory += parseFloat(Client_Month_income_proportion[Proportion_count][Proportion_count2]);
+                    }
+                    //先轉換成float才可以進行小數點計算
+                    Client_Month_income_proportion_memory = parseFloat(Client_Month_income_proportion_memory).toFixed(2);
+                    // Client_Month_WorkTime_and_income_proportion的陣列 0=工時分配率，1=營收分配率
+                    Client_Month_WorkTime_and_income_proportion[1].push(Client_Month_income_proportion_memory);
+                }
+                //**************************************加入Bar條狀預估銷售總額與機種配比圖表*************************************************
+                var ctx_Customer_Worktime_income_rate = document.getElementById("myPieChart_Customer_Worktime_income_rate");
+                myBarChart_Customer_Worktime_income_rate = new Chart(ctx_Customer_Worktime_income_rate, {
+                    type: 'bar',
+                    data: {
+                        labels: Client_Month_Name_Only,
+                        datasets: [],
+                    },
+                    options: {
+                        hover: {
+                            animationDuration: 0
+                        },
+                        scales: {
+                            xAxes: [{
+                                time: {
+                                    unit: 'month'
+                                },
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    maxTicksLimit: 60
+
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    min: 0,
+                                    max: 100,
+                                    maxTicksLimit: 5
+                                },
+                                gridLines: {
+                                    display: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: '貢獻比例(%)',
+                                }
+                            },
+                            {
+                                id: 'another_Liner',
+                                type: 'linear',
+                                ticks: {
+                                    min: 0,
+                                    max: 2,
+                                    maxTicksLimit: 11,
+                                },
+                                gridLines: {
+                                    display: false
+                                },
+                                display: false,
+
+                            }
+                            ],
+                        },
+                        //讓圖表上方加入線條提示
+                        plugins: {
+                            legend: {
+                                position: 'top',
+
+                            },
+
+                        },
+                        legend: {
+                            labels: {
+                                usePointStyle: true,
+                            },
+                        },
+                        //控制圖表在Loading時的動畫
+                        animation: {
+                            duration: 0,
+                            onComplete: function () {
+                                var chartInstance = this.chart,
+                                    ctx = chartInstance.ctx;
+
+                                ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                                ctx.fillStyle = "black";
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'bottom';
+
+                                this.data.datasets.forEach(function (dataset, i) {
+                                    var meta = chartInstance.controller.getDatasetMeta(i);
+                                    meta.data.forEach(function (bar, index) {
+                                        var data = dataset.data[index];
+                                        ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                                    });
+                                });
+                            }
+
+                        }
+                    }
+                });
+
+                //設定標籤名稱
+                Chart_Bar_output_count_and_machine_rate_mark[0] = "該月客戶總工時占比(%)";
+                Chart_Bar_output_count_and_machine_rate_mark[1] = "該月客戶總銷售額占比(%)";
+                Chart_Bar_output_count_and_machine_rate_mark[2] = "銷售額與工時比值"
+                //讓資料都可以插入到圖表裡
+                for (var chioce_data_Bar = 0; chioce_data_Bar < 2; chioce_data_Bar++) {
+                    if (Client_Month_WorkTime_and_income_proportion[chioce_data_Bar] == "")
+                        continue;
+                    var color_chart = rgba_random(0.5);
+                    //加入現有資料
+                    const newBarDataset_output_count_and_machine_rate = {
+                        //標籤名稱
+                        label: Chart_Bar_output_count_and_machine_rate_mark[chioce_data_Bar],
+                        //Chart_Work_order_color[chioce_data]
+                        backgroundColor: color_chart,
+                        borderColor: color_chart,
+                        data: Client_Month_WorkTime_and_income_proportion[chioce_data_Bar],
+                        //線條種類
+                        pointStyle: 'rect',
+                    };
+                    //若不想顯示目標效率的值就把下方chioce_data改為0，並把上方插入圖表的程式碼區塊碼掉
+                    myBarChart_Customer_Worktime_income_rate.data.datasets.push(newBarDataset_output_count_and_machine_rate);
+                    myBarChart_Customer_Worktime_income_rate.update();
+                }
+                //計算機種銷售額和工時的比例(相除)
+                for (var math_Price_Worktime = 0; math_Price_Worktime < Product_Month_Sale_Price_proportion.length; math_Price_Worktime++) {
+                    //儲存相除結果
+                    Math_ChartBar_Worktime_and_income_rate.push((parseFloat(Client_Month_WorkTime_and_income_proportion[1][math_Price_Worktime]) / parseFloat(Client_Month_WorkTime_and_income_proportion[0][math_Price_Worktime])).toFixed(2));
+
+                }
+                //********************************************************加入折線圖的資料*********************************************
+                var color_chart = rgba_random(0.5);
+                //加入現有資料
+                const newBarDataset_Worktime_and_income_rate = {
+                    type: 'line',
+                    //標籤名稱
+                    label: Chart_Bar_output_count_and_machine_rate_mark[2],
+                    //Chart_Work_order_color[chioce_data]
+                    backgroundColor: color_chart,
+                    borderColor: color_chart,
+                    data: Math_ChartBar_Worktime_and_income_rate,
+                    //指定Y軸ID，這樣可以使用圖表已設定好的Y軸比例
+                    yAxisID: 'another_Liner',
+                    //線條背景色
+                    backgroundColor: "rgba(0,0,0,0)",
+                    //線寬
+                    borderWidth: 4.5,
+                    //線條種類
+                    pointStyle: 'line',
+                    //张力，0为没曲线  成为直线
+                    tension: 0,
+
+                };
+                //若不想顯示目標效率的值就把下方chioce_data改為0，並把上方插入圖表的程式碼區塊碼掉
+                myBarChart_Customer_Worktime_income_rate.data.datasets.push(newBarDataset_Worktime_and_income_rate);
+                myBarChart_Customer_Worktime_income_rate.update();
+            }
+            //#endregion
+
+            //此for迴圈 是為了解決因JSON傳輸檔案過大導致的錯誤，未來若資料量提升有可能會再次發生此錯誤，此時此迴圈就用不到了，必須想其他方法解
+            for (var ff = 0; ff < Quantity_NoSame.length; ff++)
+            {
+                if (Quantity_NoSame[ff] != "")
+                {
+                    /*alert(ff + "裡面有值");*/
+                    back_use.push(Quantity_NoSame[ff]);
+                }
+            }
+            //#region 計算各機種月分配率和 設定預估該月銷售總額與機種配比圖表顏色參數
+            $.getJSON("./calculate_Product_Month_proportion", { Product_Name: JSON.stringify(Product_Name_NoSame), Quantity_NoS: JSON.stringify(back_use)},
+                function (data) {
+                    $.each(data, function (i, itemvalue) {
+                        Product_Month_sum.push(itemvalue.Value);
+                        Product_Month_proportion.push(itemvalue.Key);
+                        //儲存顏色
+                        var color_chart = rgba_random(0.5);
+                        Product_Pie_color.push(color_chart);
+                  });
+            });
+
+
+            //計算單一機種該月預計產出總數和該機種佔該月製作產品的總量為多少
+            //for (Month_Product_count = 0; Month_Product_count < Product_Name_NoSame.length; Month_Product_count++)
+            //{
+            //    Product_Month_output_count = 0;
+            //    //如果該筆陣列沒有存在值就跳過
+            //    if (Product_Name_NoSame[Month_Product_count] == "") {
+            //        continue;
+            //    }
+            //    //有的話計算該筆機種的該月預計產出總和
+            //    else
+            //    {
+            //        //儲存該月機種名稱到一個陣列裡面
+            //        Product_Month_Name.push(Product_Name_NoSame[Month_Product_count]);
+            //        //計算單機機種該月預計出貨總數量
+            //        for (date_count = 0; date_count < Quantity_NoSame[Month_Product_count].length; date_count++)
+            //        {
+            //            Product_Month_output_count += parseInt(Quantity_NoSame[Month_Product_count][date_count]);
+
+            //        }
+            //        //計算全部機種量的總和
+            //        Product_Month_all_output_count += parseInt(Product_Month_output_count);
+            //        Product_Month_sum.push(Product_Month_output_count);
+
+            //    }
+
+
+            //}
+            ////運算單一機種該月分配比例
+            //for (var proportion_count = 0; proportion_count < Product_Month_Name.length; proportion_count++)
+            //{
+            //    Product_Month_output_count = (parseFloat((Product_Month_sum[proportion_count] / Product_Month_all_output_count) * 100)).toFixed(2);
+
+            //    //儲存比例
+            //    Product_Month_proportion.push(Product_Month_output_count);
+            //    //儲存顏色
+            //    var color_chart = rgba_random(0.5);
+            //    Product_Pie_color.push(color_chart);
+            //}
+            //#endregion
+
+
+
+
+
+        });
+
+        //加入年月日@DateTime.Now.ToString("yyyyMMdd")
+        //取得資料庫的從sp_getOrderCapacity資料表內容，用來計算效率圖表內容
+        $.getJSON("./GetOrderCapacity_sp_getOrderCapacityList?Year_Month_Date=" + @DateTime.Now.ToString("yyyyMMdd"), null, function (data) {
+
+            //循環加入資料庫現有資料至各個獨立陣列中
+            $.each(data, function (i, itemvalue) {
+                //debug用
+                //儲存工單號
+                Order_No_sp[i] = itemvalue.Key;
+                //取得資料庫的sp_DailyProductionList資料表Product_Name值
+                Split_str_count = (itemvalue.Value).indexOf("~");
+                Product_capacity_sp[i] = itemvalue.Value.slice(0, Split_str_count - 1);
+                ////去除最後一個空格 \s代表空格(轉譯) *表示一个或多个空白字符 $代表結束字元
+                //Product_Name_Show[i] = Product_Name_Show[i].replace(/\s*$/, "");
+
+                //取得資料庫的sp_DailyProductionList資料表ERP_Part_No
+                Split_str_count_1 = (itemvalue.Value).indexOf("!");
+                Real_capacity_sp[i] = itemvalue.Value.slice(Split_str_count + 1, Split_str_count_1 - 1);
+                ////去除最後一個空格 \s代表空格(轉譯) *表示一个或多个空白字符 $代表結束字元
+                //ERP_Part_No_Show[i] = ERP_Part_No_Show[i].replace(/\s*$/, "");
+
+
+            });
+
+
+            //加入工單目標值，只先加入目標值所以設work_order_choice<1 ，只針對即時效率做運算 ，因此設work_order_choice=1   (0代表目標效率、1代表實際效率)
+            for (var work_order_choice = 0; work_order_choice < 1; work_order_choice++)
+            {
+                //看今天工單要做幾張就有幾筆資料要加入
+                for (count = 0; count <= Order_No_sp.length; count++)
+                {
+                    //只針對目標效率去做增加 100的值，因為目標效率一定是100%
+                    if (work_order_choice == 0) {
+                        Chart_work_effecticent[work_order_choice].push("100");
+                        // Chart_Bar_work_order[work_order_choice].push(Work_Order_Daily_Report[count]);
+                    }
+                }
+            }
+            //控制圖表橫(ROW)軸的工單標籤
+        for (var Chart_work_order_choice = 0; Chart_work_order_choice < Order_No_sp.length; Chart_work_order_choice++)
+            {
+                //將工單號加入至圖表的縱軸陣列
+            Chart_work_order.push(Order_No_sp[Chart_work_order_choice]);
+            }
+            //設定線標籤
+            Chart_Bar_work_order_mark[0] = "目標效率";
+            Chart_Bar_work_order_mark[1] = "實際效率";
+            Chart_Work_order_color[0] = "rgba(38,147,255)";
+            Chart_Work_order_color[1] = "rgba(255,89,89)";
+
+            //*************************************************************加入Bar條狀圖表*****************************************************************
+            var ctx = document.getElementById("myBarChart");
+            myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Chart_work_order,
+                    datasets: [],
+                },
+                options: {
+                    hover: {
+                        animationDuration: 0
+                    },
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'month'
+                            },
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 60
+
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                max: 150,
+                                maxTicksLimit: 5
+                            },
+                            gridLines: {
+                                display: true
+                            },
+                            scaleLabel:
+                            {
+                                display: true,
+                                labelString:'速度達成率(%)',
+                            },
+                        }],
+                    },
+                    //讓圖表上方加入線條提示
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    //控制圖表在Loading時的動畫
+                    animation: {
+                        duration:0,
+                        onComplete: function () {
+                            var chartInstance = this.chart,
+                                ctx = chartInstance.ctx;
+
+                            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                            ctx.fillStyle = "black";
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+
+                            this.data.datasets.forEach(function (dataset, i) {
+                                var meta = chartInstance.controller.getDatasetMeta(i);
+                                meta.data.forEach(function (bar, index) {
+                                    var data = dataset.data[index];
+                                    ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                                });
+                            });
+                        }
+
+                    }
+                }
+            });
+
+            //讓每筆資料都可以插入到圖表裡
+            //for (var chioce_data = 0; chioce_data < Chart_work_effecticent.length; chioce_data++) {
+            //    if (Chart_work_effecticent[chioce_data] == "")
+            //        continue;
+            //    var color_chart = rgba_random(0.5);
+            //    //加入現有資料
+            //    const newBarDataset = {
+            //        //標籤名稱
+            //        label: Chart_Bar_work_order_mark[chioce_data],
+            //        //Chart_Work_order_color[chioce_data]
+            //        backgroundColor: Chart_Work_order_color[chioce_data],
+            //        borderColor: Chart_Work_order_color[chioce_data],
+            //        data: Chart_work_effecticent[chioce_data],
+            //    };
+            //    myBarChart.data.datasets.push(newBarDataset);
+            //    myBarChart.update();
+            //}
+
+        });
+        //#region 即時圖表資料更新
+        function Update_Chart_data()
+        {
+            var Split_str_count_UP;
+            var Order_No_sp_UP = new Array();
+            var Product_capacity_sp_UP = new Array();
+            var Real_capacity_sp_UP = new Array();
+            var Chart_Bar_work_order_mark_UP = new Array();
+            var Work_Order_Daily_Report_UP = new Array();
+            //儲存當日的工單有幾筆
+            var Work_order_length_UP;
+            //儲存圖表要顯示的效率
+            var Chart_work_effecticent_UP = new Array();
+            var Chart_Work_order_color_UP = new Array();
+            var Chart_work_order_UP = [];
+            var really_effecticent_UP;
+            var date_choice= @DateTime.Now.ToString("yyyyMMdd");
+            $.getJSON("./GetOrderCapacity_sp_getOrderCapacityList?Year_Month_Date=" + date_choice, null, function (data) {
+
+                //循環加入資料庫現有資料至各個獨立陣列中
+                $.each(data, function (i, itemvalue) {
+                    //debug用
+                    //儲存工單號
+                    Order_No_sp_UP[i] = itemvalue.Key;
+                    //取得資料庫的sp_DailyProductionList資料表Product_Name值
+                    Split_str_count_UP = (itemvalue.Value).indexOf("~");
+                    Product_capacity_sp_UP[i] = itemvalue.Value.slice(0, Split_str_count_UP - 1);
+                    ////去除最後一個空格 \s代表空格(轉譯) *表示一个或多个空白字符 $代表結束字元
+                    //Product_Name_Show[i] = Product_Name_Show[i].replace(/\s*$/, "");
+
+                    //取得資料庫的sp_DailyProductionList資料表ERP_Part_No
+
+                    Real_capacity_sp_UP[i] = itemvalue.Value.slice(Split_str_count_UP + 1);
+                    ////去除最後一個空格 \s代表空格(轉譯) *表示一个或多个空白字符 $代表結束字元
+                    itemvalue = null;
+                }
+                );
+                //初始化效率二維陣列
+                //Work_order_length_UP = Work_Order_Daily_Report.length;
+                //初始化二維陣列
+                Chart_work_effecticent_UP = [];
+                //初始化顏色二維陣列
+                Chart_Work_order_color_UP = [];
+                //
+                for (var set1_up = 0; set1_up <= 100; set1_up++) {
+                    Chart_work_effecticent_UP[set1_up] = new Array();
+                    Chart_Work_order_color_UP[set1_up] = new Array();
+                }
+                //只針對即時效率做運算 ，因此設work_order_choice_UP=1   (0代表目標效率、1代表實際效率)
+                for (var work_order_choice_UP = 1; work_order_choice_UP < 2; work_order_choice_UP++) {
+                    //單一行陣列裡面會有Order_No_sp_UP筆資料，看當天有幾比工單要做
+                    for (var count_UP = 0; count_UP <= Order_No_sp_UP.length; count_UP++) {
+
+                        //計算預估產能，預估產能時間=工單量/目標產能
+                        //var Estimate_effecticent = Work_order_volume_Daily_Report[count_UP] / Target_capacity_Daily_Report[count_UP];
+                        //實際達成率=預估產能時間/累積時間
+                        really_effecticent_UP = (Real_capacity_sp_UP[count_UP] / Product_capacity_sp_UP[count_UP]) * 100;
+
+
+                        //將數據放入配對相同的工單號裡放入陣列裡，避免出現該工單數據圖出現在別的工單圖上
+                        for (var mark_choice_UP = 0; mark_choice_UP < Chart_work_order_UP.length; mark_choice_UP++) {
+                            //判斷哪個工單號有對應到
+                            if (Order_No_sp_UP[count_UP] == Chart_work_order_UP[mark_choice_UP]) {
+                                if (really_effecticent_UP != undefined) {
+                                    Chart_work_effecticent_UP[work_order_choice_UP][mark_choice_UP] = really_effecticent_UP;
+                                }
+                                else {
+                                    Chart_work_effecticent_UP[work_order_choice_UP][mark_choice_UP] = 0;
+                                }
+
+                                // Chart_Bar_work_order[work_order_choice_UP].push(Work_Order_Daily_Report[count_UP]);
+                                break;
+                            }
+                        }
+                    }
+                }
+                //設定圖表Bar顏色
+                for (var color_choice_UP = 0; color_choice_UP < Chart_work_effecticent_UP[1].length; color_choice_UP++) {
+                    //大於90後
+                    if (parseFloat(Chart_work_effecticent_UP[1][color_choice_UP]) > 90.00) {
+                        Chart_Work_order_color_UP[1][color_choice_UP] = "rgba(13,255,13)";
+                    }
+                    //介於71~89之間
+                    else if (parseFloat(Chart_work_effecticent_UP[1][color_choice_UP]) > 70.00) {
+                        Chart_Work_order_color_UP[1][color_choice_UP] = "rgba(255,255,36)";
+                    }
+                    //小於70後
+                    else {
+                        Chart_Work_order_color_UP[1][color_choice_UP] = "rgba(255,89,89)";
+                    }
+                }
+                //設定線標籤
+                //Chart_Bar_work_order_mark[0] = "目標效率";
+                Chart_Bar_work_order_mark_UP[1] = "實際效率";
+
+                //讓資料都可以插入到圖表裡
+                for (var chioce_data_UP = 1; chioce_data_UP < 2; chioce_data_UP++) {
+                    if (Chart_work_effecticent_UP[chioce_data_UP] == "")
+                        continue;
+                    //var color_chart = rgba_random(0.5);
+                    //加入現有資料
+                    const newBarDataset3 = {
+                        //標籤名稱
+                        label: Chart_Bar_work_order_mark_UP[chioce_data_UP],
+                        //Chart_Work_order_color[chioce_data_UP]
+                        backgroundColor: Chart_Work_order_color_UP[1],
+                        borderColor: Chart_Work_order_color_UP[1],
+                        data: Chart_work_effecticent_UP[chioce_data_UP],
+                    };
+                    //若不想顯示目標效率的值就把下方chioce_data_UP改為0，並把上方插入圖表的程式碼區塊碼掉
+                    myBarChart.data.datasets[0] = newBarDataset3;
+                    myBarChart.update();
+                    window.clearInterval(timer1);
+                    Update_work();
+                }
+                Split_str_count_UP = null;
+                Order_No_sp_UP = [];
+                Product_capacity_sp_UP = [];
+                Real_capacity_sp_UP = [];
+                Chart_Bar_work_order_mark_UP = [];
+                 //儲存當日的工單有幾筆
+                Work_order_length_UP = null;
+                //儲存圖表要顯示的效率
+
+                really_effecticent_UP = null;
+                date_choice = null;
+            });
+        }
+        //設定即時更新工單情況圖表資料，數字單位為毫秒
+        var timer1 = setInterval("Update_Chart_data()", 1000);
+
+        function unloadPopupBox() {    // TO Unload the Popupbox
+            $('#popup_box').fadeOut("slow");
+            $("#container").css({ // this is just for style
+                "opacity": "1"
+            });
+        }
+        var id66;
+        
+        function loadPopupBox() {    // To Load the Popupbox
+            //倒數秒數
+            
+            var counter = 5;
+            $('#popup_box').fadeIn("slow");
+            $("#container").css({ // this is just for style
+                "opacity": "0.3"
+            });
+            if (id66 != "")
+            {
+                id66 = setInterval(function () {
+                    counter--;
+                    if (counter < 0) {
+                        clearInterval(id66);
+
+                        unloadPopupBox();
+                        window.location.reload();
+                    } else {
+                        $("#countDown").text("ERP資料傳輸逾時，" + counter.toString() + "秒後重新刷新");
+                    }
+                }, 1000);
+            }
+
+        }
+        function Close_Error_meg()
+        {
+            clearInterval(id66);
+        }
+
+    </script>
+
+</body>
+</html>

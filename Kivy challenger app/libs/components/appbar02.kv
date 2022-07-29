@@ -1,0 +1,69 @@
+#:import ScreenManager kivy.uix.screenmanager
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import rgba kivy.utils.get_color_from_hex
+
+<AppBar02@ScrollView>:
+    canvas.before:
+        Color:
+            rgba:(64/255,64/255,63/255,1)
+        Rectangle:                                       
+            size:self.size                   
+            pos:self.pos
+    scroll_type:['bars', 'content']
+    bar_color:(0,0,0,1)
+    size_hint:(360/360,45/800)
+    # bar_color:0,1,0,1
+    do_scroll_x: True
+    do_scroll_y: False  
+    scroll_x:0.4
+
+         
+    GridLayout:
+        id:A
+        rows:1
+        size_hint_x:None
+        width: self.minimum_width
+        My_Button:
+            id:Rank
+            text: "排行榜"
+            on_press:
+                print(self.size)
+                print(self.width)
+                print(root.size)
+                print(root.width)
+
+            # text:"Rank"
+        My_Button:
+            id:Challengelist
+            text: "挑戰列表"
+            # text:"Challenge list"
+        My_Button:
+            id:Logohome
+            text: "CHALLENGER"
+            font_size: 12
+            color:rgba('#F17D7D')
+            font_name:'app.font_name'
+            # text:"LOGO"
+        My_Button:
+            id:Store
+            text: "商店"
+            # text:"Store"
+        My_Button:
+            id:Pray
+            text: "祈願"
+            # text:"Pray"
+        My_Button:
+            id:Vote
+            text: "投票"
+            # text:"Vote"
+
+<My_Button@Button>:
+    size_hint_x:None
+    bold: True
+    font_size: 18
+    font_name:'C:\\Users\\love2\\OneDrive - 明志科技大學\\創業競賽\\Mission\\Chanlleger\\font\\Droid-Sans-Fallback.ttf'
+    halign: "center"
+    valign: "center"
+    color:(1,1,1,0.7)
+    background_normal:""
+    background_color:(64/255,64/255,63/255,1)

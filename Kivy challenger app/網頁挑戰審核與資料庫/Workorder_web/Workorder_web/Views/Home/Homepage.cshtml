@@ -1,0 +1,389 @@
+﻿@using Workorder_web.Models
+@{
+    List<GetRequestsUploadChallenge_Result> data = ViewBag.data;
+    String Alert = ViewBag.alert;
+    int Count = 0;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    <link href="~/startbootstrap/dist/css/styles.css" rel="stylesheet" />
+    @*控制下方圖表各物件擺放位置參數的Script*@
+    <link href="~/startbootstrap/dist/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="~/startbootstrap/scripts/all.min.js" crossorigin="anonymous"></script>
+    <script src="~/startbootstrap/scripts/Chart.js"></script>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand" href="@Url.Action("Homepage", "Home")">Start Bootstrap</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="@Url.Action("Homepage", "Home")">Settings</a>
+                    <a class="dropdown-item" href="@Url.Action("Homepage", "Home")">Activity Log</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="@Url.Action("Homepage", "Home")">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav" style="background-color: #000000">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link" href="@Url.Action("Homepage", "Home")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <!--<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            列印
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">-->
+                        @*@Url.Action 可以指定Controller和action*@
+                        <!--<a class="nav-link" href="@Url.Action("Login", "Home")">生產計劃排程表</a>
+                                <a class="nav-link" href="layout-sidenav-light.html">日生產排程</a>
+                                <a class="nav-link" href="layout-sidenav-light.html">生產日報表</a>
+                            </nav>
+                        </div>-->
+
+                        <div class="sb-sidenav-menu-heading">Addons</div>
+                        @*<a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Charts
+                            </a>
+                            <a class="nav-link" href="tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>*@
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Start Bootstrap
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <div id="divProgress" style="text-align:center; display: none; position: fixed; top: 50%;  left: 50%;">
+                        <img ID="imgLoading" runat="server" src="~/Pic/loading (1).gif" />
+
+                        <font color="#1B3563" size="2"></font>
+                    </div>
+
+                    <div id="divMaskFrame" style="background-color: #F2F4F7; display: none; left: 0px;
+                        position: absolute; top: 0px;">
+                    </div>
+                    <div id="popup_box" style="background-color:red; display: none; position: fixed; _position: absolute; height: 100px; width: 800px; left: 630px; top: 450px; z-index:100; margin-left: 25px; border: 2px; padding: 15px; font-size: 15px; -moz-box-shadow: 0 0 5px; -webkit-box-shadow: 0 0 5px; box-shadow: 0 0 5px;">
+                        <!-- OUR PopupBox DIV-->
+                        <h1 id="countDown" style="font-size: 40px; line-height: 35px; right: 100px; top: 30px; position: absolute; color: #ffff00; font-weight: 500; ">ERP資料傳輸逾時，5秒後重新刷新</h1>
+                        <a onclick="Close_Error_meg()" id="popupBoxClose" style="font-size: 20px; line-height: 15px; right: 5px; top: 5px; position: absolute; color: #6fa5e2; font-weight: 500;">Close</a>
+                    </div>
+                    <div id="container" style=" width: 100%; height: 100%;">
+                        <!-- Main Page -->
+                        <h1></h1>
+                    </div>
+                    @*<div class="form-group row">
+            <div class="col-md-2">
+                @Html.DropDownList("Year", Enumerable.Range(2018, DateTime.Now.Year).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Year --", new { onchange = "Change_Date_View()" })
+                @Html.DropDownList("Month", Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Month --", new { onchange = "Change_Date_View()" })
+            </div>
+        </div>*@
+                    @* <input type="date" name="bday" id="time_chioce" onchange="Change_Date_View(this.value)">*@
+                    <div class="row">
+
+                    </div>
+                    <!--<div class="row">-->
+                    @*col-xl-?? 控制圖寬度 ??請填數字*@
+                    <!--<div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area mr-1"></i>
+                    各機種日排程
+                </div>
+                <div class="card-body" id="AreaChart">
+                    <canvas id="myAreaChart" width="100" height="60"></canvas>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar mr-1"></i>
+                    該日各工單情況
+                </div>
+                <div class="card-body" id="BarChart"><canvas id="myBarChart" width="100" height="60"></canvas></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">-->
+                    @*col-xl-?? 控制圖寬度 ??請填數字*@
+                    <!--<div class="col-xl-12">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area mr-1"></i>
+                預估銷售總額與機種工時配比(%)
+            </div>
+            <div class="card-body" id="BarChart_output_count_and_machine_rate">
+                <canvas id="myBarChart_output_count_and_machine_rate" width="100" height="25"></canvas>-->
+                    @*<input type="button" id="input_upload" onclick="add_data()"</input>*@
+                    @*style="background-color: #545454"*@
+                    <!--</div>
+
+            </div>
+        </div>
+    </div>-->
+                    <div class="row">
+                        @*col-xl-?? 控制圖寬度 ??請填數字*@
+                        <!--畫預估該月到今日銷售總額與機種配比-->
+                        <!--<div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area mr-1"></i>
+                預估該月到今日銷售總額與機種配比
+            </div>
+            <div class="card-body" id="AreaChart">
+                <canvas id="myPieChart_output_count" width="100" height="60"></canvas>-->
+                        @*<input type="button" id="input_upload" onclick="add_data()"</input>*@
+                        @*style="background-color: #545454"*@
+                        <!--</div>
+
+            </div>
+        </div>-->
+                        @*<div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar mr-1"></i>
+                        客戶的工時與營收貢獻比(%)
+                    </div>
+                    <div class="card-body" id="PieChart_Customer_Worktime_income_rate">
+                        <canvas id="myPieChart_Customer_Worktime_income_rate" width="100" height="60"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar mr-1"></i>
+                        預估該月銷售總額與機種配比
+                    </div>
+                    <div class="card-body" id="PieChart_output_All_count">
+                        <canvas id="myPieChart_output_All_count" width="100" height="60"></canvas>
+                    </div>
+                </div>
+            </div>*@
+                    </div>
+
+                    <!--各機種分配率和各客戶生產數量分配率-->
+                    <!--<div class="row">-->
+                    @*col-xl-?? 控制圖寬度 ??請填數字*@
+                    <!--<div class="col-xl-6">
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-area mr-1"></i>
+            各機種 @DateTime.Now.ToString("MM") 月分配率
+        </div>
+        <div class="card-body" id="AreaChart">
+            <canvas id="myPieChart" width="100" height="60"></canvas>-->
+                    @*<input type="button" id="input_upload" onclick="add_data()"</input>*@
+                    @*style="background-color: #545454"*@
+                    <!--</div>
+
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar mr-1"></i>
+                    各客戶 @DateTime.Now.ToString("MM")月生產數量分配率
+                </div>
+                <div class="card-body">
+                    <canvas id="myPieChart2" width="100" height="60"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>-->
+                    @*即時銷售額(機種/錢)[圓餅圖]、即時機種工時(直線圖)*@
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            各挑戰審核
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th width="7%">上傳User</th>
+                                            <th>挑戰名稱</th>
+                                            <th width="4%">影片1</th>
+                                            <th width="4%">影片2</th>
+                                            <th>挑戰說明</th>
+                                            <th>特別要求</th>
+                                            <th width="14%">上傳時間</th>
+                                            <th width="14%">審核</th>
+                                            <th>審核結果</th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach (var data_show in data)
+                                        {
+                                            Count++;
+                                            String TypeID = "Type" + Count;
+                                            <tr>
+                                                <form action="/Home/UpdateRequestsUploadChallenge" method="post" name="myForm">
+                                                    <td name="RequestsUserID">@data_show.RequestsUserID</td>
+                                                    <input type="hidden" value="@data_show.RequestsUserID" name="RequestsUserID">
+                                                    <td name="ChallengeName">@data_show.ChallengeName</td>
+                                                    <input type="hidden" value="@data_show.ChallengeName" name="ChallengeName">
+                                                    <td name="UploadPictureVideo1">@data_show.UploadPictureVideo1</td>
+                                                    <input type="hidden" value="@data_show.UploadPictureVideo1" name="UploadPictureVideo1">
+
+                                                    <td name="UploadPictureVideo2">@data_show.UploadPictureVideo2</td>
+                                                    <input type="hidden" value="@data_show.UploadPictureVideo2" name="UploadPictureVideo2">
+
+                                                    <td name="ChallengeMissionExplan">@data_show.ChallengeMissionExplan</td>
+                                                    <input type="hidden" value="@data_show.ChallengeMissionExplan" name="ChallengeMissionExplan">
+
+                                                    <td name="SpecialRequirement">@data_show.SpecialRequirement</td>
+                                                    <input type="hidden" value="@data_show.SpecialRequirement" name="SpecialRequirement">
+
+                                                    <td name="UploadTime">@data_show.UploadTime</td>
+                                                    <input type="hidden" value="@data_show.UploadTime" name="UploadTime">
+
+                                                    <td>
+                                                        @if (data_show.ApprovalStatus == "Yet")
+                                                        {
+                                                            <div style="display:inline-block">主題:</div>
+                                                            <select display:inline; name="Topic" id=@Count style="width:150px;" onChange="renew(this.selectedIndex, this.id);">
+                                                                <option value="1">校園</option>
+                                                                <option value="2">吃喝玩樂</option>
+                                                            </select>
+                                                            <div style="display:inline-block">類型:</div>
+                                                            <select name="Type" id=@TypeID style="width:150px;">
+                                                                <option value="1">愛情</option>
+
+                                                            </select>
+                                                            <input type="submit" name="ApprovalStatus" value="通過" style="text-align:center">
+
+                                                            <input type="submit" style="text-align:center" name="ApprovalStatus" value="否決">
+
+                                                        }
+                                                    </td>
+
+                                                    <td>
+                                                        @if (data_show.ApprovalStatus == "Y")
+                                                        {
+                                                            <div style="background-color:#FFFF00;padding: 5px;">已通過</div>
+                                                        }
+                                                        else if (data_show.ApprovalStatus == "N")
+                                                        {
+                                                            <div style="background-color: red; padding: 5px;">已否決</div>
+                                                        }
+                                                    </td>
+                                                </form>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script>
+    
+
+        var TypeID;
+        department = new Array();
+        IDment = new Array();
+        department[0] = ["愛情"];	// 資訊系
+        IDment[0] = ["1"];
+        department[1] = ["歌曲", "美食"];	// 電機系
+        IDment[1] = [ "2", "3"];
+
+        function renew(index, id) {
+            TypeID = "Type" + id;
+            for (var i = 0; i < department[index].length; i++)
+                document.getElementById(TypeID).options[i] = new Option(department[index][i], IDment[index][i]);	// 設定新選項
+            document.getElementById(TypeID).length = department[index].length;	// 刪除多餘的選項
+        }
+    </script>
+    @*隨機顏色Function*@
+    <script src="~/Function_unique/rgba_random.js"></script>
+    @*延遲Function*@
+    <script src="~/Function_unique/Delay.js"></script>
+    @*轉成千分單位Function*@
+    <script src="~/Function_unique/toCurrency.js"></script>
+    @*遮罩Function*@
+    <script src="~/Function_unique/MaskFrame.js"></script>
+    @*儲存價格Function*@
+    <script src="~/Function_unique/Get_Org_Price.js"></script>
+    <script src="~/startbootstrap/scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/startbootstrap/scripts/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/startbootstrap/dist/js/scripts.js"></script>
+    @*控制首頁圖表各功能Script*@
+    <script src="~/startbootstrap/scripts/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="~/startbootstrap/dist/assets/demo/chart-area-demo.js"></script>
+    <script src="~/startbootstrap/dist/assets/demo/chart-bar-demo.js"></script>
+    @*控制首頁下方表格各個功能的Script*@
+    <script src="~/startbootstrap/scripts/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    @*控制首頁下方表格樣式的Script*@
+    <script src="~/startbootstrap/scripts/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="~/startbootstrap/dist/assets/demo/datatables-demo.js"></script>
+    @*控制首頁圓餅圖表上顯示字的Script\*@
+    <script src="~/startbootstrap/scripts/Chart.PieceLabel.min.js"></script>
+
+    <script>
+
+
+    </script>
+</body>
+</html>

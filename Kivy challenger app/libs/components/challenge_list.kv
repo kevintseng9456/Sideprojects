@@ -1,0 +1,87 @@
+<Challenge_list@MDGridLayout>:
+    cols:1
+    # size_hint_y:None
+    # height: self.minimum_height
+    md_bg_color:(0,0,0,1)
+    padding:30
+    spacing:10
+
+    MDCard:
+        id:challenge_topic_name_001
+        orientation: "vertical"
+        size_hint_y: None
+        height: 201
+        focus_behavior: True
+        ripple_behavior: True
+        radius:25
+        font_name:app.font_name 
+        on_release: 
+            root.show_example_grid_bottom_sheet(2)
+            # print('222222')
+            # app.root.current = 'Challenge_Subject'
+        MDBoxLayout:
+            id: text_box
+            # orientation: "vertical"
+            padding:[0,5,0,5]
+            FitImage:
+                id: image_box_001
+                source: root.default_source[1]
+                # allow_stretch:True
+                radius:[25]     
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height:True 
+                md_bg_color:0,0,0,1
+                radius:[25]                                        
+                MDLabel:
+                    id: challenge_topic_name_001
+                    text:"吃喝玩樂"
+                    font_name:app.font_name 
+                    font_size:'64sp'
+                    color:1,1,1,1
+                    halign:'center'
+                    valign:'center'                                        
+                    size_hint_y:None
+                    height: self.texture_size[1]
+                    radius:[10,10,0,0]
+                                                        
+
+    MDCard:
+        id:challenge_topic_name_002
+        orientation: "vertical"
+        size_hint_y: None
+        height: 201
+        focus_behavior: True
+        ripple_behavior: True
+        radius:25
+        font_name:app.font_name 
+        on_release:
+            root.show_example_grid_bottom_sheet(1)
+            # print("111111")
+            # app.root.current = 'Challenge_Subject'
+        MDBoxLayout:
+            id: text_box
+            # orientation: "vertical"
+            padding:[0,5,0,5]
+            FitImage:
+                id: image_box_001
+                source: root.default_source[2]
+                # allow_stretch:True
+                radius:[25]      
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height:True 
+                md_bg_color:0,0,0,1
+                radius:[25]                                        
+                MDLabel:
+                    id: challenge_topic_name_002
+                    text:"校園物語"
+                    font_name:app.font_name 
+                    font_size:'64sp'
+                    color:1,1,1,1
+                    halign:'center'
+                    valign:'center'
+                    size_hint_y:None
+                    height: self.texture_size[1]
+                    radius:[10,10,0,0]
+ 

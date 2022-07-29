@@ -1,0 +1,70 @@
+#:import ScreenManager kivy.uix.screenmanager
+<Challenge_name_card@MDCard>:
+    # id:mission_card
+    orientation: "vertical"
+    size_hint_y: None
+    size_hint_x: None
+    height: 360
+    width: 360
+    focus_behavior: True
+    ripple_behavior: True
+    radius:25
+    font_name:app.font_name
+    on_release:
+        app.GetMissionNameID = root.GetMissionNameID
+        app.pre_mission_name = root.pre_mission_name
+        app.root.current = 'Challenge_Subject'
+        print("------Challenge_Subject------")  
+    MDBoxLayout:
+        # id: text_box
+        orientation: "vertical"
+        md_bg_color:147/255,143/255,153/255,1
+        radius:[12]
+        padding:[1] 
+        FitImage:
+            id: image_box_001
+            source: root.namemissionsource 
+            allow_stretch:True
+            radius:12,12,0,0      
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height:True 
+            md_bg_color:0,0,0,1
+            radius:[0,0,12,12]
+                                                   
+            MDLabel:
+                id: mission_name_001
+                text:root.pre_mission_name
+                font_name:app.font_name 
+                text_color:1, 1, 1, 1
+                font_size:'18sp'
+                size_hint_y:None
+                height: 40
+                # height: self.texture_size[1]
+                
+            MDLabel:
+                text:"#照片 #人#事#物"
+                font_name:app.font_name 
+                font_size:'12sp'
+                text_color:1, 1, 1, 1
+                size_hint_y:None
+                height: 36
+                radius:[0,0,12,12]
+
+
+
+# <Challenge_name_card@MDBoxLayout>:
+#     adaptive_height: True
+#     padding: 20
+#     spacing: 20
+#     SmartTileWithLabel:
+#         size_hint_y: None
+#         height: "240dp"
+#         source: root.namemissionsource 
+#         text: "[size=26][color=#ffffff]Cat 3[/color][/size][size=14]cat-3.jpg[/size]"
+#         on_release:
+#             app.GetMissionNameID = root.GetMissionNameID
+#             app.pre_mission_name = root.pre_mission_name
+#             print(root.pre_mission_name)
+#             print(app.pre_mission_name)
+#             app.root.current = 'Challenge_Subject'

@@ -1,0 +1,80 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import rgba kivy.utils.get_color_from_hex
+
+<LoginPage>:
+    name:'login'
+    md_bg_color: (1,1,1,1)
+
+    canvas:
+        Color:
+            rgba:1,1,1,1
+        RoundedRectangle:
+            size:self.size
+            pos:self.pos
+            source:'./image/Android Large - 1.png'
+            radius:[10]
+
+    MDFloatLayout:
+        # MDTextField:
+        MDTextFieldRound:
+            id:user_email
+            # color_active:1,1,1,1
+            # normal_color:1,1,1,1
+            icon_left: "email"
+            hint_text: "EMAIL"
+            size_hint:(301/411,60/731)
+            pos_hint:{'x':61/411,'top':(731-220)/731}
+             
+        MDTextFieldRound:
+            id:user_password
+            # color_active:1,1,1,1
+            # normal_color:1,1,1,1
+            icon_left: "lock-outline"
+            hint_text: "PASSWORD"
+            size_hint:(301/411,60/731)  #36/731
+            pos_hint:{'x':61/411,'top':(731-300)/731}
+
+        MDLabel:
+            id:login_error_message
+            text:""
+            halign:"left"
+            theme_text_color:"Error"
+            size_hint:(0.78,0.05)
+            pos_hint:{'x':65/411,'top':(731-350)/731}
+
+        MDFillRoundFlatButton:
+            id:login_button
+            theme_text_color: "Custom"
+            font_name:app.font_name
+            text: "[b]L  o  g  i  n[/b]"
+            font_size:"24sp"
+            text_color: rgba("#F17D7D")
+            size_hint:(301/411,60/731)
+            pos_hint:{'x':61/411,'top':(731-400)/731}
+            md_bg_color:rgba("#ece4cf")
+            radius:[10]
+            disabled:False
+            # on_press:root.Loginbutton()
+            # on_release: if root.Loginbutton() == True: app.root.current = 'main' 
+            # on_release: app.root.current ='home'
+            # on_press:root.Loginbutton()
+            
+            on_press: 
+                if root.Loginbutton() == True: app.root.current = 'home'
+                print(app.UserID)  
+
+                
+
+
+        Button:
+            font_name:app.font_name
+            text:'Sign up'
+			font_size: 24
+            bold:True
+            size_hint:(61/411,21/731)
+            pos_hint:{'x':283/411,'top':(731-690)/731}
+            color:rgba('#F17D7D')
+            background_color:(1,1,1,0)
+            on_release:
+                app.root.current = 'signup'
+                print("------signup------")  

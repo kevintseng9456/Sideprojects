@@ -1,0 +1,105 @@
+#:import ScreenManager kivy.uix.screenmanager
+#:import Nas_download libs.nas_server.nas_api
+<AppBar01@MDBoxLayout>:
+    padding:'5dp'
+    adaptive_height:True
+    # md_bg_color:1,0,0,1
+    MDRelativeLayout:
+        size_hint: None, None
+        size: 70, 60
+        Circle:
+            radius: [50,]
+            size: 60, 60
+            md_bg_color: 1, 0, 0, 0.1
+        
+        Circle:
+            radius: [50,]
+            size: 55, 55
+            md_bg_color: 0, 0, 0, 0.1
+
+        # profile picture
+        # FitImage:
+        AsyncImage:
+            # source: root.avatar 
+            # source:'./APP icon.png'
+            # source:'./image/pexels-joão-jesus-4929254.jpg'
+            source:root.avatar
+            size_hint: None, None
+            size: 53, 53
+            radius: [53]
+            pos_hint: {"center_x": 0.5,"center_y": 0.5}
+        
+        # Button:
+        #     size: 53, 53
+        #     radius: [53]
+        #     pos_hint: {"center_x": 0.5,"center_y": 0.5}  
+            # on_press:app.root.current = 'person_page'      
+            
+        
+        # Username
+        # MDLabel:
+        #     # text: root.name
+        #     text:'testname'
+        #     halign: 'center'
+        #     pos_hint: {"center_x": 0.5 ,"center_y": 0.1}
+        #     font_size: 11
+        #     theme_text_color: 'Custom'
+        #     text_color: 0, 0, 0, 1
+
+    MDBoxLayout:
+        adaptive_width:True
+        orientation:'vertical'
+        # md_bg_color: (0.5,0.5,0,1)
+        MDLabel:
+            id: user_name
+            text:root.username
+            font_name:app.font_name
+            theme_text_color: "Custom"
+            text_color:1,1,1,1
+            halign:'left'
+            valign:'bottom'
+            font_size: 12
+        MDLabel:
+            id: user_level
+            text:root.userlevel
+            theme_text_color: "Custom"
+            text_color:1,1,1,1
+            halign:'left'
+            valign:'bottom'
+            font_size: 12
+    MDBoxLayout:
+        orientation:'vertical'
+        MDBoxLayout:
+        MDRelativeLayout:
+            # adaptive_width:True
+            # md_bg_color:0.5,0.2,0,1
+            MDCard:
+                md_bg_color:0.5,0.5,0.5,1
+                elevation:0
+                radius:[10]
+                size_hint: None, None
+                size:150,24
+                pos_hint: {"right": 1,'center_y': 0.5}
+            MDIconButton:
+                icon:'magnify'
+                pos_hint:{'right':1,'center_y':0.5}
+                user_font_size: "20sp"              
+    MDBoxLayout:
+        orientation:'vertical'
+        # md_bg_color:0.5,0.5,1,1
+        size_hint: None, None
+        size:20,20
+        # adaptive_width:True                  
+        # MDIconButton:
+        #     # md_bg_color:1,0,0,1
+        #     icon:'bell-outline'
+        #     size_hint: None, None
+        #     pos_hint:{'center_x':0.5,'y':0}
+        #     user_font_size: "16sp"         
+        MDIconButton:
+            # md_bg_color:0,0,1,1
+            icon:'message-text'
+            size_hint: None, None
+            pos_hint:{'center_x':0.5,'y':0}
+            user_font_size: "16sp" 
+            on_press: print(root.ids.user_name.text) 

@@ -1,0 +1,266 @@
+<PostCard>:
+    orientation: 'vertical'
+    size_hint_y: None
+    height: "420dp"
+    spacing: 2
+    elevation: 0
+
+    MDBoxLayout:
+        id:card_box
+        padding: 2
+        adaptive_height: True
+
+        OneLineAvatarListItem:
+            text: f'[b][size=14]{root.username}[/size][/b]'
+            divider: None
+            _no_ripple_effect: True
+
+            ImageLeftWidget:
+                source: root.avatar 
+                radius: [20, ]
+        
+        MDIconButton:
+            icon: 'dots-vertical'
+    
+
+    # Post
+    MDSwiper:
+        items_spacing:"0.0005dp"
+        # swipe_distance:"5dp"
+        on_swipe: print("on_swipe")
+        # on_pre_swipe: print("on_pre_swipe")
+        on_overswipe_right: 
+            print("on_overswipe_right")
+            # root.ids.card_box.md_bg_color = (255/255, 0/255, 0/255 ,1)
+        on_overswipe_left: 
+            print("on_overswipe_left")
+            # root.ids.card_box.md_bg_color = (0/255, 209/255, 255/255 ,1)
+        # on_swipe_left: 
+        #     print("on_swipe_left rad")
+        #     root.ids.card_box.md_bg_color = (255/255, 0/255, 0/255 ,1) 
+        # on_swipe_right: 
+        #     print("on_swipe_right blue")
+        #     root.ids.card_box.md_bg_color = (0/255, 209/255, 255/255 ,1)
+        adaptive_height: True
+        # width:"340dp"
+        # width_mult:0
+
+        MDSwiperItem:
+            id:swiper_root
+            adaptive_height: True
+            width:"340dp"
+            radius:[25]
+            RelativeLayout:
+                FitImage:
+                    adaptive_height: True
+                    source: root.post
+        # MDSwiperItem:
+        #     id:swiper_root
+        #     adaptive_height: True
+        #     width:"340dp"
+        #     radius:[25]
+
+        #     FitImage:
+        #         adaptive_height: True
+        #         source: root.post
+        # MDSwiperItem:
+        #     id:swiper_root
+        #     adaptive_height: True
+        #     width:"340dp"
+        #     radius:[25]
+
+        #     FitImage:
+        #         adaptive_height: True
+        #         source: root.post                
+        # FitImage:
+        #     adaptive_height: True
+        #     source: root.post
+
+    # Reactions
+    MDBoxLayout:
+        padding: 5, 0, 0, 0         
+        spacing: 2
+        adaptive_height: True 
+
+
+        MDIconButton:
+            icon: 'thumb-up'
+            # on_release: root.ids.card_box.md_bg_color = (255/255, 0/255, 0/255 ,1)
+            on_press:
+                root.ids.card_box.md_bg_color = (255/255, 0/255, 0/255 ,1)
+                root.Upload_AssessmentPoint(1)
+        MDIconButton:
+            icon: 'thumb-down'
+            on_press:
+                root.ids.card_box.md_bg_color = (0/255, 209/255, 255/255 ,1)
+                root.Upload_AssessmentPoint(-1)
+        MDIconButton:
+            icon: 'message-outline'
+        
+        Widget:
+
+        MDIconButton:
+            icon: 'bookmark-outline'
+
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: 5, 0, 0, 0  
+        spacing: 2
+        adaptive_height: True 
+
+        MyLabel:   
+            text: f'{root.likes} likes'
+            bold: True 
+
+        MyLabel:
+            markup: True
+            text: f'[b]{root.username}[/b] {root.caption}'   
+
+        HalfOpacityLabel:
+            text: f'View all {root.comments} comments'
+    
+
+    MDBoxLayout:
+        padding: 5, 0, 0, 0
+        spacing: 2
+        adaptive_height: True 
+
+        FitImage:
+            source: root.profile_pic
+            size_hint: None, None
+            size: 20, 20
+            radius: [20, ]
+        
+        HalfOpacityLabel:
+            text: 'Add a comment...'
+    
+    MDBoxLayout:
+        padding: 9, 0, 0, 0
+        spacing: 0
+        adaptive_height: True 
+
+        HalfOpacityLabel:
+            font_size: 10
+            text: f'{root.posted_ago} ago'
+
+
+
+
+<MyLabel@MDLabel>
+    adaptive_height: True
+    font_size: 12
+    font_name:app.font_name  
+
+<HalfOpacityLabel@MyLabel>:
+    theme_text_color: 'Custom'
+    text_color: 0, 0, 0, 0.5
+    font_name:app.font_name  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# #:import ScreenManager kivy.uix.screenmanager
+
+# <SwipeToDeleteItem>:
+#     size_hint_y: None
+#     height: content.height
+
+#     # MDCardSwipeLayerBox:
+#     #     # Content under the card.
+
+#     # MDCardSwipeFrontBox:
+
+#         # Content of card.
+#     OneLineListItem:
+#         id: content
+#         text: root.text
+#         _no_ripple_effect: True
+
+
+# <PostCard@MDBoxLayout>:
+
+#     orientation: "vertical"
+#     spacing: "10dp"
+
+#     MDToolbar:
+#         elevation: 10
+#         title: "MDCardSwipe"
+
+#     ScrollView:
+#         scroll_timeout : 100
+
+#         # MDList:
+#         #     id: md_list
+#         #     padding: 0
+
+
+#         MDSwiper:
+#             id: md_list
+#             items_spacing:"1dp"
+#             on_swipe: print("on_swipe")
+#             on_pre_swipe: print("on_pre_swipe")
+#             on_overswipe_right: print("on_overswipe_right")
+#             on_overswipe_left: print("on_overswipe_left")
+#             on_swipe_left: print("on_swipe_left")
+#             on_swipe_right: print("on_swipe_right")
+#             size_hint_y: None
+#             # height: root.height 
+#             # y: root.height - self.height
+#             # pos_hint:{'center_x': 0.5}
+#             # MDSwiperItem:
+#             width_mult:0
+#             SwipeToDeleteItem:
+
+# # ------------------------
+# # <MySwiper@MDSwiperItem>
+# #     # MDBoxLayout:
+# #     #     MDCard:
+# #     #         MDBoxLayout:
+# #     #             spacing:10
+# #     #             padding:10
+# #     FitImage:
+# #         source: "APP icon.png"
+# #         radius: [25]
+
+# #                 # MDLabel:
+
+
+# # MDScreen:
+
+# #     MDToolbar:
+# #         id: toolbar
+# #         title: "MDSwiper"
+# #         elevation: 0
+# #         pos_hint: {"top": 1}
+
+# #     MDSwiper:
+# #         items_spacing:"1dp"
+# #         on_swipe: print("on_swipe")
+# #         on_pre_swipe: print("on_pre_swipe")
+# #         on_overswipe_right: print("on_overswipe_right")
+# #         on_overswipe_left: print("on_overswipe_left")
+# #         on_swipe_left: print("on_swipe_left")
+# #         on_swipe_right: print("on_swipe_right")
+# #         size_hint_y: None
+# #         height: root.height - toolbar.height
+# #         y: root.height - self.height - toolbar.height
+# #         # pos_hint:{'center_x': 0.5}
+# #         # MDSwiperItem:
+# #         width_mult:0
+# #         MySwiper:

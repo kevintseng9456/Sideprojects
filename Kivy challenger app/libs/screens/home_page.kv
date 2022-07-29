@@ -1,0 +1,438 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import rgba kivy.utils.get_color_from_hex
+# :import StoryCreator libs.components.story_creator.StoryCreator
+# :import BottomNav libs.components.bottom_nav.BottomNav
+
+<Circle@MDCard>
+    size_hint: None, None
+    elevation: 0
+    pos_hint: {"center_x": 0.5,"center_y": 0.5}
+
+<MyToggleButton@MDFillRoundFlatButton+MDToggleButton>:
+    md_bg_color: [0, 0, 0, 1]
+    background_normal: [0, 0, 0, 1]
+    background_down: self.theme_cls.primary_light
+    text_color:[0.9, 1, 1, 1]
+# -------------------------------------------------------------------
+# #---------Release button-------------
+<Release_button@Widget>:
+    FitImage:
+        # source: root.avatar 
+        # source:'./APP icon.png'
+        source:'./image/Release a challenge.png'
+        size_hint: None, None
+        size: 53, 53
+        radius: [53]
+        pos_hint: {"center_x": 0.9,"center_y": 0.05}
+    Button:
+        size_hint:None,None
+        size: 53, 53
+        pos_hint: {"center_x": 0.9,"center_y": 0.05}
+        background_color:0,0,0,0
+        background_normal: ''
+        background_down: ''  
+        on_press:
+            app.root.current = 'Upload_form_page'
+            print("------Upload_form_page------")     
+
+# --------------------------------------------------------------------
+
+
+
+<HomePage>:
+    name:'home'
+    # md_bg_color: (0,0,0,1)
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        md_bg_color:0,0,0,1
+        # Appbar
+        AppBar01:
+            id:appbar01
+            username: root.username
+            userlevel:root.userlevel
+            avatar:root.avatar
+    # ---------
+        # AppBar02:
+        MDBoxLayout:
+            orientation: "vertical"
+
+            MDTabs:
+                id: daily_tabs
+                font_name:app.font_name       
+                tab_bar_height: dp(36)
+                background_color:0,0,0,1
+                text_color_normal:1, 1, 1, 1
+                text_color_active:1, 1, 1, 1
+                on_tab_switch: app.on_tab_switch(*args)
+
+                Tab:
+                    title:"每日任務"
+                    MDBoxLayout:
+                        md_bg_color:0,0,0,1
+                        # adaptive_height:True
+                        orientation:'vertical'                                
+                        ScrollView:
+                            # scroll_distance
+                            # size_hint:(None,35/800)
+                            scroll_type:['bars', 'content']
+                            bar_color:(1,0,0,1)
+                            # bar_inactive_color:(1,0,0,1)
+                            # bar_margin:1
+                            # bar_width:0.1
+                            # scroll_x:1
+                            size_hint:(360/360,665/800)
+                            # bar_color:0,1,0,1
+                            do_scroll_y: True
+                            do_scroll_x: False 
+                            MDGridLayout:
+                                id:daily_acceptcard_box
+                                cols:1
+                                size_hint_y:None
+                                height: self.minimum_height
+                                md_bg_color:(0,0,0,1)
+                                padding:30
+                                spacing:10                    
+                Tab:
+                    title:"個人挑戰列表" 
+                    MDBoxLayout:
+                        md_bg_color:0,0,0,1
+                        # adaptive_height:True
+                        orientation:'vertical'                                
+                        ScrollView:
+                            # scroll_distance
+                            # size_hint:(None,35/800)
+                            scroll_type:['bars', 'content']
+                            bar_color:(1,0,0,1)
+                            # bar_inactive_color:(1,0,0,1)
+                            # bar_margin:1
+                            # bar_width:0.1
+                            # scroll_x:1
+                            size_hint:(360/360,665/800)
+                            # bar_color:0,1,0,1
+                            do_scroll_y: True
+                            do_scroll_x: False 
+                            MDGridLayout:
+                                id:acceptcard_box
+                                cols:1
+                                size_hint_y:None
+                                height: self.minimum_height
+                                md_bg_color:(0,0,0,1)
+                                padding:30
+                                spacing:10
+                                # Acceptcard:                       
+                    # Personal_list:
+                    # Release_button:
+                Tab:
+                    title:"挑戰列表"
+                    Challenge_list:
+                    Release_button:
+                Tab:
+                    id:Challenger
+                    title:"CHALLENGER"   
+                    # MDBoxLayout:
+                    #     md_bg_color:0,0,0,1
+                    #     # adaptive_height:True
+                    #     orientation:'vertical'
+                    MDRelativeLayout:
+                        MDBoxLayout:
+                            md_bg_color:0,1,0,0 
+                            orientation:"vertical"
+                            MDBoxLayout:
+                                md_bg_color:0,0,0,1
+                                adaptive_height: True
+                                MDBoxLayout:
+                                MDBoxLayout:
+                                    md_bg_color:0,0,0,1
+                                    adaptive_size: True
+
+                                    MyToggleButton:
+                                        id:toggle1
+                                        # md_bg_color: 0, 0, 0, 1
+                                        # background_normal:0, 0, 0, 1
+                                        # background_down:1,1,1,1
+                                        # font_color_normal:[1,1,1,1]
+                                        # font_color_down:[0, 0, 0, 1]
+                                        font_name:app.font_name  
+                                        text: "推薦"
+                                        group: "x"
+                                        # theme_text_color : "Custom"
+                                        # text_color : [1,1,1,1]
+                                        # on_press:self.change_color(self.state)
+                                        on_release:root.ids.tab_panel.switch_to(root.ids.tab11)
+
+
+                                    MyToggleButton:
+                                        id:toggle2
+                                        # md_bg_color: 0, 0, 0, 1
+                                        font_name:app.font_name  
+                                        text: "熱門"
+                                        group: "x"
+                                        # theme_text_color : "Custom"
+                                        # text_color : [1,1,1,1]
+                                        on_release:root.ids.tab_panel.switch_to(root.ids.tab22)
+                                    
+                                MDBoxLayout:
+                            MDBoxLayout:    
+                        MDBoxLayout:
+                            md_bg_color:0,0,1,0
+                            TabbedPanel:
+                                id: tab_panel
+                                size_hint: 1, 1
+                                pos_hint: {'center_x': .5, 'center_y': .5}
+                                do_default_tab: False
+                                # tab_pos:'top_mid'
+                                tab_height:32
+                                tab_width:0.0001
+                                TabbedPanelItem:
+                                    id: tab11
+                                    size_hint: 0.1, 0.11
+                                    background_normal :""
+                                    background_color:0,0,0,0
+                                    MDBoxLayout:
+                                        md_bg_color:0,0,0,1
+                                        # adaptive_height:True
+                                        orientation:'vertical'                                
+                                        ScrollView:
+                                            # scroll_distance
+                                            # size_hint:(None,35/800)
+                                            scroll_type:['bars', 'content']
+                                            bar_color:(1,0,0,1)
+                                            # bar_inactive_color:(1,0,0,1)
+                                            # bar_margin:1
+                                            # bar_width:0.1
+                                            # scroll_x:1
+                                            size_hint:(360/360,665/800)
+                                            # bar_color:0,1,0,1
+                                            do_scroll_y: True
+                                            do_scroll_x: False 
+                                            MDGridLayout:
+                                                id:add_recommend
+                                                cols:1
+                                                size_hint_y:None
+                                                height: self.minimum_height
+                                                md_bg_color:(0,0,0,1)
+                                                padding:30
+                                                spacing:10
+                                                # Recommend:       
+                                TabbedPanelItem:
+                                    id: tab22
+                                    background_normal :""
+                                    background_color:0,0,0,0
+                                    MDBoxLayout:
+                                        md_bg_color:0,0,0,1
+                                        # adaptive_height:True
+                                        orientation:'vertical'                                
+                                        ScrollView:
+                                            # scroll_distance
+                                            # size_hint:(None,35/800)
+                                            scroll_type:['bars', 'content']
+                                            bar_color:(1,0,0,1)
+                                            # bar_inactive_color:(1,0,0,1)
+                                            # bar_margin:1
+                                            # bar_width:0.1
+                                            # scroll_x:1
+                                            size_hint:(360/360,665/800)
+                                            # bar_color:0,1,0,1
+                                            do_scroll_y: True
+                                            do_scroll_x: False 
+                                            MDGridLayout:
+                                                id:add_popular
+                                                cols:1
+                                                size_hint_y:None
+                                                height: self.minimum_height
+                                                md_bg_color:(0,0,0,1)
+                                                padding:30
+                                                spacing:10
+                                                # Popular:                            
+#old
+                        # MDTabs:
+                        #     id: tabs2
+                        #     font_name:app.font_name         
+                        #     tab_bar_height: dp(36)
+                        #     background_color:0,0,0,1
+                        #     on_tab_switch: app.on_tab_switch(*args)                        
+                        #     Tab:
+                        #         title:"推薦"
+                        #         MDBoxLayout:
+                        #             md_bg_color:0,0,0,1
+                        #             # adaptive_height:True
+                        #             orientation:'vertical'                                
+                        #             ScrollView:
+                        #                 # scroll_distance
+                        #                 # size_hint:(None,35/800)
+                        #                 scroll_type:['bars', 'content']
+                        #                 bar_color:(1,0,0,1)
+                        #                 # bar_inactive_color:(1,0,0,1)
+                        #                 # bar_margin:1
+                        #                 # bar_width:0.1
+                        #                 # scroll_x:1
+                        #                 size_hint:(360/360,665/800)
+                        #                 # bar_color:0,1,0,1
+                        #                 do_scroll_y: True
+                        #                 do_scroll_x: False 
+                        #                 MDGridLayout:
+                        #                     id:add_recommend
+                        #                     cols:1
+                        #                     size_hint_y:None
+                        #                     height: self.minimum_height
+                        #                     md_bg_color:(0,0,0,1)
+                        #                     padding:30
+                        #                     spacing:10
+                        #                     Recommend:
+                        #     Tab:
+                        #         title:"熱門"
+                        #         MDBoxLayout:
+                        #             md_bg_color:0,0,0,1
+                        #             # adaptive_height:True
+                        #             orientation:'vertical'                                
+                        #             ScrollView:
+                        #                 # scroll_distance
+                        #                 # size_hint:(None,35/800)
+                        #                 scroll_type:['bars', 'content']
+                        #                 bar_color:(1,0,0,1)
+                        #                 # bar_inactive_color:(1,0,0,1)
+                        #                 # bar_margin:1
+                        #                 # bar_width:0.1
+                        #                 # scroll_x:1
+                        #                 size_hint:(360/360,665/800)
+                        #                 # bar_color:0,1,0,1
+                        #                 do_scroll_y: True
+                        #                 do_scroll_x: False 
+                        #                 MDGridLayout:
+                        #                     id:add_recommend
+                        #                     cols:1
+                        #                     size_hint_y:None
+                        #                     height: self.minimum_height
+                        #                     md_bg_color:(0,0,0,1)
+                        #                     padding:30
+                        #                     spacing:10
+                        #                     Popular:   
+#old                                         
+                Tab:
+                    title:"商店"
+                Tab:
+                    title:"祈願"
+                Tab:
+                    title:"投票"                    
+
+    # ---------
+        # FloatLayout:
+        #     canvas:
+        #         Color:
+        #             # rgba:(64/255,64/255,63/255,0.5)
+        #             rgba:(1,0,0,1)
+        #         Rectangle:                                       
+        #             size:self.size                   
+        #             pos:self.pos
+        #     size_hint:(360/360,35/800)
+        #     pos_hint:{'x':0,'top':(800-140)/800}
+#         AppBar03:
+#         ScrollView:
+#             # scroll_distance
+#             # size_hint:(None,35/800)
+#             scroll_type:['bars', 'content']
+#             bar_color:(1,0,0,1)
+#             # bar_inactive_color:(1,0,0,1)
+#             # bar_margin:1
+#             # bar_width:0.1
+#             # scroll_x:1
+#             size_hint:(360/360,665/800)
+#             # bar_color:0,1,0,1
+#             do_scroll_y: True
+#             do_scroll_x: False 
+#             MDGridLayout:
+#                 # orientation:'vertical'
+#                 cols:1
+#                 size_hint_y:None
+#                 height: self.minimum_height
+#                 md_bg_color:(0,0,0,1)
+#                 padding:30
+#                 spacing:10
+
+#                 Button:
+#                     radius:25
+#                     background_normal: './image/selfie.png'
+#                     background_down: './image/selfie.png'
+#                     size_hint_y:None
+#                     height:201             
+#                 Button:
+#                     # size_hint_x:303/360
+#                     background_normal: './image/findpeace.png'
+#                     background_down: './image/findpeace.png'                    
+#                     size_hint_y:None
+#                     height:201
+#                 Button:
+#                     # size_hint_x:303/360
+#                     background_normal: './image/Sayhi.png'
+#                     background_down: './image/Sayhi.png'                    
+#                     size_hint_y:None
+#                     height:201
+#                 Button:
+#                     # size_hint_x:303/360
+#                     size_hint_y:None
+#                     height:201
+#                 Button:
+#                     # size_hint_x:303/360 
+#                     size_hint_y:None
+#                     height:201
+
+# # #---------Release button-------------
+#     FitImage:
+#         # source: root.avatar 
+#         # source:'./APP icon.png'
+#         source:'./image/Release a challenge.png'
+#         size_hint: None, None
+#         size: 53, 53
+#         radius: [53]
+#         pos_hint: {"center_x": 0.9,"center_y": 0.05}
+#     Button:
+#         size_hint:None,None
+#         size: 53, 53
+#         pos_hint: {"center_x": 0.9,"center_y": 0.05}
+#         background_color:0,0,0,0
+#         background_normal: ''
+#         background_down: ''  
+#         on_press:print("press")         
+#---------------------------------------
+        # MDBoxLayout:
+        #     md_bg_color:1,0,0,1
+        #     ScrollView:
+        #         bar_width: 5
+
+        #         MDBoxLayout:
+        #             adaptive_height: True
+        #             md_bg_color:0,0,1,1
+        #             MDBoxLayout:
+        #                 orientation: 'vertical'
+        #                 adaptive_height: True
+        #                 id: timeline
+        #                 md_bg_color:0,1,0,1
+        #                 # Stories
+        #                 ScrollView:
+        #                     size_hint_y: None
+        #                     height: 110
+        #                     bar_width: 5
+
+        #                     MDBoxLayout:
+        #                         adaptive_width: True
+        #                         spacing: 5
+        #                         padding: 5
+        #                         md_bg_color:0,0,1,1
+
+        # #                         # Story Creator
+        # #                         # StoryCreator:
+        # #                         #     avatar: root.profile_picture
+                                
+        #                         MDBoxLayout:
+        #                             adaptive_width: True
+        #                             padding: 5
+        #                             spacing: 5
+        #                             id: stories
+        #                             md_bg_color:0,1,0,1
+                        
+        #                 MDSeparator:
+
+        # Bottom Navigation Bar
+        # BottomNav:
+        #     avatar: root.profile_picture

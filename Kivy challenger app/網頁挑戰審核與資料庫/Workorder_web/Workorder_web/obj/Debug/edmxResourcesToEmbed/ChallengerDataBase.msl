@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="APPSolutionsModelStoreContainer" CdmEntityContainer="APPSolutionsEntities">
+    <EntitySetMapping Name="ChallengeName">
+      <EntityTypeMapping TypeName="APPSolutionsModel.ChallengeName">
+        <MappingFragment StoreEntitySet="ChallengeName">
+          <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+          <ScalarProperty Name="ChallengeID" ColumnName="ChallengeID" />
+          <ScalarProperty Name="ChallengeName1" ColumnName="ChallengeName" />
+          <ScalarProperty Name="VideoPictureURL" ColumnName="VideoPictureURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChallengeTaskTopic">
+      <EntityTypeMapping TypeName="APPSolutionsModel.ChallengeTaskTopic">
+        <MappingFragment StoreEntitySet="ChallengeTaskTopic">
+          <ScalarProperty Name="ChallengeTaskTopicID" ColumnName="ChallengeTaskTopicID" />
+          <ScalarProperty Name="ChallengeTaskTopicName" ColumnName="ChallengeTaskTopicName" />
+          <ScalarProperty Name="VideoPictureURL" ColumnName="VideoPictureURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChallengeTaskType">
+      <EntityTypeMapping TypeName="APPSolutionsModel.ChallengeTaskType">
+        <MappingFragment StoreEntitySet="ChallengeTaskType">
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+          <ScalarProperty Name="ChallengeTaskTypeID" ColumnName="ChallengeTaskTypeID" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="VideoPictureURL" ColumnName="VideoPictureURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetRequestsUploadChallenge" FunctionName="APPSolutionsModel.Store.GetRequestsUploadChallenge">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="APPSolutionsModel.GetRequestsUploadChallenge_Result">
+          <ScalarProperty Name="RequestsUserID" ColumnName="RequestsUserID" />
+          <ScalarProperty Name="ChallengeName" ColumnName="ChallengeName" />
+          <ScalarProperty Name="UploadPictureVideo1" ColumnName="UploadPictureVideo1" />
+          <ScalarProperty Name="UploadPictureVideo2" ColumnName="UploadPictureVideo2" />
+          <ScalarProperty Name="ChallengeMissionExplan" ColumnName="ChallengeMissionExplan" />
+          <ScalarProperty Name="SpecialRequirement" ColumnName="SpecialRequirement" />
+          <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UpdateRequestsUploadChallenge" FunctionName="APPSolutionsModel.Store.UpdateRequestsUploadChallenge">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="APPSolutionsModel.UpdateRequestsUploadChallenge_Result">
+          <ScalarProperty Name="RequestsUserID" ColumnName="RequestsUserID" />
+          <ScalarProperty Name="ChallengeName" ColumnName="ChallengeName" />
+          <ScalarProperty Name="UploadPictureVideo1" ColumnName="UploadPictureVideo1" />
+          <ScalarProperty Name="UploadPictureVideo2" ColumnName="UploadPictureVideo2" />
+          <ScalarProperty Name="ChallengeMissionExplan" ColumnName="ChallengeMissionExplan" />
+          <ScalarProperty Name="SpecialRequirement" ColumnName="SpecialRequirement" />
+          <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UploadNewChallenge" FunctionName="APPSolutionsModel.Store.UploadNewChallenge" />
+    <EntitySetMapping Name="RequestsUploadChallenge">
+      <EntityTypeMapping TypeName="APPSolutionsModel.RequestsUploadChallenge">
+        <MappingFragment StoreEntitySet="RequestsUploadChallenge">
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+          <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
+          <ScalarProperty Name="SpecialRequirement" ColumnName="SpecialRequirement" />
+          <ScalarProperty Name="ChallengeMissionExplan" ColumnName="ChallengeMissionExplan" />
+          <ScalarProperty Name="UploadPictureVideo2" ColumnName="UploadPictureVideo2" />
+          <ScalarProperty Name="UploadPictureVideo1" ColumnName="UploadPictureVideo1" />
+          <ScalarProperty Name="ChallengeName" ColumnName="ChallengeName" />
+          <ScalarProperty Name="RequestsUserID" ColumnName="RequestsUserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="work_timeModelStoreContainer" CdmEntityContainer="work_timeEntities">
+    <EntitySetMapping Name="Client">
+      <EntityTypeMapping TypeName="work_timeModel.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DailyProductionSchedule">
+      <EntityTypeMapping TypeName="work_timeModel.DailyProductionSchedule">
+        <MappingFragment StoreEntitySet="DailyProductionSchedule">
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="vision" ColumnName="vision" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Principal" ColumnName="Principal" />
+          <ScalarProperty Name="Line_type" ColumnName="Line_type" />
+          <ScalarProperty Name="floor" ColumnName="floor" />
+          <ScalarProperty Name="Arrange_date" ColumnName="Arrange_date" />
+          <ScalarProperty Name="Work_Order" ColumnName="Work_Order" />
+          <ScalarProperty Name="Work_order_volume" ColumnName="Work_order_volume" />
+          <ScalarProperty Name="Cumulative_time" ColumnName="Cumulative_time" />
+          <ScalarProperty Name="Planning_time" ColumnName="Planning_time" />
+          <ScalarProperty Name="People" ColumnName="People" />
+          <ScalarProperty Name="Actual_capacity" ColumnName="Actual_capacity" />
+          <ScalarProperty Name="Target_capacity" ColumnName="Target_capacity" />
+          <ScalarProperty Name="ProductionplanningID" ColumnName="ProductionplanningID" />
+          <ScalarProperty Name="Work_order_number" ColumnName="Work_order_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderPO">
+      <EntityTypeMapping TypeName="work_timeModel.OrderPO">
+        <MappingFragment StoreEntitySet="OrderPO">
+          <ScalarProperty Name="Product_ID" ColumnName="Product ID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Order_PO_Name" ColumnName="Order PO Name" />
+          <ScalarProperty Name="Order_PO_ID" ColumnName="Order PO ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product">
+      <EntityTypeMapping TypeName="work_timeModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="Assemply_count" ColumnName="Assemply_count" />
+          <ScalarProperty Name="Assemply_time" ColumnName="Assemply_time" />
+          <ScalarProperty Name="ERP_Part_No" ColumnName="ERP_Part_No" />
+          <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+          <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductionDailyReport">
+      <EntityTypeMapping TypeName="work_timeModel.ProductionDailyReport">
+        <MappingFragment StoreEntitySet="ProductionDailyReport">
+          <ScalarProperty Name="vision" ColumnName="vision" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="effectiveness_H" ColumnName="effectiveness_H" />
+          <ScalarProperty Name="End_period" ColumnName="End_period" />
+          <ScalarProperty Name="Start_period" ColumnName="Start_period" />
+          <ScalarProperty Name="Overtime_hours" ColumnName="Overtime_hours" />
+          <ScalarProperty Name="Ask_leave" ColumnName="Ask_leave" />
+          <ScalarProperty Name="productivity" ColumnName="productivity" />
+          <ScalarProperty Name="Capacity_achievement_rate" ColumnName="Capacity_achievement_rate" />
+          <ScalarProperty Name="Poor_operation" ColumnName="Poor_operation" />
+          <ScalarProperty Name="Poor_productivity" ColumnName="Poor_productivity" />
+          <ScalarProperty Name="Poor_incoming" ColumnName="Poor_incoming" />
+          <ScalarProperty Name="Standard_capacity" ColumnName="Standard_capacity" />
+          <ScalarProperty Name="Working_hours_total" ColumnName="Working_hours_total" />
+          <ScalarProperty Name="Working_hours" ColumnName="Working_hours" />
+          <ScalarProperty Name="People" ColumnName="People" />
+          <ScalarProperty Name="Finished_products" ColumnName="Finished_products" />
+          <ScalarProperty Name="Semi_finished_products" ColumnName="Semi_finished_products" />
+          <ScalarProperty Name="Allocation" ColumnName="Allocation" />
+          <ScalarProperty Name="Model_or_Part_No" ColumnName="Model_or_Part_No" />
+          <ScalarProperty Name="Work_Order_Number" ColumnName="Work_Order_Number" />
+          <ScalarProperty Name="Daily_Production_Schedule_ID" ColumnName="Daily_Production_Schedule_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Productionplanningschedule">
+      <EntityTypeMapping TypeName="work_timeModel.Productionplanningschedule">
+        <MappingFragment StoreEntitySet="Productionplanningschedule">
+          <ScalarProperty Name="Vision" ColumnName="Vision" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="Production_Schedule_ID" ColumnName="Production_Schedule_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_ProductDailyDailyReportAll">
+      <EntityTypeMapping TypeName="work_timeModel.vw_ProductDailyDailyReportAll">
+        <MappingFragment StoreEntitySet="vw_ProductDailyDailyReportAll">
+          <ScalarProperty Name="AllCount" ColumnName="AllCount" />
+          <ScalarProperty Name="Allocation" ColumnName="Allocation" />
+          <ScalarProperty Name="Model_or_Part_No" ColumnName="Model_or_Part_No" />
+          <ScalarProperty Name="Work_Order_Number" ColumnName="Work_Order_Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vw_ProductList">
+      <EntityTypeMapping TypeName="work_timeModel.vw_ProductList">
+        <MappingFragment StoreEntitySet="vw_ProductList">
+          <ScalarProperty Name="ASSEMBLY_COUNT" ColumnName="ASSEMBLY_COUNT" />
+          <ScalarProperty Name="ASSEMBLY_TIME" ColumnName="ASSEMBLY_TIME" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+          <ScalarProperty Name="ERP_Part_No" ColumnName="ERP_Part_No" />
+          <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_DailyProductionList" FunctionName="work_timeModel.Store.sp_DailyProductionList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="work_timeModel.sp_DailyProductionList_Result">
+          <ScalarProperty Name="floor" ColumnName="floor" />
+          <ScalarProperty Name="Line_type" ColumnName="Line_type" />
+          <ScalarProperty Name="Principal" ColumnName="Principal" />
+          <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+          <ScalarProperty Name="ERP_Part_No" ColumnName="ERP_Part_No" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Target_capacity" ColumnName="Target_capacity" />
+          <ScalarProperty Name="Actual_capacity" ColumnName="Actual_capacity" />
+          <ScalarProperty Name="People" ColumnName="People" />
+          <ScalarProperty Name="Planning_time" ColumnName="Planning_time" />
+          <ScalarProperty Name="Cumulative_time" ColumnName="Cumulative_time" />
+          <ScalarProperty Name="Work_order_volume" ColumnName="Work_order_volume" />
+          <ScalarProperty Name="Arrange_date" ColumnName="Arrange_date" />
+          <ScalarProperty Name="vision" ColumnName="vision" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="Work_Order" ColumnName="Work_Order" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_getProductCapacity" FunctionName="work_timeModel.Store.sp_getProductCapacity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="work_timeModel.sp_getProductCapacity_Result">
+          <ScalarProperty Name="Work_Order_Number" ColumnName="Work_Order_Number" />
+          <ScalarProperty Name="Model_or_Part_No" ColumnName="Model_or_Part_No" />
+          <ScalarProperty Name="avaCount" ColumnName="avaCount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ProductionDailyReportList" FunctionName="work_timeModel.Store.sp_ProductionDailyReportList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="work_timeModel.sp_ProductionDailyReportList_Result">
+          <ScalarProperty Name="Daily_Production_Schedule_ID" ColumnName="Daily_Production_Schedule_ID" />
+          <ScalarProperty Name="Work_Order_Number" ColumnName="Work_Order_Number" />
+          <ScalarProperty Name="Model_or_Part_No" ColumnName="Model_or_Part_No" />
+          <ScalarProperty Name="Allocation" ColumnName="Allocation" />
+          <ScalarProperty Name="Semi_finished_products" ColumnName="Semi_finished_products" />
+          <ScalarProperty Name="Finished_products" ColumnName="Finished_products" />
+          <ScalarProperty Name="People" ColumnName="People" />
+          <ScalarProperty Name="Working_hours" ColumnName="Working_hours" />
+          <ScalarProperty Name="Working_hours_total" ColumnName="Working_hours_total" />
+          <ScalarProperty Name="Standard_capacity" ColumnName="Standard_capacity" />
+          <ScalarProperty Name="Poor_incoming" ColumnName="Poor_incoming" />
+          <ScalarProperty Name="Poor_productivity" ColumnName="Poor_productivity" />
+          <ScalarProperty Name="Poor_operation" ColumnName="Poor_operation" />
+          <ScalarProperty Name="Capacity_achievement_rate" ColumnName="Capacity_achievement_rate" />
+          <ScalarProperty Name="productivity" ColumnName="productivity" />
+          <ScalarProperty Name="Ask_leave" ColumnName="Ask_leave" />
+          <ScalarProperty Name="Overtime_hours" ColumnName="Overtime_hours" />
+          <ScalarProperty Name="Start_period" ColumnName="Start_period" />
+          <ScalarProperty Name="End_period" ColumnName="End_period" />
+          <ScalarProperty Name="effectiveness_H" ColumnName="effectiveness_H" />
+          <ScalarProperty Name="vision" ColumnName="vision" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ProductPainList" FunctionName="work_timeModel.Store.sp_ProductPainList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="work_timeModel.sp_ProductPainList_Result">
+          <ScalarProperty Name="Production_Schedule_ID" ColumnName="Production_Schedule_ID" />
+          <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+          <ScalarProperty Name="ERP_Part_No" ColumnName="ERP_Part_No" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="vision" ColumnName="vision" />
+          <ScalarProperty Name="GetMonth" ColumnName="GetMonth" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="Assemply_count" ColumnName="Assemply_count" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="AUTOPRODUCT">
+      <EntityTypeMapping TypeName="work_timeModel.AUTOPRODUCT">
+        <MappingFragment StoreEntitySet="AUTOPRODUCT">
+          <ScalarProperty Name="ASSEMBLY_COUNT" ColumnName="ASSEMBLY_COUNT" />
+          <ScalarProperty Name="ASSEMBLY_TIME" ColumnName="ASSEMBLY_TIME" />
+          <ScalarProperty Name="CUSTOMER" ColumnName="CUSTOMER" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="ITEM_NUMBER" ColumnName="ITEM_NUMBER" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="TEAM_ID" ColumnName="TEAM_ID" />
+          <ScalarProperty Name="STATE" ColumnName="STATE" />
+          <ScalarProperty Name="PERMISSION_ID" ColumnName="PERMISSION_ID" />
+          <ScalarProperty Name="OWNED_BY_ID" ColumnName="OWNED_BY_ID" />
+          <ScalarProperty Name="NOT_LOCKABLE" ColumnName="NOT_LOCKABLE" />
+          <ScalarProperty Name="NEW_VERSION" ColumnName="NEW_VERSION" />
+          <ScalarProperty Name="MODIFIED_ON" ColumnName="MODIFIED_ON" />
+          <ScalarProperty Name="MODIFIED_BY_ID" ColumnName="MODIFIED_BY_ID" />
+          <ScalarProperty Name="MINOR_REV" ColumnName="MINOR_REV" />
+          <ScalarProperty Name="MANAGED_BY_ID" ColumnName="MANAGED_BY_ID" />
+          <ScalarProperty Name="MAJOR_REV" ColumnName="MAJOR_REV" />
+          <ScalarProperty Name="LOCKED_BY_ID" ColumnName="LOCKED_BY_ID" />
+          <ScalarProperty Name="KEYED_NAME" ColumnName="KEYED_NAME" />
+          <ScalarProperty Name="IS_RELEASED" ColumnName="IS_RELEASED" />
+          <ScalarProperty Name="IS_CURRENT" ColumnName="IS_CURRENT" />
+          <ScalarProperty Name="GENERATION" ColumnName="GENERATION" />
+          <ScalarProperty Name="CURRENT_STATE" ColumnName="CURRENT_STATE" />
+          <ScalarProperty Name="CSS" ColumnName="CSS" />
+          <ScalarProperty Name="CREATED_ON" ColumnName="CREATED_ON" />
+          <ScalarProperty Name="CREATED_BY_ID" ColumnName="CREATED_BY_ID" />
+          <ScalarProperty Name="CONFIG_ID" ColumnName="CONFIG_ID" />
+          <ScalarProperty Name="CLASSIFICATION" ColumnName="CLASSIFICATION" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTOMER">
+      <EntityTypeMapping TypeName="work_timeModel.CUSTOMER">
+        <MappingFragment StoreEntitySet="CUSTOMER">
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="ZIP_CODE" ColumnName="ZIP_CODE" />
+          <ScalarProperty Name="WEB_SITE" ColumnName="WEB_SITE" />
+          <ScalarProperty Name="MAIN_PHONE" ColumnName="MAIN_PHONE" />
+          <ScalarProperty Name="MAIN_FAX" ColumnName="MAIN_FAX" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+          <ScalarProperty Name="CONTACT_NAME" ColumnName="CONTACT_NAME" />
+          <ScalarProperty Name="CITY" ColumnName="CITY" />
+          <ScalarProperty Name="ADDRESS_STATE" ColumnName="ADDRESS_STATE" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="TEAM_ID" ColumnName="TEAM_ID" />
+          <ScalarProperty Name="PERMISSION_ID" ColumnName="PERMISSION_ID" />
+          <ScalarProperty Name="CONFIG_ID" ColumnName="CONFIG_ID" />
+          <ScalarProperty Name="NEW_VERSION" ColumnName="NEW_VERSION" />
+          <ScalarProperty Name="GENERATION" ColumnName="GENERATION" />
+          <ScalarProperty Name="CSS" ColumnName="CSS" />
+          <ScalarProperty Name="NOT_LOCKABLE" ColumnName="NOT_LOCKABLE" />
+          <ScalarProperty Name="IS_RELEASED" ColumnName="IS_RELEASED" />
+          <ScalarProperty Name="MINOR_REV" ColumnName="MINOR_REV" />
+          <ScalarProperty Name="MAJOR_REV" ColumnName="MAJOR_REV" />
+          <ScalarProperty Name="IS_CURRENT" ColumnName="IS_CURRENT" />
+          <ScalarProperty Name="LOCKED_BY_ID" ColumnName="LOCKED_BY_ID" />
+          <ScalarProperty Name="STATE" ColumnName="STATE" />
+          <ScalarProperty Name="CURRENT_STATE" ColumnName="CURRENT_STATE" />
+          <ScalarProperty Name="MODIFIED_BY_ID" ColumnName="MODIFIED_BY_ID" />
+          <ScalarProperty Name="MODIFIED_ON" ColumnName="MODIFIED_ON" />
+          <ScalarProperty Name="MANAGED_BY_ID" ColumnName="MANAGED_BY_ID" />
+          <ScalarProperty Name="OWNED_BY_ID" ColumnName="OWNED_BY_ID" />
+          <ScalarProperty Name="CREATED_BY_ID" ColumnName="CREATED_BY_ID" />
+          <ScalarProperty Name="CREATED_ON" ColumnName="CREATED_ON" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="KEYED_NAME" ColumnName="KEYED_NAME" />
+          <ScalarProperty Name="CLASSIFICATION" ColumnName="CLASSIFICATION" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

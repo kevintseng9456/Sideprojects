@@ -1,0 +1,265 @@
+#:import Factory kivy.factory.Factory
+
+<Content@BoxLayout>:
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "700dp"
+    MDBoxLayout:
+        adaptive_height:True
+
+        MDIconButton:
+            icon: "arrow-left"
+            on_release:
+                # root.call_dialog_close()
+                root.parent.parent.parent.dismiss()
+                print(root.ids.texttitle.text)
+                root.ids.texttitle.text = root.titletext
+
+        MDIconButton:
+            icon: "camera"
+            on_press: 
+                root.camera_on()
+                # print(root.parent)
+                # print(root.parent.parent)
+                # print(root.parent.parent.parent)
+                root.parent.parent.parent.dismiss()
+                # root.dialog_close()
+            # root.dismiss()
+                
+                
+    MDTextField:
+        id:texttitle
+        font_name:app.font_name         
+        text: root.titletext
+        halign:"center"
+        valign:"center"
+        active_line:False
+        line_anim:False
+        line_color_normal:1,0,0,0
+        on_focus: root.text_store()
+
+
+    FitImage:
+        id: VideoOrPhotoURL
+        source:root.imagesource
+        # allow_stretch:True
+        radius:[25]
+
+
+    MDBoxLayout:
+        adaptive_height:True
+
+        MDLabel:
+            # md_bg_color:234/255,81/255,81/255,1
+            id:contenttitle
+            font_name:app.font_name  
+            text:"內容描述"
+            halign:"center"
+            valign:"center"
+            size_hint_y:None
+            height:dp(40)
+
+        MDRoundFlatIconButton:
+            text: "image"
+            icon: "folder"
+            # pos_hint: {'center_x': .5, 'center_y': .6}
+            on_release: root.file_manager_open()
+
+    MDTextField:
+        id:textinfo
+        font_name:app.font_name         
+        text: root.contexttext
+        halign:"center"
+        valign:"center"
+        active_line:False
+        line_anim:False
+        line_color_normal:1,0,0,0
+        size_hint_y:None
+        height:dp(150)
+
+<Camera_content@BoxLayout>
+    orientation:'vertical'
+    # Create a camera object
+
+    Camera:
+        id:camera
+        play:True
+        resolution:(300, 300) # Specify the resolution  
+
+
+    # Create a button for taking photograph
+
+    Button:
+        text:"Take Photo"
+        size_hint:(.4, .4)
+        pos_hint:{'x': .25, 'y':.75}
+        on_press:
+            root.onCameraClick()
+            # print(root.parent)
+            # print(root.parent.parent)
+            # print(root.parent.parent.parent)
+            root.ids.camera.play = False
+            root.parent.parent.parent.dismiss()
+
+<Upload_button>:
+    FitImage:
+        source:'./image/upload_icon.png'
+        size_hint: None, None
+        size: 53, 53
+        radius: [53]
+        pos:[root.width - 50,0]
+        
+    Button:
+        size_hint:None,None
+        size: 53, 53
+        background_color:0,0,0,0
+        # background_normal: ''
+        # background_down: ''  
+        pos:[root.width - 50,0]
+        on_release:root.call_dialog()
+            # app.root.current = 'Upload_form_page'
+<Challenge_data_page>:
+    # clear_widgets()
+    name:'Challenge_Subject'
+    MDBoxLayout:
+        orientation: "vertical"    
+        MDToolbar:
+            font_name:app.font_name
+            # title:"1325"
+            # app.pre_mission_name
+            text_color:1,0,0,1
+            # md_bg_color:234/255,81/255,81/255,1
+            # right_action_items: [["camera", lambda x: root.camera_on()]]
+            left_action_items: [["arrow-left", lambda x: root.callback()]] 
+
+        MDBoxLayout:
+            orientation: "vertical"
+            spacing: "10dp"
+
+            ScrollView:
+                # scroll_timeout : 100
+                scroll_type:['bars', 'content']
+                bar_color:(1,0,0,0)
+                do_scroll_y: True
+                do_scroll_x: False
+                # size_hint:(360/360,665/800)
+                # size_hint_y: None
+                # height: 400
+                MDBoxLayout:
+                    id:name_mission_box
+                    orientation: "vertical"
+                    adaptive_height: True
+                    spacing: "10dp"
+
+
+
+                    # MDCard:
+                    #     id:mission_card
+                    #     orientation: "vertical"
+                    #     size_hint_y: None
+                    #     height: 170
+                    #     focus_behavior: True
+                    #     ripple_behavior: True
+                    #     radius:[0,0,10,10]
+                    #     font_name:app.font_name 
+                    #     MDBoxLayout:
+                    #         id: text_box
+                    #         # orientation: "vertical"
+                    #         padding:[0,0,0,15]
+                    #         FitImage:
+                    #             id: image_box_001
+                    #             source: "./image/selfie.png"
+                    #             allow_stretch:True
+                    #             radius:0,0,10,10      
+                    #         MDBoxLayout:
+                    #             orientation: "vertical"
+                    #             adaptive_height:True 
+                    #             md_bg_color:1,0,0,1
+                    #             radius:[0,0,25,25]                                        
+                    #             MDLabel:
+                    #                 id: mission_name_001
+                    #                 text:"Title"
+                    #                 font_name:app.font_name 
+                    #                 font_size:'18sp'
+                    #                 size_hint_y:None
+                    #                 height: self.texture_size[1]
+                    #                 radius:[10,10,0,0]
+                    #             MDLabel:
+                    #                 text:"#照片 #人#事#物"
+                    #                 font_name:app.font_name 
+                    #                 font_size:'12sp'
+                    #                 size_hint_y:None
+                    #                 height: self.texture_size[1]
+                    #             MDSeparator:
+                    #                 color:(0,0,0,1)
+                    #             MDLabel:
+                    #                 text:"Info"
+                    #                 font_name:app.font_name 
+                    #                 font_size:'12sp'
+                    #                 size_hint_y:None
+                    #                 height:120
+                    #                 # height: self.texture_size[1]   
+
+
+
+
+
+
+
+                # MDBoxLayout:
+                #     id:data_mission_grid
+                #     orientation:'vertical'
+                #     # size_hint_y:None
+                #     # height: self.minimum_height
+                #     adaptive_height: True
+                #     MDBoxLayout:
+                #         # adaptive_width: True
+                #         size_hint_y:None
+                #         height:200
+                #         FitImage:
+                #             source:"avator_000000000001.jpg"
+                #             allow_stretch:True
+                #         MDCard:
+                #             orientation: "vertical"
+                #             padding: "8dp"
+                #             size_hint: None, None
+                #             # size: "280dp", "180dp"
+                #             pos_hint: {"center_x": .5, "center_y": .5}
+
+                #             MDLabel:
+                #                 text: "Title"
+                #                 theme_text_color: "Secondary"
+                #                 size_hint_y: None
+                #                 height: self.texture_size[1]
+
+                #             MDSeparator:
+                #                 height: "1dp"
+
+                #             MDLabel:
+                #                 text: "Body"
+                #     ScrollView:
+                #         # scroll_timeout : 100
+                #         scroll_type:['bars', 'content']
+                #         bar_color:(1,0,0,0)
+                #         do_scroll_y: True
+                #         do_scroll_x: False
+                #         size_hint_y: None
+                #         height: 600
+                #         MDGridLayout:
+                #             id:increase_swiper                                
+                #             cols:1
+                #             size_hint_y:None
+                #             height: self.minimum_height
+                #             md_bg_color:(0,0,0,1)
+                #             padding:10
+                #             # spacing:10
+
+                #         # MDRelativeLayout:
+                #         #     radius: [25]
+                #     # SwipeToDeleteItem:
+        MDBoxLayout:
+            size_hint_y:None
+            height:dp(52)
+            # md_bg_color:234/255,81/255,81/255,1
+            Upload_button:

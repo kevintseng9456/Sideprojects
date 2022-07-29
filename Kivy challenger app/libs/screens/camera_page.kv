@@ -1,0 +1,19 @@
+<Camera_page>:
+    name:'Camera_page'
+    MDBoxLayout:
+        orientation:'vertical'
+        # Create a camera object
+
+        Camera:
+            id:camera
+            play:False
+            resolution:(300, 300) # Specify the resolution  
+
+
+        # Create a button for taking photograph
+
+        Button:
+            text:"Take Photo"
+            size_hint:(.5, .2)
+            pos_hint:{'x': .25, 'y':.75}
+            on_press:root.onCameraClick()
